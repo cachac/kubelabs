@@ -1,9 +1,9 @@
-resource "google_compute_instance" "lab" {
+resource "google_compute_instance" "kube" {
   count        = var.instance_count
   name         = "${var.subdomain}-${count.index + 1}"
   machine_type = var.machine_type
   zone         = var.gcp_zone_a
-  tags         = ["dockerlabs"]
+  tags         = ["kubelabs"]
   labels = merge({
     name = var.subdomain
     },

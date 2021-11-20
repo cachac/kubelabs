@@ -13,5 +13,3 @@ resource "local_file" "ssh_public_key_pem" {
   sensitive_content = tls_private_key.global_key.public_key_pem
   file_permission   = "0600"
 }
-
-
