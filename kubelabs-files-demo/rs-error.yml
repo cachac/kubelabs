@@ -1,0 +1,27 @@
+apiVersion: v1 # la version del rs debe ser apps/v1
+kind: ReplicaSet
+
+metadata:
+  name: frontend-rs-v1
+  labels:
+    app: myapp
+    type: frontend
+
+spec:
+  replicas: 4
+
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: frontend_otraversion # la versión debe coincidir con el matchLabel
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx-none
+
+  selector:
+    matchLabels:
+      type: frontend_v1
+

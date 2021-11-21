@@ -4,8 +4,23 @@ metadata:
   name: myapp-pod
   labels:
     app: myapp
-    type: backend-test
+    type: frontend
 spec:
   containers:
     - name: nginx-container
       image: nginx
+
+
+      
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+
+    # otros contenedores
+    # - name:
+    #   image:
+
