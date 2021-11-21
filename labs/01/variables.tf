@@ -8,6 +8,11 @@ variable "ssh_pub_key" {
   description = "File path of ssh public key"
 }
 
+variable "ssh_key" {
+  type        = string
+  description = "File path of ssh private key"
+}
+
 variable "gcp_project" {
   type        = string
   description = "GCP project in which the quickstart will be deployed."

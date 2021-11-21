@@ -37,4 +37,17 @@ resource "google_compute_instance" "kube" {
         username = var.username
     })
   }
+  provisioner "file" {
+    source      = "../conf/.kubectl_aliases"
+    destination = "/home/${var.username}/.kubectl_aliases"
+
+    connection {
+      type        = "ssh"
+      host        = self.network_interface.0.access_config.0.nat_ip
+      user        = var.username
+      private_key = file(var.ssh_key)
+    }
+  }
 }
+
+
