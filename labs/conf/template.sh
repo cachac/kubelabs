@@ -1,6 +1,7 @@
 #!/bin/bash -x
 date '+%Y/%m/%d %H:%M:%S %z' > /home/${username}/ilog
 echo "Instalar Microk8s" >> /home/${username}/ilog
+
 sudo apt update
 sudo iptables -P FORWARD ACCEPT
 sudo apt install snapd
@@ -48,7 +49,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 sudo apt-get install -y build-essential
 brew install gcc
 brew install hidetatz/tap/kubecolor
-echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubectl $@; }' >> /home/${username}/.bashrc
+echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubecolor $@; }' >> /home/${username}/.bashrc
 runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
 runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
 
