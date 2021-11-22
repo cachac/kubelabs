@@ -5,8 +5,17 @@ metadata:
   namespace: dev
 spec:
   hard:
-    pods: 10
-    request.cpu: 4
-    request.memory: 200Mi
-    limits.cpu: 10
-    limits.memory: 200MI
+      pods: "10"
+      # request: recursos mínimos para garantizar el servicio!
+      requests.cpu: "250m" # 1000 milicores = 1 core
+      requests.memory: 100Mi
+      requests.storage: 1000Mi
+      # limit: el contenedor nunca debe SUBIR de este valor , nunca debe ser menor al request
+      limits.cpu: "500m" # 250 milicores = 1/4 core
+      limits.memory: 500Mi
+      # limits.storage: 1000 # el almacenamiento se limita por Storage Classes
+      persistentvolumeclaims: "4"
+      replicationcontrollers: "20"
+      secrets: "10"
+      services: "10"
+      services.loadbalancers: "2"
