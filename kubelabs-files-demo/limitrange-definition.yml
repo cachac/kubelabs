@@ -13,10 +13,10 @@ spec:
       defaultRequest:
         cpu: 100m
         memory: 256Mi
-      max: # limit
+      max: # limit máximo para los contenedores con rangos en su definicion
         cpu: 200m
         memory: 512Mi
-      min: # request
+      min: # request máximo para los contenedores con rangos en su definicion
         cpu: 100m
         memory: 256Mi
 ---
