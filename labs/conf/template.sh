@@ -48,6 +48,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 sudo apt-get install -y build-essential
 brew install gcc
 brew install hidetatz/tap/kubecolor
+echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubectl $@; }' >> /home/${username}/.bashrc
 runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
 runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
 
