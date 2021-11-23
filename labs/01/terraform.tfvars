@@ -6,12 +6,12 @@ ssh_key = "../keys/prod/kubelabkey"
 gcp_project = "dockerlabs-332203"
 
 # GCP region for all resources
-gcp_region = "us-east1"
+gcp_region = "us-east4"
 
 # GCP zone for all resources
-gcp_zone_a = "us-east1-b"
-gcp_zone_b = "us-east1-c"
-gcp_zone_c = "us-east1-d"
+gcp_zone_a = "us-east4-b"
+gcp_zone_b = "us-east4-c"
+gcp_zone_c = "us-east4-d"
 
 # Prefix for all resources
 prefix = "kube-"
