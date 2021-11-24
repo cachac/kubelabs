@@ -71,6 +71,18 @@ resource "google_compute_instance" "kube" {
       private_key = file(var.ssh_key)
     }
   }
+
+	provisioner "file" {
+    source      = "../conf/kubecolor.sh"
+    destination = "/home/${var.username}/kubecolor.sh"
+
+    connection {
+      type        = "ssh"
+      host        = self.network_interface.0.access_config.0.nat_ip
+      user        = var.username
+      private_key = file(var.ssh_key)
+    }
+  }
 }
 
 
