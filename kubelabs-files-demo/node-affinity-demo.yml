@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-xl-pod
+  labels:
+    app: node-xl
+    type: frontend
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: size
+                operator: NotIn # cambiar el operador para cumplir con el Label del nodo
+                values:
+                  - X
+                  - XL
+                  - XXL
+  containers:
+    - name: nginx-container
+      image: nginx

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: pod-normal1
+  name: pod-normal1
+spec:
+  containers:
+  - image: nginx
+    name: pod-normal1
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+
+nodeSelector:
+    size: XL

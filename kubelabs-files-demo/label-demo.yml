@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: label-demo-api-prod
+  labels:
+    app: labeldemo
+
+spec:
+  replicas: 7
+
+  selector:
+    matchLabels:
+      app: rrhh
+      type: api
+      env: production
+
+  template:
+    metadata:
+      name: label-demo-api-prod
+      labels:
+        app: rrhh
+        type: api
+        # env: production Corregir el error. Esta etiqueta es requerida.
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: label-demo-api-dev
+  labels:
+    app: labeldemo
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: rrhh
+      type: api
+      env: dev
+
+  template:
+    metadata:
+      name: label-demo-api-dev
+      labels:
+        app: rrhh
+        type: api
+        env: dev
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
