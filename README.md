@@ -1,7 +1,7 @@
 # DOCKERLABS
 *Carlos Chacón Calvo*
 
-> Este proyecto contiene la guía de laboratorio para el desarrollo del curso DockerLabs.
+Este proyecto contiene la guía de laboratorio para el desarrollo del curso DockerLabs.
 
 1. Instalación de ambiente de PRUEBAS: Microk8s
 2. Conectar al Cluster remoto
