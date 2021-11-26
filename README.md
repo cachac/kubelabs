@@ -3,9 +3,10 @@
 
 Este proyecto contiene la guía de laboratorio para el desarrollo del curso KubeLabs. <!-- omit in TOC -->
 
-
 ~~~~
 Tabla de contenido:
+
+
 - [1. Instalación de ambiente de **PRUEBAS**: Microk8s](#1-instalación-de-ambiente-de-pruebas-microk8s)
 	- [1.1. ¿Porqué Microk8s?](#11-porqué-microk8s)
 - [2. Pasos de Instalación](#2-pasos-de-instalación)
