@@ -3,10 +3,7 @@
 
 Este proyecto contiene la guía de laboratorio para el desarrollo del curso KubeLabs. <!-- omit in TOC -->
 
-~~~~
 Tabla de contenido:
-
-
 - [1. Instalación de ambiente de **PRUEBAS**: Microk8s](#1-instalación-de-ambiente-de-pruebas-microk8s)
 	- [1.1. ¿Porqué Microk8s?](#11-porqué-microk8s)
 - [2. Pasos de Instalación](#2-pasos-de-instalación)
@@ -24,7 +21,22 @@ Tabla de contenido:
 		- [3.2.3. En la extensión Kubernetes:](#323-en-la-extensión-kubernetes)
 		- [3.2.4. Para comprobar, sobre el cluster de Microk8s, dar botón derecho y show cluster info.](#324-para-comprobar-sobre-el-cluster-de-microk8s-dar-botón-derecho-y-show-cluster-info)
 		- [3.2.5. Opcional, enc caso de cambiar de contexto:](#325-opcional-enc-caso-de-cambiar-de-contexto)
-~~~~
+- [4. Primeros Pasos, construir un Pod](#4-primeros-pasos-construir-un-pod)
+- [5. ReplicaSets](#5-replicasets)
+- [6. Deployments](#6-deployments)
+- [7. CLI comandos rápidos](#7-cli-comandos-rápidos)
+- [8. Namespaces](#8-namespaces)
+- [9. Cuotas y límites](#9-cuotas-y-límites)
+- [10. Servicios](#10-servicios)
+- [11. Labels & Selectors](#11-labels--selectors)
+- [12. Taint & Tolerations](#12-taint--tolerations)
+- [13. Node Selectors & Node Affinity](#13-node-selectors--node-affinity)
+- [14. Storage](#14-storage)
+- [15. Networking](#15-networking)
+- [16. Lifecycle](#16-lifecycle)
+- [17. Security](#17-security)
+- [18. Diseño de Cluster](#18-diseño-de-cluster)
+- [19. HA - Agregar Nodos](#19-ha---agregar-nodos)
 
 ----------
 
@@ -161,5 +173,21 @@ kubectl config set-context microk8s --user=admin --cluster=microk8s-cluster
 kubectl config use-context microk8s
 ```
 
+## 4. [Primeros Pasos, construir un Pod](./4.PrimerosPasos.md)
+## 5. [ReplicaSets](./5.ReplicaSets.md)
+## 6. [Deployments](./6.Deployments.md)
+## 7. [CLI comandos rápidos](./7.CLI.md)
+## 8. [Namespaces](./8.Namespaces.md)
+## 9. [Cuotas y límites](./9.Cuotas-Limites.md)
+## 10. [Servicios](./10.Servicios.md)
+## 11. [Labels & Selectors](./11.Labels-Selectors.md)
+## 12. [Taint & Tolerations](./12.Taint-Tolerations.md)
+## 13. [Node Selectors & Node Affinity](./13.Node_Selectors-Node_Affinity.md)
+## 14. [Storage](./14.Storage.md)
+## 15. [Networking](./15.Networking.md)
+## 16. [Lifecycle](./16.Lifecycle.md)
+## 17. [Security](./17.Security.md)
+## 18. [Diseño de Cluster](/18.Diseño_Cluster.md)
+## 19. [HA - Agregar Nodos](./19.HA.md)
 
 
