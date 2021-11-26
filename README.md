@@ -126,7 +126,7 @@ Este archivo .sh configura:
 ```vim
 microk8s.dashboard-proxy
 ```
-Abrir el dashboardoar en: <ip-publica:10443>
+Abrir el dashboardoar en: <ip-publica>:10443
 
 Copiar y pegar el token generado en el browser, preferiblemente Firefox!
 
