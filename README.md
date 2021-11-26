@@ -76,18 +76,18 @@ SO Linux
 	- Windows: configurar accesos de solo lectura al usuario.
 - En la configuración de la extensión Remote - SSH, configurar la conexión con el siguiente formato:
 
-```
+```vim
 Host <ip-publica>
   HostName <ip-publica>
   User dockerlab
-  IdentityFile <PATH de la llave SSH privada>
+  IdentityFile <SSH-PATH>
 ```
 - Conectar al Host desde vsCode o Terminal usando SSH:
-  ```bash
-	ssh kubelabs@<ip-publica-host> -i <PATH de la llave SSH privada>
+  ```vim
+	ssh kubelabs@<ip-publica> -i <SSH-PATH>
 	```
 - En el Host, instalar los prerequisitos:
-```bash
+```vim
 sudo apt update
 
 sudo iptables -P FORWARD ACCEPT
@@ -96,7 +96,7 @@ sudo apt install snapd
 ```
 ### 2.3. Instalación
 
-``` bash
+```vim
 sudo snap install microk8s --classic --channel=1.22/stable
 
 sudo microk8s status --wait-ready
@@ -123,7 +123,7 @@ Este archivo .sh configura:
 
 **NOTA: Debe estar instalado en el punto anterior el addon dashboard (microk8s enable dashboard)**
 
-```bash
+```vim
 microk8s.dashboard-proxy
 ```
 Abrir el dashboardoar en: <ip-publica:10443>
@@ -138,7 +138,7 @@ Copiar y pegar el token generado en el browser, preferiblemente Firefox!
 
 ### 3.2. Conectar desde Kubectl local ***(Mejor Práctica)***
 #### 3.2.1. Agrega el cluster con ip publica a kubectl
-```bash
+```vim
 microk8s kubectl config set-cluster microk8s-cluster \
 --server=https://public_IP:16443 --insecure-skip-tls-verify
 
@@ -148,7 +148,7 @@ microk8s config
 
 #### 3.2.2. Crear archivo local y pegar la salida de la configuración anterior.
 Comandos en linux:
-```bash
+```vim
 # crear carpeta en HOME
 mkdir ~/.kube
 # crear archivo de configuración de kubectl local
@@ -166,7 +166,7 @@ Una vez conectado, se deben mostrar las configuraciones del servidor de Kubernet
 #### 3.2.4. Para comprobar, sobre el cluster de Microk8s, dar botón derecho y show cluster info.
 
 #### 3.2.5. Opcional, enc caso de cambiar de contexto:
-```bash
+```vim
 # crea el contexto microk8s
 kubectl config set-context microk8s --user=admin --cluster=microk8s-cluster
 # cambia al nuevo contexto
