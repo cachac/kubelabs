@@ -126,9 +126,12 @@ Este archivo .sh configura:
 ```vim
 microk8s.dashboard-proxy
 ```
-Abrir el dashboardoar en: <ip-publica>:10443
+Probar en browser. Preferiblemente Firefox!
+```vim
+http://<ip-publica>:10443
+```
 
-Copiar y pegar el token generado en el browser, preferiblemente Firefox!
+Copiar y pegar el token generado en el browser y aceptar los ***warnings*** del browser.
 
 ## 3. Conectar con cluster remoto
 ### 3.1. Preparación
@@ -140,7 +143,7 @@ Copiar y pegar el token generado en el browser, preferiblemente Firefox!
 #### 3.2.1. Agrega el cluster con ip publica a kubectl
 ```vim
 microk8s kubectl config set-cluster microk8s-cluster \
---server=https://public_IP:16443 --insecure-skip-tls-verify
+--server=https://<ip-publica>:16443 --insecure-skip-tls-verify
 
 # Validar las credenciales actuales y copiar la salida
 microk8s config
