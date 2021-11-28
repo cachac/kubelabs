@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-storage
+  labels:
+    app: pod-storage
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: static-vol
+          mountPath: /usr/share/nginx/html/ # destino dentro del Pod
+  volumes:
+    - name: static-vol
+      hostPath:
+        # el PATH debe existir en el WORKER NODE
+        path: /home/kubelab/kubelabs/kubelabs-files-demo/14
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pod-storage-svc
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+      nodePort: 30081
+  selector:
+    app: pod-storage
+
+
+
+
+

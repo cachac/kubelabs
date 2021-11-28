@@ -39,6 +39,9 @@ sudo microk8s kubectl config set-cluster microk8s-cluster --server=https://${ext
 echo "Microk8s + Kubectl!!" >> /home/${username}/ilog
 date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
 
+# github labs
+runuser -l ${username} -c  'git clone https://github.com/cachac/kubelabs.git'
+
 # kubecolor
 echo "Instaling Brew + Kubecolor..." >> /home/${username}/ilog
 sudo apt-get install -y build-essential
@@ -57,3 +60,5 @@ runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
 
 echo "*** FIN ***" >> /home/${username}/ilog
 date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
+
+
