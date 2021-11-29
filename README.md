@@ -26,3 +26,10 @@ Tabla de contenido:
 ## 19. [HA - Agregar Nodos](./19.HA.md)
 
 
+lb demo
+https://kubernetes.io/docs/tutorials/stateless-application/guestbook/
+
+pv: kustomization
+https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
+
+

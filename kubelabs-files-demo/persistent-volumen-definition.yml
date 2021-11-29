@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-demo
+  # uid: ced478c1-695a-11ea-a3da-42010a800003
+  # annotations:
+    # kubernetes.io/createdby: gce-pd-dynamic-provisioner
+    # pv.kubernetes.io/bound-by-controller: "yes"
+    # pv.kubernetes.io/provisioned-by: kubernetes.io/gce-pd
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 10Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: pv-demo
+    # uid: cd3fd5e9-695a-11ea-a3da-42010a800003
+  gcePersistentDisk:
+    fsType: ext4
+    pdName: kube-disk-2
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: standard
+  volumeMode: Filesystem
+status:
+  phase: Bound
