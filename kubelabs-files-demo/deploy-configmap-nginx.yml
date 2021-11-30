@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: nginx-conf
 data:
-  nginx.conf: |
+  nginx.conf: | # | = multilinea
     server {
       listen   3000; # cambia la configuración por defecto del webserver escuchando en puerto 3000.
 
@@ -22,6 +22,19 @@ data:
         root   /usr/share/nginx/html;
       }
     }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cm-vol-svc
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 3000
+      port: 80
+      nodePort: 30200
+  selector:
+    app: cm-vol
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -68,18 +81,6 @@ spec:
             items: # convierte las entradas CM-data en archivos dentro del volumen.
               - key: nginx.conf
                 path: default.conf
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: cm-vol-svc
-spec:
-  type: NodePort
-  ports:
-    - targetPort: 3000
-      port: 80
-      nodePort: 30200
-  selector:
-    app: cm-vol
+
 
 
