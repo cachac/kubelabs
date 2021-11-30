@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: http-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   defaultBackend:
     service:
@@ -13,6 +15,13 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-kube-1
+            port:
+              number: 80
+      - path: /demo
         pathType: Prefix
         backend:
           service:
@@ -77,16 +86,16 @@ spec:
             - name: static-vol
               mountPath: /usr/share/nginx/html/
               # no es una buena práctica; sustituir por configMaps.
-            # - name: config-vol
-            #   mountPath: /etc/nginx/conf.d/default.conf
+            - name: config-vol
+              mountPath: /etc/nginx/conf.d/default.conf
       volumes:
         - name: static-vol
           hostPath:
             path: /home/kubelab/kubelabs/kubelabs-files-demo/15
-        # - name: config-vol
-        #   hostPath:
-        #     path: /home/kubelab/kubelabs/kubelabs-files-demo/15/default.conf
-        #     type: FileOrCreate
+        - name: config-vol
+          hostPath:
+            path: /home/kubelab/kubelabs/kubelabs-files-demo/15/default.conf
+            type: FileOrCreate
 
 
 
