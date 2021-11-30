@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv
+spec:
+  storageClassName: nfs-storage
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain # delete
+  nfs:
+    server: lab1.dockerlabs.tk # dominio o ip del servidor nfs
+    path: /srv/nfs/mydata # path servidor
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+spec:
+  storageClassName: nfs-storage
+  accessModes:
+    - ReadWriteMany #  must be the same as PersistentVolume
+  resources:
+    requests:
+      storage: 50Mi
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nfs-pod
+  labels:
+    app: nfs-pod
+spec:
+  containers:
+    - name: website
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: static-vol
+          mountPath: /usr/share/nginx/html/
+        - name: web-claim-nfs
+          mountPath: /var/log/nginx
+  volumes:
+    - name: static-vol
+      hostPath:
+        path: /home/kubelab/kubelabs/kubelabs-files-demo/14
+    - name: web-claim-nfs
+      persistentVolumeClaim:
+        claimName: nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nfs-pod-pv-svc
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+  selector:
+    app: nfs-pod

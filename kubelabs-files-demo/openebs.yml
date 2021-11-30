@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: localpv-vol
+spec:
+  #Change this name if you are using a custom StorageClass
+  storageClassName: openebs-hostpath
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      #Set capacity here
+      storage: 5Gi

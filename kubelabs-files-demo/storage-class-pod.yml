@@ -1,0 +1,41 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: storageclass-pod
+  labels:
+    app: storageclass-pod
+spec:
+  containers:
+    - name: website
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: static-vol
+          mountPath: /usr/share/nginx/html/ # destino dentro del Pod
+        - name: web-auto-claim
+          mountPath: /var/log/nginx
+  volumes:
+    - name: static-vol
+      hostPath:
+        path: /home/kubelab/kubelabs/kubelabs-files-demo/14
+    - name: web-auto-claim
+      persistentVolumeClaim:
+        claimName: auto-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: storageclass-pod-pv-svc
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+  selector:
+    app: storageclass-pod
+
+
+
+
+

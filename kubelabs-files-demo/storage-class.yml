@@ -1,0 +1,26 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: democlass
+# provisioner: kubernetes.io/no-provisioner
+provisioner: microk8s.io/hostpath
+volumeBindingMode: WaitForFirstConsumer
+
+# provisioner: kubernetes.io/gce-pd # para Google GKE
+# parameters:
+#   type: pd-standard # pd-ssd
+#   fstype: ext4
+#   replication-type: none
+#   zone: us-east4-b
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: auto-pvc
+spec:
+  storageClassName: democlass
+  accessModes:
+    - ReadWriteMany # [ReadWriteOnce ReadOnlyMany]
+  resources:
+    requests:
+      storage: 100Mi

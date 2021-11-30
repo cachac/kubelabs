@@ -10,7 +10,7 @@ sudo microk8s status --wait-ready
 sudo mkdir /home/${username}/.kube
 sudo microk8s kubectl config view --raw > /home/${username}/.kube/config
 sudo snap install kubectl --classic
-sudo microk8s.enable dns dashboard storage ingress helm
+sudo microk8s.enable dns dashboard storage ingress helm openebs
 # config
 sudo sh -c 'echo "--allow-privileged=true" >> /var/snap/microk8s/current/args/kube-apiserver'
 sudo systemctl restart snap.microk8s.daemon-apiserver.service
@@ -57,6 +57,11 @@ echo "Kubecolor!!!" >> /home/${username}/ilog
 echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubecolor $@; }' >> /home/${username}/.bashrc
 runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
 runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
+
+#
+sudo mkdir /logs
+sudo systemctl enable iscsid
+#
 
 echo "*** FIN ***" >> /home/${username}/ilog
 date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog

@@ -1,0 +1,36 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: static-pod
+  labels:
+    app: static-pod
+spec:
+  containers:
+    - name: website
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: static-vol
+          mountPath: /usr/share/nginx/html/ # destino dentro del Pod
+        - name: web-claim
+          mountPath: /var/log/nginx
+  volumes:
+    - name: static-vol
+      hostPath:
+        path: /home/kubelab/kubelabs/kubelabs-files-demo/14
+    - name: web-claim
+      persistentVolumeClaim:
+        claimName: static-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-pod-pv-svc
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+  selector:
+    app: static-pod
