@@ -1,44 +1,33 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: http-ingress
+  name: http-ingress-demo
 spec:
   defaultBackend:
     service:
-      name: svc-kube-1
+      name: svc-kube-1-demo
       port:
         number: 80
   rules:
   - host: kube1.kubelabs.tk
     http:
       paths:
-      - path: /
+      - path: /demo
         pathType: Prefix
         backend:
           service:
-            name: svc-kube-1
-            port:
-              number: 80
-
-  - host: www.kube1.kubelabs.tk
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: svc-kube-1
+            name: svc-kube-1-demo
             port:
               number: 80
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: svc-kube-1
+  name: svc-kube-1-demo
 spec:
   type: ClusterIP
   selector:
-    app: pod-kube-1
+    app: pod-kube-1-demo
   ports:
     - protocol: TCP
       name: main
@@ -48,18 +37,18 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deploy-kube-1
+  name: deploy-kube-1-demo
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
-      app: pod-kube-1
+      app: pod-kube-1-demo
 
   template:
     metadata:
       name: pod-kube-1
       labels:
-        app: pod-kube-1
+        app: pod-kube-1-demo
     spec:
       containers:
         - name: nginx-container
@@ -76,10 +65,17 @@ spec:
           volumeMounts:
             - name: static-vol
               mountPath: /usr/share/nginx/html/
+              # no es una buena práctica; sustituir por configMaps.
+            - name: config-vol
+              mountPath: /etc/nginx/conf.d/default.conf
       volumes:
         - name: static-vol
           hostPath:
             path: /home/kubelab/kubelabs/kubelabs-files-demo/15
+        - name: config-vol
+          hostPath:
+            path: /home/kubelab/kubelabs/kubelabs-files-demo/15/default.conf
+            type: FileOrCreate
 
 
 
