@@ -3,16 +3,23 @@ kind: Ingress
 metadata:
   name: http-ingress
 spec:
-  # defaultBackend:
-  #   service:
-  #     name: svc-kube-1
-  #     port:
-  #       number: 80
+  defaultBackend:
+    service:
+      name: svc-kube-1
+      port:
+        number: 80
   rules:
   - host: kube1.kubelabs.tk
     http:
       paths:
       - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-kube-1
+            port:
+              number: 80
+      - path: /demo
         pathType: Prefix
         backend:
           service:
