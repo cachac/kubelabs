@@ -19,13 +19,6 @@ spec:
             name: svc-kube-1
             port:
               number: 80
-      - path: /demo
-        pathType: Prefix
-        backend:
-          service:
-            name: svc-kube-1
-            port:
-              number: 80
 
   - host: www.kube1.kubelabs.tk
     http:
