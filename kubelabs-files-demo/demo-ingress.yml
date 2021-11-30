@@ -1,0 +1,56 @@
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: svc-kube-1-demo
+# spec:
+#   type: ClusterIP
+#   selector:
+#     app: pod-kube-1-demo
+#   ports:
+#     - protocol: TCP
+#       name: main
+#       port: 80
+#       targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-kube-1-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pod-kube-1-demo
+
+  template:
+    metadata:
+      name: pod-kube-1
+      labels:
+        app: pod-kube-1-demo
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+          resources:
+            limits:
+              cpu: 250m
+              memory: 500Mi
+            requests:
+              cpu: 250m
+              memory: 500Mi
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: static-vol
+              mountPath: /usr/share/nginx/html/index.html
+      volumes:
+        - name: static-vol
+          hostPath:
+            path: /home/kubelab/kubelabs/kubelabs-files-demo/15/demo.html
+            type: FileOrCreate
+
+
+
+
+
+
