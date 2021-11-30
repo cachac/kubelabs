@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+data:
+  nginx.conf: |
+    server {
+      listen   3000; # cambia la configuración por defecto del webserver escuchando en puerto 3000.
+
+      location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+      }
+
+      error_page 500 502 503 504 /50x.html;
+      location = /50x.html {
+        root   /usr/share/nginx/html;
+      }
+
+      error_page 404 /404.html;
+      location = /404.html {
+        root   /usr/share/nginx/html;
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: deploy-cm-vol
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cm-vol
+
+  template:
+    metadata:
+      name: cm-vol-pod
+      labels:
+        app: cm-vol
+    spec:
+      containers:
+        - name: webapp3000
+          image: nginx
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: 250m
+              memory: 500Mi
+            requests:
+              cpu: 250m
+              memory: 500Mi
+          volumeMounts:
+            - name: static-vol
+              mountPath: /usr/share/nginx/html/
+            - name: nginx-config-vol
+              mountPath: /etc/nginx/conf.d/
+              readOnly: true
+      volumes:
+        - name: static-vol
+          hostPath:
+            path: /home/kubelab/kubelabs/kubelabs-files-demo/16
+        - name: nginx-config-vol
+          configMap:
+            name: nginx-conf
+            items: # convierte las entradas CM-data en archivos dentro del volumen.
+              - key: nginx.conf
+                path: default.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cm-vol-svc
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 3000
+      port: 80
+      nodePort: 30200
+  selector:
+    app: cm-vol
+
+

@@ -4,13 +4,7 @@ kind: Deployment
 metadata:
   name: deploy-lifecycle
 spec:
-  replicas: 4
-  strategy:
-    # type: Recreate
-    type: RollingUpdate
-    rollingUpdate: # por defecto
-      maxSurge: 25%
-      maxUnavailable: 25%
+  replicas: 1
   selector:
     matchLabels:
       app: lifecycle
@@ -24,9 +18,10 @@ spec:
       containers:
         - name: color
           image: docker.io/kodekloud/webapp-color:v1
-          # env:
-          #   - name: APP_COLOR
-          #     value: pink
+          envFrom:
+            - configMapRef:
+                name: demo-configmap
+
 ---
 apiVersion: v1
 kind: Service
