@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-demo
+spec:
+  completions: 3 # cantidad de Pods status "COMPLETED"
+  parallelism: 3 # cantidad de Pods paralelos
+  backoffLimit: 25 # limite de 25 fallos.
+  template:
+    spec: # especificación del Pod que hará el trabajo
+      containers:
+      - name: job-demo
+        image: kodekloud/throw-dice
+      restartPolicy: Never

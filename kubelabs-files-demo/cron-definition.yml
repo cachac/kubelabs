@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cron-job-demo
+spec:
+  schedule: "30 21 * * *" # cron de ejecución
+  jobTemplate:
+    spec:
+      completions: 3
+      parallelism: 3
+      backoffLimit: 25
+      template:
+        spec:
+          containers:
+          - name: cron-job-demo
+            image: kodekloud/throw-dice
+          restartPolicy: Never
