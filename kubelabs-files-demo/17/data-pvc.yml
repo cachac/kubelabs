@@ -1,0 +1,12 @@
+# el pvc se crea en el template del STS: volumeClaimTemplates
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: data-pvc
+# spec:
+#   storageClassName: local-storage
+#   accessModes:
+#     - ReadWriteOnce # solo un Pod puede leer y escribir
+#   resources:
+#     requests:
+#       storage: 2Gi

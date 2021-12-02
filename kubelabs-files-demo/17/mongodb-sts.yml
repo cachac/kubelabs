@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb-sts
+spec:
+  serviceName: mongodb-svc # headless service
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mongodb
+
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      terminationGracePeriodSeconds: 10 # tiempo de "gracia" para terminar procesos de la base de datos
+
+      containers:
+      - name: mongo
+        image: mongo # :4.x
+        imagePullPolicy: IfNotPresent
+        # command:
+        #   - mongod
+        # args:
+        #   - --config
+        #   - /etc/mongo/mongod.conf
+        # comando de inicio de ejecución del MongoDB
+        command:
+          ["/bin/sh", "-c"]
+        args:
+          - mongod --config /etc/mongo/mongod.conf;
+            cat /data/init/init_rs.sh;
+            ./data/init/init_rs.sh;
+
+        livenessProbe:
+          exec:
+            command:
+              - mongo
+              - --eval
+              - "db.adminCommand('ping')"
+
+        ports:
+        - containerPort: 27017
+
+        envFrom:
+        - secretRef:
+            name: mongodb-admin
+
+        volumeMounts:
+        - name: mongo-storage
+          mountPath: /data/db
+        - name: mongodb-key
+          mountPath: /data/key
+        - name: mongo-config
+          mountPath: /etc/mongo
+        - name: init
+          mountPath: /data/init
+        # - name: mongo-ssl-certs
+        #   mountPath: /etc/ssl
+
+      volumes:
+        # - name: mongo-ssl-certs
+        #   secret:
+        #     secretName: mongo-ssl-certs
+        - name: mongo-config
+          configMap:
+            name: mongo-config
+        - name: mongodb-key
+          secret:
+            secretName: mongodb-key
+            defaultMode: 0400
+        - name: init
+          hostPath:
+            path: /home/kubelab/kubelabs/kubelabs-files-demo/17/init_rs.sh
+            type: FileOrCreate
+
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-storage
+      spec:
+        storageClassName: local-storage
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 2Gi
+
+

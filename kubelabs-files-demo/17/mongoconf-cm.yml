@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config
+  namespace: default
+data:
+  mongod.conf: |
+    security:
+      authorization: enabled
+      keyFile: /data/key/mongodb.key
+    storage:
+      dbPath: /data/db
+    net:
+      bindIp: 0.0.0.0
+      port: 27017
+    replication:
+      replSetName: rs0
