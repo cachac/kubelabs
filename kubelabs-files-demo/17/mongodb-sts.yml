@@ -20,18 +20,12 @@ spec:
       - name: mongo
         image: mongo # :4.x
         imagePullPolicy: IfNotPresent
-        # command:
-        #   - mongod
-        # args:
-        #   - --config
-        #   - /etc/mongo/mongod.conf
-        # comando de inicio de ejecución del MongoDB
+        # comando de inicio de ejecución del MongoDB y ejecuta la el archivo de configuración init_rs.sh
         command:
           ["/bin/sh", "-c"]
         args:
           - mongod --config /etc/mongo/mongod.conf;
-            cat /data/init/init_rs.sh;
-            ./data/init/init_rs.sh;
+            sh /data/init/init_rs.sh;
 
         livenessProbe:
           exec:
@@ -66,14 +60,13 @@ spec:
         - name: mongo-config
           configMap:
             name: mongo-config
+        - name: init
+          configMap:
+            name: mongodb-init
         - name: mongodb-key
           secret:
             secretName: mongodb-key
             defaultMode: 0400
-        - name: init
-          hostPath:
-            path: /home/kubelab/kubelabs/kubelabs-files-demo/17/init_rs.sh
-            type: FileOrCreate
 
   volumeClaimTemplates:
     - metadata:
