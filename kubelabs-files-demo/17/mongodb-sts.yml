@@ -18,14 +18,13 @@ spec:
 
       containers:
       - name: mongo
-        image: mongo # :4.x
+        image: mongo
         imagePullPolicy: IfNotPresent
         # comando de inicio de ejecución del MongoDB y ejecuta la el archivo de configuración init_rs.sh
         command:
           ["/bin/sh", "-c"]
         args:
-          - mongod --config /etc/mongo/mongod.conf;
-            ./data/init/init_rs.sh;
+          - ./data/init/start.sh;
 
         livenessProbe:
           exec:
@@ -63,6 +62,8 @@ spec:
         - name: init
           configMap:
             name: mongodb-init
+            defaultMode: 0700
+
         - name: mongodb-key
           secret:
             secretName: mongodb-key
