@@ -1,0 +1,69 @@
+extend type Query {
+  User: UserQuery
+}
+
+extend type Mutation {
+  User: UserMutation
+}
+
+type UserQuery {
+  readAll: [User!] @isAuth
+  readById(_id: ID!): User @isAuth
+  checkPassword(input: CheckPassword!): Boolean @isAuth
+}
+
+type UserMutation {
+  create(input: UserInput!): SignedIn!
+  login(input: LoginInput!): SignedIn!
+  update(input: UserInput!): User! @isAuth
+  delete(_id: ID!): Boolean @isAuth
+  setState(input: StateInput!): User! @isAuth
+  changePassword(input: CheckPassword!): Boolean @isAuth
+}
+
+type User {
+  _id: ID!
+  username: String!
+  password: String
+  fullname: String
+  email: String
+  state: Boolean
+}
+
+input UserInput {
+  _id: ID
+  username: String!
+  password: String
+  fullname: String
+  email: String
+  state: Boolean
+}
+
+input StateInput {
+  _id: ID
+  state: Boolean!
+}
+
+type SignedIn {
+  token: String!
+  _id: ID!
+  username: String!
+  fullname: String
+  email: String
+  state: Boolean!
+}
+
+# type Token {
+#   token: String!
+# }
+
+input CheckPassword {
+  _id: ID!
+  oldPassword: String
+  newPassword: String
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+}
