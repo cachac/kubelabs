@@ -25,7 +25,7 @@ spec:
           ["/bin/sh", "-c"]
         args:
           - mongod --config /etc/mongo/mongod.conf;
-            sh /data/init/init_rs.sh;
+            ./data/init/init_rs.sh;
 
         livenessProbe:
           exec:
