@@ -33,13 +33,13 @@ spec:
             httpGet:
               path: /graphql?query=%7B__typename%7D
               port: 3000
-            initialDelaySeconds: 60
+            initialDelaySeconds: 20
             periodSeconds: 30
             timeoutSeconds: 5
           readinessProbe:
             httpGet:
               path: /graphql?query=%7B__typename%7D
               port: 3000
-            initialDelaySeconds: 60
+            initialDelaySeconds: 20
             periodSeconds: 30
             timeoutSeconds: 5
