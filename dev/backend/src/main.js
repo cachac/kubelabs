@@ -26,8 +26,8 @@ process.on('unhandledRejection', err => {
 })
 
 // START server
-// db.setConnection()
-//   .then(() => {
+db.setConnection()
+  .then(() => {
     const serverSubscription = app.listen(config.NODE_PORT, () => {
       logger.info(
         `[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION} 🚀 Server ready on Port ${config.NODE_PORT} - Express JS ${config.NODE_ENV} |  ${apolloServer.graphqlPath}`
@@ -35,9 +35,9 @@ process.on('unhandledRejection', err => {
     })
 
     // GraphQL subscription
-  //   apolloServer.installSubscriptionHandlers(serverSubscription)
-  // })
-  // .catch(() => {})
+    apolloServer.installSubscriptionHandlers(serverSubscription)
+  })
+  .catch(() => {})
 
 // health checks
 const router = express.Router()
@@ -48,4 +48,3 @@ healthCheck.use(router)
 healthCheck.listen(3080, () => {
   logger.info(`Health check on port 3080`)
 })
-

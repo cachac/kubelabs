@@ -18,8 +18,5 @@ EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
 
-# docker build . -f qa.dockerfile -t 983207445106.dkr.ecr.us-east-1.amazonaws.com/icecloud:latest
-# docker push 983207445106.dkr.ecr.us-east-1.amazonaws.com/icecloud:latest
-# server config:
-# docker network create --driver bridge --subnet 11.10.0.0/24 iceCloudNetwork
-# docker run -dit --network iceCloudNetwork --ip 11.10.0.2 -p 8080:8080 --name icecloud 983207445106.dkr.ecr.us-east-1.amazonaws.com/icecloud:latest
+# docker build . -f qa.dockerfile -t cachac/kube_webapp:latest
+# docker push cachac/kube_webapp:latest

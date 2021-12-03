@@ -28,6 +28,9 @@
         App Version:
         {{ appVersion }}
       </p>
+			<p align="left">
+        Image: cachac/kube_webapp
+      </p>
     </div>
   </div>
 </template>
