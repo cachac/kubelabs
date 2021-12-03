@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-web
+spec:
+  type: ClusterIP
+  selector:
+    app: fulldemo
+    type: frontend
+  ports:
+    - protocol: TCP
+      name: api
+      port: 80
+      targetPort: 8080
