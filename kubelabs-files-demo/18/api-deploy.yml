@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fulldemo
+      type: backend
+
+  template:
+    metadata:
+      name: pod-api
+      labels:
+        app: fulldemo
+        type: backend
+    spec:
+      containers:
+        - name: kube-api
+          image: cachac/kube_api
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 100m
+              memory: 50Mi
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /graphql?query=%7B__typename%7D
+              port: 3000
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /graphql?query=%7B__typename%7D
+              port: 3000
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5

@@ -37,16 +37,4 @@ CMD ["node", "./dist/main.js"]
 #
 # docker build . -f qa.dockerfile -t cachac/kube_api:latest --build-arg APP_ENV="$APP_ENV_KUBE_API"
 # docker push cachac/kube_api:latest
-# server config:
-# docker network create --driver bridge --subnet 11.10.0.0/24 iceCloudNetwork
-# docker run -dit --network iceCloudNetwork --ip 11.10.0.2 -p 3000:3000 --name kube_api cachac/kube_api:latest
-
-#
-# aws ECR
-#
-# docker build . -f qa.dockerfile -t 983207445106.dkr.ecr.us-east-1.amazonaws.com/kube_api:latest --build-arg APP_ENV="$APP_ENV_kube_api"
-# docker push 983207445106.dkr.ecr.us-east-1.amazonaws.com/kube_api:latest
-# server config:
-# docker network create --driver bridge --subnet 11.10.0.0/24 iceCloudNetwork
-# docker run -dit --network iceCloudNetwork --ip 11.10.0.2 -p 3000:3000 -p 81:81 --name kube_api 983207445106.dkr.ecr.us-east-1.amazonaws.com/kube_api:latest
 

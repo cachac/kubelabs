@@ -7,6 +7,7 @@ import { apolloServer } from './api'
 import db from './database'
 
 const app = express()
+const healthCheck = express()
 
 // middlewares
 app.use(express.json())
@@ -25,8 +26,8 @@ process.on('unhandledRejection', err => {
 })
 
 // START server
-db.setConnection()
-  .then(() => {
+// db.setConnection()
+//   .then(() => {
     const serverSubscription = app.listen(config.NODE_PORT, () => {
       logger.info(
         `[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION} 🚀 Server ready on Port ${config.NODE_PORT} - Express JS ${config.NODE_ENV} |  ${apolloServer.graphqlPath}`
@@ -34,13 +35,17 @@ db.setConnection()
     })
 
     // GraphQL subscription
-    apolloServer.installSubscriptionHandlers(serverSubscription)
-  })
-  .catch(() => {})
+  //   apolloServer.installSubscriptionHandlers(serverSubscription)
+  // })
+  // .catch(() => {})
 
 // health checks
 const router = express.Router()
 router.get('/healthcheck', (req, res) => {
   res.send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION })
+})
+healthCheck.use(router)
+healthCheck.listen(3080, () => {
+  logger.info(`Health check on port 3080`)
 })
 
