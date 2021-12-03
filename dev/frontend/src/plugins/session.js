@@ -4,7 +4,7 @@ export const Session = {
   fingerPrint: null,
   getFingerPrint() {
     if (!this.fingerPrint) {
-      this.fingerPrint = "ICECLoudPoC";
+      this.fingerPrint = "Kubelabs";
     }
     return this.fingerPrint;
   },

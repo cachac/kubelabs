@@ -5,6 +5,9 @@
         <TabItem name="API">
           <list align="center"></list>
         </TabItem>
+        <TabItem name="Arquitectura">
+          <arch align="center"></arch>
+        </TabItem>
       </Tabs>
     </div>
     <div v-else>
@@ -28,9 +31,7 @@
         App Version:
         {{ appVersion }}
       </p>
-			<p align="left">
-        Image: cachac/kube_webapp
-      </p>
+      <p align="left">Image: cachac/kube_webapp</p>
     </div>
   </div>
 </template>
@@ -45,6 +46,7 @@ export default {
   components: {
     login: () => import("../components/login.vue"),
     list: () => import("../components/list.vue"),
+    arch: () => import("../components/arch.vue"),
     Tabs,
     TabItem,
   },
@@ -62,7 +64,7 @@ export default {
 
 <style scoped>
 .token {
-  background-color:#75abe4;
+  background-color: #75abe4;
   width: 500px;
   display: inline-block;
   margin-top: 20px;

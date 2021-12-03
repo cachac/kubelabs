@@ -12,6 +12,9 @@ import "beegridtable/dist/styles/beegridtable.css";
 import connectionCheck from "./plugins/connectionCheck";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import VueZoomer from "vue-zoomer";
+
+Vue.use(VueZoomer);
 
 Vue.use(connectionCheck);
 Vue.use(Toast);

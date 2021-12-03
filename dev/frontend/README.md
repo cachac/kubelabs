@@ -1,7 +1,7 @@
-# icecloud
+# kubelabs
 
 3Tier FrontEnd Demo
-# icecloud
+# kubelabs
 
 3Tier FrontEnd Demo
 
