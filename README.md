@@ -21,9 +21,9 @@ Tabla de contenido:
 ## 14. [Storage](./14.Storage.md)
 ## 15. [Networking](./15.Networking.md)
 ## 16. [Lifecycle](./16.Lifecycle.md)
-## 17. [Security](./17.Security.md)
-## 18. [Diseño de Cluster](/18.Diseño_Cluster.md)
-## 19. [HA - Agregar Nodos](./19.HA.md)
+## 17. [StatefulSet](./17.StatefulSet.md)
+## 18. [Full Demo](./18.Full_Demo.md)
+## 19. [Apps](./19.Apps.md)
 
 
 lb demo

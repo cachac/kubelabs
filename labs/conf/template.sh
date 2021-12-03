@@ -58,6 +58,9 @@ echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubecolor $@; }' >>
 runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
 runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
 
+# stern
+brew install stern
+
 #
 sudo mkdir /logs
 sudo systemctl enable iscsid
