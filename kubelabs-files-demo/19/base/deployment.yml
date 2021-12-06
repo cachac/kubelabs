@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: kubedemo
+  labels:
+    app: kubelabs
+    type: frontend
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubelabs
+      type: frontend
+
+  template:
+    metadata:
+      name: kubedemo
+      labels:
+        app: kubelabs
+        type: frontend
+
+    spec:
+      containers:
+        - name: cachac-kube-labs
+          image: cachac/kube-labs
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+
+
+

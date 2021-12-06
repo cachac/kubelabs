@@ -1,0 +1,11 @@
+namePrefix: qa-
+commonLabels:
+  variant: qa
+  team: qa-team
+commonAnnotations:
+  note: Estamos en QA...
+resources:
+- ../../base
+patchesStrategicMerge:
+- deployment.yml
+- service.yml
