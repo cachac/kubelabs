@@ -60,8 +60,15 @@ runuser -l ${username} -c  'git clone https://github.com/cachac/kubelabs.git'
 # runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
 # runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
 
-# stern
+# Stern
 brew install stern
+# Kustomize
+brew install kustomize
+DEMO_HOME=/home/${username}/hello
+BASE=$DEMO_HOME/base
+mkdir -p $BASE
+# mkdir -p /home/${username}/hello/base
+curl -s -o "$BASE/#1.yaml" "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/examples/helloWorl/{configMap,deployment,kustomization,service}.yaml"
 
 echo "*** FIN ***" >> /home/${username}/ilog
 date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
