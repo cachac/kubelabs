@@ -2,7 +2,9 @@
 date '+%Y/%m/%d %H:%M:%S %z' > /home/${username}/ilog
 echo "Instaling Microk8s + Kubectl..." >> /home/${username}/ilog
 
+sudo mkdir /logs
 sudo apt update
+sudo systemctl enable iscsid
 sudo iptables -P FORWARD ACCEPT
 sudo apt install snapd
 sudo snap install microk8s --classic --channel=1.22/stable
@@ -43,28 +45,23 @@ date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
 runuser -l ${username} -c  'git clone https://github.com/cachac/kubelabs.git'
 
 # kubecolor
-echo "Instaling Brew + Kubecolor..." >> /home/${username}/ilog
-sudo apt-get install -y build-essential
-runuser -l ${username} -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \ </dev/null'
-echo "Brew!!!" >> /home/${username}/ilog
-date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/${username}/.bashrc
-runuser -l ${username} -c 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-runuser -l ${username} -c 'brew install gcc'
-runuser -l ${username} -c 'brew install hidetatz/tap/kubecolor'
-echo "Kubecolor!!!" >> /home/${username}/ilog
+# echo "Instaling Brew + Kubecolor..." >> /home/${username}/ilog
+# sudo apt-get install -y build-essential
+# runuser -l ${username} -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \ </dev/null'
+# echo "Brew!!!" >> /home/${username}/ilog
+# date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
+# echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/${username}/.bashrc
+# runuser -l ${username} -c 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+# runuser -l ${username} -c 'brew install gcc'
+# runuser -l ${username} -c 'brew install hidetatz/tap/kubecolor'
+# echo "Kubecolor!!!" >> /home/${username}/ilog
 
-echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubecolor $@; }' >> /home/${username}/.bashrc
-runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
-runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
+# echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubecolor $@; }' >> /home/${username}/.bashrc
+# runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
+# runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
 
 # stern
 brew install stern
-
-#
-sudo mkdir /logs
-sudo systemctl enable iscsid
-#
 
 echo "*** FIN ***" >> /home/${username}/ilog
 date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
