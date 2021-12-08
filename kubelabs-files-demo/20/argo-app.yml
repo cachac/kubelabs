@@ -2,10 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: dev-kubelabs
+  namespace: argocd
 spec:
   destination:
     name: ''
-    namespace: default
+    namespace: webapps
     server: 'https://kubernetes.default.svc'
   source:
     path: kubelabs-files-demo/20/
@@ -13,6 +14,8 @@ spec:
     targetRevision: HEAD
   project: default
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    automated: # 3 minutos
+      prune: true
+      selfHeal: true # sobreescribe cambios manuales (apply)
