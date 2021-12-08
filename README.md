@@ -5,15 +5,15 @@ Este proyecto contiene la guía de laboratorio para el desarrollo del curso Kube
 
 Tabla de contenido:
 
-## 1. [Instalación](./1.Instalación.md)
-## 2. [Conexión Remota](./2.ConexionRemota.md)
-## 3. [Primeros Pasos, construir un Pod](./3.PrimerosPasos.md)
-## 4. [ReplicaSets](./4.ReplicaSets.md)
-## 5. [Deployments](./5.Deployments.md)
-## 6. [DaemonSet](./6.DaemonSet.md)
-## 7. [CLI comandos rápidos](./7.CLI.md)
-## 8. [Namespaces](./8.Namespaces.md)
-## 9. [Cuotas y límites](./9.Cuotas-Limites.md)
+## 01. [Instalación](./01.Instalación.md)
+## 02. [Conexión Remota](./02.ConexionRemota.md)
+## 03. [Primeros Pasos, construir un Pod](./03.PrimerosPasos.md)
+## 04. [ReplicaSets](./04.ReplicaSets.md)
+## 05. [Deployments](./05.Deployments.md)
+## 06. [DaemonSet](./06.DaemonSet.md)
+## 07. [CLI comandos rápidos](./07.CLI.md)
+## 08. [Namespaces](./08.Namespaces.md)
+## 09. [Cuotas y límites](./09.Cuotas-Limites.md)
 ## 10. [Servicios](./10.Servicios.md)
 ## 11. [Labels & Selectors](./11.Labels-Selectors.md)
 ## 12. [Taint & Tolerations](./12.Taint-Tolerations.md)
@@ -24,12 +24,6 @@ Tabla de contenido:
 ## 17. [StatefulSet](./17.StatefulSet.md)
 ## 18. [Full Demo](./18.Full_Demo.md)
 ## 19. [Apps](./19.Apps.md)
-
-
-lb demo
-https://kubernetes.io/docs/tutorials/stateless-application/guestbook/
-
-pv: kustomization
-https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
+## 20. [CI/CD](./20.CICD.md)
 
 
