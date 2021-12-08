@@ -1,0 +1,85 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  defaultBackend:
+    service:
+      name: svc-kube-1
+      port:
+        number: 80
+  rules:
+  - host: kube1.kubelabs.tk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-kube-1
+            port:
+              number: 80
+
+  - host: www.kube1.kubelabs.tk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-kube-1
+            port:
+              number: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-kube-1
+spec:
+  type: ClusterIP
+  selector:
+    app: pod-kube-1
+  ports:
+    - protocol: TCP
+      name: main
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-kube-1
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: pod-kube-1
+
+  template:
+    metadata:
+      name: pod-kube-1
+      labels:
+        app: pod-kube-1
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+          resources:
+            limits:
+              cpu: 250m
+              memory: 500Mi
+            requests:
+              cpu: 250m
+              memory: 500Mi
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: static-vol
+              mountPath: /usr/share/nginx/html/index.html
+      volumes:
+        - name: static-vol
+          hostPath:
+            path: index.html
+            type: FileOrCreate
