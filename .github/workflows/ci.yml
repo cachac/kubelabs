@@ -37,3 +37,5 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: ./dev/frontend/ci.dockerfile
         tags: ${{ env.VERSION }}
+
+    - 

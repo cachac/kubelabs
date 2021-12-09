@@ -18,6 +18,7 @@ spec:
       containers:
         - name: color
           image: docker.io/kodekloud/webapp-color:v1
+          resources: {}
           envFrom:
             - configMapRef:
                 name: demo-configmap

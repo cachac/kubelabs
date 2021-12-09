@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fulldemo
+      type: frontend
+
+  template:
+    metadata:
+      name: pod-web
+      labels:
+        app: fulldemo
+        type: frontend
+    spec:
+      containers:
+        - name: kube-webapp
+          image: cachac/kube_webapp_ci:v1.0.0
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 100m
+              memory: 50Mi
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 5
