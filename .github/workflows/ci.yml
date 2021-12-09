@@ -8,6 +8,7 @@ on:
 env:
   IMAGE_NAME: kube_webapp_ci
   VERSION: V1.0.0
+  RELEASE: "Dev"
 
 jobs:
   # TODO Run tests.
@@ -20,9 +21,9 @@ jobs:
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
+        automatic_release_tag: ${{ env.VERSION }}
         prerelease: false
-        title: "Development Build"
+        title: ${{ env.RELEASE }}
         # files: |
         #   LICENSE.txt
         #   *.jar
