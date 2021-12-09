@@ -5,14 +5,14 @@ WORKDIR /app
 FROM base as builder
 COPY ./dev/frontend/package*.json ./
 RUN npm install
-COPY . .
+COPY ./dev/frontend/ .
 RUN npm run buildqa
 
 # qa stage
 FROM nginx:stable-alpine AS qa-stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx/nginx.conf /etc/nginx/conf.d
+COPY ./dev/frontend/nginx/nginx.conf /etc/nginx/conf.d
 
 EXPOSE 8080
 
