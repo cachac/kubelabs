@@ -32,3 +32,4 @@ jobs:
         name: cachac/${{ env.IMAGE_NAME }}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: qa.dockerfile
