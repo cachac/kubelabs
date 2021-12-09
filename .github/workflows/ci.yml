@@ -18,6 +18,9 @@ jobs:
     if: github.event_name == 'push'
 
     steps:
+    - uses: actions/checkout@master
+      name: checkout code
+
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -25,11 +28,11 @@ jobs:
         prerelease: false
         title: ${{ env.RELEASE }}
 
-    - uses: actions/checkout@master
     - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: docker/build-push-action@v1
       with:
-        name: cachac/${{ env.IMAGE_NAME }}
+        repository: cachac/${{ env.IMAGE_NAME }}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: ./dev/frontend/ci.dockerfile
+        tags: latest, ${{ github.ref }}
