@@ -61,7 +61,7 @@ spec:
     metadata:
       name: pod-kube-1
       labels:
-        version: v1
+        version: v1.0
         app: pod-kube-1
     spec:
       containers:
