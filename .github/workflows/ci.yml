@@ -7,6 +7,7 @@ on:
 
 env:
   IMAGE_NAME: kube_webapp_ci
+  VERSION: V1.0.0
 
 jobs:
   # TODO Run tests.
@@ -24,8 +25,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: $VERSION # ${{ github.ref }}
+          release_name: $VERSION # Release ${{ github.ref }}
           body: |
             Changes in this Release
             - First Change
