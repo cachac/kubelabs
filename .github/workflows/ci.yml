@@ -2,11 +2,11 @@ name: CI
 
 on:
   push:
-    # Publish `master` as Docker `latest` image.....
+    # Publish `main` branch as Docker `latest` image.....
     branches:
       - main
 
-    # Publish `v1.2.3` tags as releases.
+    # tags as releases.
     tags:
       - v*
   # Run tests for any PRs.
@@ -17,7 +17,6 @@ env:
 
 jobs:
   # TODO Run tests.
-
   # Push image to GitHub Packages.
   push:
     runs-on: ubuntu-latest
@@ -46,5 +45,5 @@ jobs:
           [ "$VERSION" == "main" ] && VERSION=latest
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag $IMAGE_ID $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
