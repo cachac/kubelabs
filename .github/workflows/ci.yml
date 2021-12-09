@@ -24,6 +24,11 @@ jobs:
         automatic_release_tag: ${{ env.VERSION }}
         prerelease: false
         title: ${{ env.RELEASE }}
-        # files: |
-        #   LICENSE.txt
-        #   *.jar
+
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: cachac/${{ env.IMAGE_NAME }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
