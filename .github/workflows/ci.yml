@@ -9,7 +9,7 @@ on:
   # pull_request:
 
 env:
-  IMAGE_NAME: kubelabs
+  IMAGE_NAME: kube_webapp_ci
 
 jobs:
   # TODO Run tests.
@@ -45,22 +45,31 @@ jobs:
           docker tag image $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      - uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        name: Log in to Docker Hub
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Extract metadata (tags, labels) for Docker
+      - uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: cachac/kube_webapp_ci
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
+      #     labels: ${{ steps.meta.outputs.labels }}
+
+      - uses: actions/checkout@master
+
+      - uses: elgohr/Publish-Docker-Github-Action@master
+        name: Publish to Registry
         with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          name: cachac/${{IMAGE_NAME}}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
