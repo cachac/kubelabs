@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file ./dev/frontend/ci.dockerfile --tag $IMAGE_NAME
+        run: docker build . --file ./dev/frontend/ci.dockerfile --tag image
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
@@ -45,5 +45,5 @@ jobs:
           [ "$VERSION" == "main" ] && VERSION=latest
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker tag $IMAGE_ID $IMAGE_ID:$VERSION
+          docker tag image $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
