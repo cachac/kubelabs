@@ -70,6 +70,6 @@ jobs:
       - uses: elgohr/Publish-Docker-Github-Action@master
         name: Publish to Registry
         with:
-          name: cachac/${{IMAGE_NAME}}
+          name: cachac/$IMAGE_NAME
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
