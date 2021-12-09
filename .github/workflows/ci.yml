@@ -19,16 +19,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-      name: checkout code
+      name: Checkout code
 
     - uses: "marvinpinto/action-automatic-releases@latest"
+      name: Release
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: ${{ env.VERSION }}
         title: ${{ env.RELEASE }}
         prerelease: false
 
-    - name: Publish to Registry
+    - name: Build & Publish
       uses: docker/build-push-action@v1
       with:
         repository: cachac/${{ env.IMAGE_NAME }}
@@ -36,7 +37,3 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: ./dev/frontend/ci.dockerfile
         tags: ${{ env.VERSION }}
-
-    - name: Test
-      run: |
-        docker run --rm ${{ env.VERSION }}
