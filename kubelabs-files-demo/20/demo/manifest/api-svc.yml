@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-api
+spec:
+  type: ClusterIP
+  selector:
+    app: fulldemo
+    type: backend
+  ports:
+    - protocol: TCP
+      name: api
+      port: 3000
+      targetPort: 3000
