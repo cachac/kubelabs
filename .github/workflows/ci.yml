@@ -8,7 +8,7 @@ on:
 
     # tags as releases.
     tags:
-      - v*
+      - "v1.0.0"
   # Run tests for any PRs.
   # pull_request:
 
