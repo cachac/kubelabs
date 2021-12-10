@@ -1,7 +1,7 @@
 resource "google_compute_instance" "kubemaster01" {
   # depends_on = [google_compute_instance.kubeworker01, google_compute_instance.kubeworker02]
 
-  name         = "kubemaster01"
+  name         = var.master01_name
   machine_type = var.machine_type
   zone         = var.gcp_zone_a
   tags         = ["kubelabs"]
@@ -78,8 +78,7 @@ resource "google_compute_instance" "kubemaster01" {
     inline = [
       "echo 'Waiting for cloud-init to complete...'",
       "cloud-init status --wait > /dev/null",
-      "echo 'Completed cloud-init!!'",
-			"cat /home/demo/.kube/config"
+      "echo 'Completed cloud-init!!'"
     ]
 
     connection {
@@ -90,9 +89,14 @@ resource "google_compute_instance" "kubemaster01" {
     }
   }
 
-	provisioner "local-exec" {
-		command = "echo rsync -Pav -e 'ssh -i ~/Documents/code/dockerlabs/labs/keys/prod/dockerlabkey' ${var.username}@${google_compute_instance.kubemaster01.network_interface.0.access_config.0.nat_ip}:/home/${var.username}/.kube/config ../config/kubeconf"
-	}
+  provisioner "local-exec" {
+    command = <<EOT
+			ssh-keygen -f ~/.ssh/known_hosts -R "${google_compute_instance.kubemaster01.network_interface.0.access_config.0.nat_ip}"
+			mkdir ~/.kube
+			cp ~/.kube/config ~/.kube/config.bak
+			rsync -Pav -e "ssh -i ~/Documents/code/dockerlabs/labs/keys/prod/dockerlabkey -o StrictHostKeyChecking=no" ${var.username}@${google_compute_instance.kubemaster01.network_interface.0.access_config.0.nat_ip}:/home/${var.username}/.kube/config ~/.kube/config
+		EOT
+  }
 }
 
 

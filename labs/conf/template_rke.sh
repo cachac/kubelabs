@@ -51,7 +51,7 @@ else echo 'SSH keys already created!' >> /home/${username}/ilog
 fi
 
 # agrega llaves ssh localmente
-# ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP} >> /home/${username}/ilog
+ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP} >> /home/${username}/ilog
 runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}" >> /home/${username}/ilog
 
 # Share ssh keys
@@ -62,9 +62,9 @@ do
 	if ping -c 1 $node &> /dev/null
 	then
 		# conecta al nodo y agrega ssh
-		# ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node >> /home/${username}/ilog
+		ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node >> /home/${username}/ilog
 		runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node" >> /home/${username}/ilog
-		# ssh ${username}@$node "ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP}" >> /home/${username}/ilog
+		ssh ${username}@$node "ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP}" >> /home/${username}/ilog
 		ssh ${username}@$node "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}" >> /home/${username}/ilog
 		echo "$node ok" >> /home/${username}/ilog
 	else

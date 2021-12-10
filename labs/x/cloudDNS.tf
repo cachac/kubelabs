@@ -9,7 +9,7 @@
 # }
 
 resource "google_dns_record_set" "kubelabs_tk" {
-  name       = format("%s.%s.%s.", "kubemaster01", var.domain, "tk")
+  name       = format("%s.%s.%s.", var.master01_name, var.domain, "tk")
 
   type         = "A"
   ttl          = 300

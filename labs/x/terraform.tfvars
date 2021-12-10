@@ -44,6 +44,11 @@ vpc_ip_range = "20.0.0.0/24"
 ip_lab       = "20.0.0.11"
 fw_name      = "fw-kubelabs"
 
+master01_name = "kubemaster01"
+master02_name = "kubemaster02"
+worker01_name = "kubeworker01"
+worker02_name = "kubeworker02"
+
 
 default_tags = {
   team = "cenfotec"

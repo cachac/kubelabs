@@ -107,4 +107,17 @@ variable "default_tags" {
   description = "AWS tags."
 }
 
+variable "master01_name" {
+  type = string
+}
+variable "master02_name" {
+  type = string
+}
+variable "worker01_name" {
+  type = string
+}
+variable "worker02_name" {
+  type = string
+}
+
 
