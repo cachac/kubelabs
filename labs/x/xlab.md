@@ -11,9 +11,20 @@ terraform plan --auto-approve
 terraform apply --auto-approve
 ```
 
-## Conectar con RKE-Cluster Master Node
+## 2. Comprobar conexión con nodos
 ```vim
-ssh demo@<ip_publica> -i <ssh-key>
+kubectl get nodes -o wide
 ```
 
+## 3. Ingresar a ArgoCD
 
+```vim
+# Pass:
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
+
+kubemaster01.kubelabs.tk:30088
+```
+
+## Ejecutar CI/CD
+> [20.CICD.md](./../../20.CICD.md)
+> Punto 5. Opcional. Demo 3Tier app

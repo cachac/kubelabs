@@ -21,3 +21,13 @@ spec:
             name: svc-api
             port:
               number: 3000
+  - host: api.kubemaster01.kubelabs.tk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-api
+            port:
+              number: 3000

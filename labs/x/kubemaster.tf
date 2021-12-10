@@ -62,6 +62,18 @@ resource "google_compute_instance" "kubemaster01" {
     }
   }
 
+	  provisioner "file" {
+    source      = "../conf/argocd-nodePort.yml"
+    destination = "/home/${var.username}/argocd-nodePort.yml"
+
+    connection {
+      type        = "ssh"
+      host        = self.network_interface.0.access_config.0.nat_ip
+      user        = var.username
+      private_key = file(var.ssh_key)
+    }
+  }
+
   provisioner "file" {
     source      = "../conf/.kubectl_aliases"
     destination = "/home/${var.username}/.kubectl_aliases"
@@ -95,6 +107,8 @@ resource "google_compute_instance" "kubemaster01" {
 			mkdir ~/.kube
 			cp ~/.kube/config ~/.kube/config.bak
 			rsync -Pav -e "ssh -i ~/Documents/code/dockerlabs/labs/keys/prod/dockerlabkey -o StrictHostKeyChecking=no" ${var.username}@${google_compute_instance.kubemaster01.network_interface.0.access_config.0.nat_ip}:/home/${var.username}/.kube/config ~/.kube/config
+			echo "ArgoCD temporal pass:"
+			kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
 		EOT
   }
 }

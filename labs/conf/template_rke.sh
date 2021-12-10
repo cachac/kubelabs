@@ -2,7 +2,7 @@
 export TZ="America/Costa_Rica"
 date +%z
 date '+%Y/%m/%d %H:%M:%S %z' > /home/${username}/ilog
-echo "Instaling Microk8s + Kubectl..." >> /home/${username}/ilog
+echo "Instaling RKE + Kubectl..." >> /home/${username}/ilog
 export DEBIAN_FRONTEND=noninteractive
 
 #
@@ -172,6 +172,38 @@ sleep 60
 mkdir /home/${username}/.kube
 cp /home/${username}/kube_config_rke-cluster.yml /home/${username}/.kube/config
 sudo chown -R ${username}:${username} /home/${username}/.kube
+
+#
+# tools
+#
+
+# kustomize
+sudo snap install kustomize
+
+# argocd
+runuser -l ${username} -c "kubectl create namespace argocd"
+runuser -l ${username} -c "kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
+runuser -l ${username} -c "kubectl apply -f /home/${username}/argocd-nodePort.yml"
+
+runuser -l ${username} -c "cat  <<EOF | kubectl apply -f -
+"
+
+# helm
+# sudo snap install helm --classic
+runuser -l ${username} -c "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
+runuser -l ${username} -c "chmod 700 get_helm.sh"
+runuser -l ${username} -c "./get_helm.sh"
+runuser -l ${username} -c "helm repo add bitnami https://charts.bitnami.com/bitnami"
+
+# cert-manager
+runuser -l ${username} -c "kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.yaml"
+
+# metalLB - no es necesario en esta versión
+# runuser -l ${username} -c "kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml"
+# runuser -l ${username} -c "kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml"
+
+
+# lets encrypt
 
 
 
