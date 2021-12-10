@@ -185,9 +185,6 @@ runuser -l ${username} -c "kubectl create namespace argocd"
 runuser -l ${username} -c "kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
 runuser -l ${username} -c "kubectl apply -f /home/${username}/argocd-nodePort.yml"
 
-runuser -l ${username} -c "cat  <<EOF | kubectl apply -f -
-"
-
 # helm
 # sudo snap install helm --classic
 runuser -l ${username} -c "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
