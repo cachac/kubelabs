@@ -151,7 +151,7 @@ spec:
               number: 3000
         path: /
         pathType: Prefix
-  - host: api.kubemaster01.kubelabs.tk
+  - host: api.kube-apps.tk
     http:
       paths:
       - backend:
@@ -187,7 +187,7 @@ spec:
               number: 80
         path: /
         pathType: Prefix
-  - host: kubemaster01.kubelabs.tk
+  - host: kube-apps.tk
     http:
       paths:
       - backend:
