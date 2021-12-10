@@ -38,6 +38,7 @@ jobs:
     #     tags: ${{ env.VERSION }}
 
   deploy:
+    # https://faun.pub/how-to-build-a-gitops-workflow-with-argocd-kustomize-and-github-actions-f919e7443295
     name: Deploy
     runs-on: ubuntu-latest
     needs: build
@@ -57,15 +58,17 @@ jobs:
         IMAGE_NAME     : ${{ env.IMAGE_NAME }}
         VERSION        : ${{ env.VERSION }}
       run: |
-       cd kubelabs-files-demo/20/demo/manifest
-       kustomize edit set image cachac/kube_webapp_ci=$DOCKER_USERNAME/$IMAGE_NAME:$VERSION > kustomization/kustom-apps.yml
+        cd kubelabs-files-demo/20/demo/manifest
+        kustomize edit set image cachac/kube_webapp_ci=$DOCKER_USERNAME/$IMAGE_NAME:$VERSION
+        kustomize build . > kustomization/kustom-apps.yml
 
-       cat kustomization/kustom-apps.yml
+        cat kustomization.yaml
+        cat kustomization/kustom-apps.yml
 
     - name: Commit files
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "dev-bot@stotylabs.dev"
+        git config --local user.name "Storylabs Dev-Bot"
         git commit -am "new image version"
 
     - name: Push changes
