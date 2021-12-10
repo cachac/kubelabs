@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: kube-webapp
-          image: cachac/kube_webapp_ci:v1.0.0
+          image: cachac/kube_webapp_ci:v0.0.0
           imagePullPolicy: Always
           resources:
             limits:
