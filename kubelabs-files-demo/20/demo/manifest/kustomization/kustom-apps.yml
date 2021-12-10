@@ -151,6 +151,16 @@ spec:
               number: 3000
         path: /
         pathType: Prefix
+  - host: api.kubemaster01.kubelabs.tk
+    http:
+      paths:
+      - backend:
+          service:
+            name: svc-api
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -168,6 +178,16 @@ spec:
         number: 80
   rules:
   - host: kube1.kubelabs.tk
+    http:
+      paths:
+      - backend:
+          service:
+            name: svc-web
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: kubemaster01.kubelabs.tk
     http:
       paths:
       - backend:
