@@ -79,8 +79,7 @@ resource "google_compute_instance" "kubemaster01" {
       "echo 'Waiting for cloud-init to complete...'",
       "cloud-init status --wait > /dev/null",
       "echo 'Completed cloud-init!!'",
-      "kubectl cluster-info",
-      "kubectl get nodes",
+			"cat /home/demo/.kube/config"
     ]
 
     connection {
@@ -90,6 +89,10 @@ resource "google_compute_instance" "kubemaster01" {
       private_key = file(var.ssh_key)
     }
   }
+
+	provisioner "local-exec" {
+		command = "echo rsync -Pav -e 'ssh -i ~/Documents/code/dockerlabs/labs/keys/prod/dockerlabkey' ${var.username}@${google_compute_instance.kubemaster01.network_interface.0.access_config.0.nat_ip}:/home/${var.username}/.kube/config ../config/kubeconf"
+	}
 }
 
 

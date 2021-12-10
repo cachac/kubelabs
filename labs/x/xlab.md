@@ -11,3 +11,9 @@ terraform plan --auto-approve
 terraform apply --auto-approve
 ```
 
+## Conectar con RKE-Cluster Master Node
+```vim
+ssh demo@<ip_publica> -i <ssh-key>
+```
+
+

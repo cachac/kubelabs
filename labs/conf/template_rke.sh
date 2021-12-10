@@ -152,8 +152,6 @@ wget https://github.com/rancher/rke/releases/download/v1.2.9/rke_linux-amd64
 chmod +x rke_linux-amd64
 cp rke_linux-amd64 /usr/local/bin/rke
 which rke
-rke --help
-
 
 # master node
 sudo sed -i "s/MASTER_PUBLIC_IP_01/${MASTER_PUBLIC_IP_01}/g" /home/${username}/rke-cluster.yml
@@ -168,13 +166,17 @@ sudo sed -i "s/WORKER_PRIVATE_IP_02/${WORKER_PRIVATE_IP_02}/g" /home/${username}
 #
 # launch rke
 #
-runuser -l ${username} -c "rke up --config /home/${username}/rancher-cluster.yml" > /home/${username}/rke_log
+runuser -l ${username} -c "rke up --config /home/${username}/rke-cluster.yml" > /home/${username}/rke_log
 sleep 60
 
-mkdir ~/.kube
-cp kube_config_rke-cluster.yml ~/.kube/config
+mkdir /home/${username}/.kube
+cp /home/${username}/kube_config_rke-cluster.yml /home/${username}/.kube/config
+sudo chown -R ${username}:${username} /home/${username}/.kube
 
 
+
+# Taint master nodes
+# kubectl taint nodes  kubemaster01 node-role.kubernetes.io/master=true:NoSchedule
 
 
 echo "*** FIN ***" >> /home/${username}/ilog
