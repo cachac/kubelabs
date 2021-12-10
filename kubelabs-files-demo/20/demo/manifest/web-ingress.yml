@@ -21,7 +21,7 @@ spec:
             name: svc-web
             port:
               number: 80
-  - host: kubemaster01.kubelabs.tk
+  - host: kube-apps.tk
     http:
       paths:
       - path: /

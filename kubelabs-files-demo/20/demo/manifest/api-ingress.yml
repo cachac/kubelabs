@@ -21,7 +21,7 @@ spec:
             name: svc-api
             port:
               number: 3000
-  - host: api.kubemaster01.kubelabs.tk
+  - host: api.kube-apps.tk
     http:
       paths:
       - path: /
