@@ -33,7 +33,7 @@ resource "google_compute_address" "worker01_internal_address" {
 }
 
 resource "google_compute_address" "worker01_external_address" {
-  name   = "worker02"
+  name   = "worker01"
   region = var.gcp_region
 }
 
