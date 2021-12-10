@@ -1,7 +1,6 @@
 name: "release > build > push"
 on:
   push:
-    # Publish `main` branch as Docker `latest` image.....
     branches:
       - main
 
@@ -12,7 +11,6 @@ env:
 
 jobs:
   # TODO Run tests.
-  # Push image to GitHub Packages.
   build:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
@@ -42,9 +40,9 @@ jobs:
       uses: karancode/kustomize-github-action@master
       with:
         kustomize_version: '3.0.0'
-        kustomize_build_dir: './kubelabs-files-demo/20/demo/manifest'
+        kustomize_build_dir: 'kubelabs-files-demo/20/demo/manifest'
         kustomize_comment: true
-        kustomize_output_file: "./kubelabs-files-demo/20/demo/manifest/kustomization.yaml"
+        kustomize_output_file: "kubelabs-files-demo/20/demo/manifest/kustomization.yaml"
         kustomize_build_options: "--load_restrictor none"
         enable_alpha_plugins: true
       env:
