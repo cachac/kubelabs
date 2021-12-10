@@ -49,7 +49,9 @@ export default {
 
 body {
   padding: 2em;
-  background-image: url(""), linear-gradient(-45deg, #2b85e4, #ffffff);
+	/* Color fondo: #2b85e4 */
+	/* Nuevo color #5be44f */
+  background-image: url(""), linear-gradient(-45deg, #5be44f, #ffffff);
   background-repeat: no-repeat;
 	height: 100vh;
   background-size: 3em, 100%;
