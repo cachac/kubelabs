@@ -8,7 +8,7 @@ commonLabels:
 
 images:
   - name: cachac/kube_webapp_ci
-    newTag: 2.0.0
+    newTag: v2.0.0
 
 resources:
   - api-deploy.yml
