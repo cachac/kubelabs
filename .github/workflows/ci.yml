@@ -12,6 +12,7 @@ env:
 jobs:
   # TODO Run tests.
   build:
+    name: Build
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
 
@@ -19,13 +20,13 @@ jobs:
     - uses: actions/checkout@master
       name: Checkout code
 
-    # - uses: "marvinpinto/action-automatic-releases@latest"
-    #   name: Release
-    #   with:
-    #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
-    #     automatic_release_tag: ${{ env.VERSION }}
-    #     title: ${{ env.RELEASE }}
-    #     prerelease: false
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      name: Release
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: ${{ env.VERSION }}
+        title: ${{ env.RELEASE }}
+        prerelease: false
 
     # - name: Build & Publish
     #   uses: docker/build-push-action@v1
@@ -36,17 +37,63 @@ jobs:
     #     dockerfile: ./dev/frontend/ci.dockerfile
     #     tags: ${{ env.VERSION }}
 
-    - name: 'Kustomize Build'
-      uses: karancode/kustomize-github-action@master
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Setup Kustomize
+      uses: imranismail/setup-kustomize@v1
       with:
-        kustomize_version: '3.6.1'
-        kustomize_build_dir: './kubelabs-files-demo/20/demo/manifest'
-        kustomize_comment: true
-        kustomize_output_file: "./kubelabs-files-demo/20/demo/manifest/kustomization/kustom-apps.yml"
-        kustomize_build_options: "--load_restrictor none"
-        enable_alpha_plugins: true
+        kustomize-version: "3.6.1"
+
+    - name: Update Kubernetes resources
       env:
-        GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        IMAGE_NAME     : ${{ env.IMAGE_NAME }}
+        VERSION        : ${{ env.VERSION }}
+      run: |
+       cd kubelabs-files-demo/20/demo/manifest
+       kustomize edit set image cachac/kube_webapp_ci=$DOCKER_USERNAME/$IMAGE_NAME:$VERSION > kustomization/kustom-apps.yml
+
+       cat kustomization/kustom-apps.yml
+
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -am "new image version"
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
+
+
+
+
+
+
+
+    # - name: 'Kustomize Build'
+    #   uses: karancode/kustomize-github-action@master
+    #   with:
+    #     kustomize_version: '3.6.1'
+    #     kustomize_build_dir: './kubelabs-files-demo/20/demo/manifest'
+    #     kustomize_comment: true
+    #     kustomize_output_file: "./kubelabs-files-demo/20/demo/manifest/kustomization/kustom-apps.yml"
+    #     kustomize_build_options: "--load_restrictor none"
+    #     enable_alpha_plugins: true
+    #   env:
+    #     GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
 
     # - uses: actions-hub/kubectl@master
     #   name: Kubernetes CI
