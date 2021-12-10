@@ -42,7 +42,7 @@ jobs:
         kustomize_version: '3.0.0'
         kustomize_build_dir: 'kubelabs-files-demo/20/demo/manifest'
         kustomize_comment: true
-        kustomize_output_file: "kubelabs-files-demo/20/demo/manifest/kustomization.yaml"
+        kustomize_output_file: "kubelabs-files-demo/20/demo/manifest/kustomization/kustom-apps.yml"
         kustomize_build_options: "--load_restrictor none"
         enable_alpha_plugins: true
       env:
