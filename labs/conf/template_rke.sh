@@ -64,6 +64,7 @@ echo "Instaling Brew + Kubecolor + Stern + Kustomize + RKE ..." >> /home/${usern
 sudo apt-get install -y build-essential
 runuser -l ${username} -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \ </dev/null'
 echo "Brew!!!" >> /home/${username}/ilog
+
 date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/${username}/.bashrc
 runuser -l ${username} -c 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
@@ -75,14 +76,14 @@ echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubecolor $@; }' >>
 runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
 runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
 # Stern
-brew install stern
+runuser -l ${username} -c 'brew install stern'
 echo "Stern!!!" >> /home/${username}/ilog
 # Kustomize
-brew install kustomize
+runuser -l ${username} -c 'brew install kustomize'
 echo "Kustomize!!!" >> /home/${username}/ilog
 # rke
-brew install rke
-echo "Kustomize!!!" >> /home/${username}/ilog
+runuser -l ${username} -c 'brew install rke'
+echo "RKE!!!" >> /home/${username}/ilog
 
 
 #
@@ -95,9 +96,9 @@ sudo sed -i "s/MASTER_PRIVATE_IP/${MASTER_PRIVATE_IP}/g" /home/${username}/rke-c
 sudo sed -i "s/USERNAME/${username}/g" /home/${username}/rke-cluster.yml
 # worker nodes
 sudo sed -i "s/WORKER_PUBLIC_IP_01/${WORKER_PUBLIC_IP_01}/g" /home/${username}/rke-cluster.yml
-sudo sed -i "s/MASTER_PRIVATE_IP_01/${MASTER_PRIVATE_IP_01}/g" /home/${username}/rke-cluster.yml
+sudo sed -i "s/WORKER_PRIVATE_IP_01/${WORKER_PRIVATE_IP_01}/g" /home/${username}/rke-cluster.yml
 sudo sed -i "s/WORKER_PUBLIC_IP_02/${WORKER_PUBLIC_IP_02}/g" /home/${username}/rke-cluster.yml
-sudo sed -i "s/MASTER_PRIVATE_IP_02/${MASTER_PRIVATE_IP_02}/g" /home/${username}/rke-cluster.yml
+sudo sed -i "s/WORKER_PRIVATE_IP_02/${WORKER_PRIVATE_IP_02}/g" /home/${username}/rke-cluster.yml
 
 
 echo "*** FIN ***" >> /home/${username}/ilog
