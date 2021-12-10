@@ -12,7 +12,7 @@ sudo microk8s status --wait-ready
 sudo mkdir /home/${username}/.kube
 sudo microk8s kubectl config view --raw > /home/${username}/.kube/config
 sudo snap install kubectl --classic
-sudo microk8s.enable dns dashboard storage ingress helm openebs
+sudo microk8s.enable dns dashboard storage ingress helm
 # config
 sudo sh -c 'echo "--allow-privileged=true" >> /var/snap/microk8s/current/args/kube-apiserver'
 sudo systemctl restart snap.microk8s.daemon-apiserver.service
@@ -44,31 +44,26 @@ date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
 # github labs
 runuser -l ${username} -c  'git clone https://github.com/cachac/kubelabs.git'
 
-# kubecolor
-# echo "Instaling Brew + Kubecolor..." >> /home/${username}/ilog
-# sudo apt-get install -y build-essential
-# runuser -l ${username} -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \ </dev/null'
-# echo "Brew!!!" >> /home/${username}/ilog
-# date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
-# echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/${username}/.bashrc
-# runuser -l ${username} -c 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-# runuser -l ${username} -c 'brew install gcc'
-# runuser -l ${username} -c 'brew install hidetatz/tap/kubecolor'
-# echo "Kubecolor!!!" >> /home/${username}/ilog
+# brew + kubecolor
+echo "Instaling Brew + Kubecolor + Stern + Kustomize..." >> /home/${username}/ilog
+sudo apt-get install -y build-essential
+runuser -l ${username} -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \ </dev/null'
+echo "Brew!!!" >> /home/${username}/ilog
+date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/${username}/.bashrc
+runuser -l ${username} -c 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+runuser -l ${username} -c 'brew install gcc'
+runuser -l ${username} -c 'brew install hidetatz/tap/kubecolor'
+echo "Kubecolor!!!" >> /home/${username}/ilog
 
-# echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubecolor $@; }' >> /home/${username}/.bashrc
-# runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
-# runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
+echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubecolor $@; }' >> /home/${username}/.bashrc
+runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
+runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
 
 # Stern
 brew install stern
 # Kustomize
 brew install kustomize
-DEMO_HOME=/home/${username}/hello
-BASE=$DEMO_HOME/base
-mkdir -p $BASE
-# mkdir -p /home/${username}/hello/base
-curl -s -o "$BASE/#1.yaml" "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/examples/helloWorl/{configMap,deployment,kustomization,service}.yaml"
 
 echo "*** FIN ***" >> /home/${username}/ilog
 date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog

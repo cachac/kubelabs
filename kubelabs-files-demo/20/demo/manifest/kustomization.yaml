@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: apps
+
+commonLabels:
+  app: kustom-apps
+
+images:
+  - name: cachac/kube_webapp_ci
+    newTag: 2.0.0
+
+resources:
+  - api-deploy.yml
+  - api-ingress.yml
+  - api-svc.yml
+  - web-deploy.yml
+  - web-ingress.yml
+  - web-svc.yml
+

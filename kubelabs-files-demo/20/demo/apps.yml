@@ -5,11 +5,10 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    name: ''
-    namespace: default
+    namespace: ci
     server: 'https://kubernetes.default.svc'
   source:
-    path: kubelabs-files-demo/20/demo/manifest/
+    path: kubelabs-files-demo/20/demo/manifest/kustomization
     repoURL: 'https://github.com/cachac/kubelabs.git'
     targetRevision: HEAD
   project: default
