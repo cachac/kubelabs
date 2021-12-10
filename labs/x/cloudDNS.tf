@@ -8,6 +8,7 @@
 #   }
 # }
 
+# control plane
 resource "google_dns_record_set" "kubelabs_tk" {
   name       = format("%s.%s.%s.", var.master01_name, var.domain, "tk")
 
@@ -17,50 +18,35 @@ resource "google_dns_record_set" "kubelabs_tk" {
   rrdatas      = [google_compute_instance.kubemaster01.network_interface.0.access_config.0.nat_ip]
 }
 
-# resource "google_dns_record_set" "kube_apps_tk" {
-#   name       = "kube-apps.tk"
+# apps
 
-#   type         = "A"
-#   ttl          = 300
-#   managed_zone = var.domain
-#   rrdatas      = [google_compute_instance.kubeworker01.network_interface.0.access_config.0.nat_ip, google_compute_instance.kubeworker02.network_interface.0.access_config.0.nat_ip]
-# }
+resource "google_dns_record_set" "kube_apps_tk" {
+  name       = "kube-apps.tk"
 
-# resource "google_dns_record_set" "kubelabs_tk" {
-#   name       = format("%s.%s.", var.domain, "tk")
+  type         = "A"
+  ttl          = 300
+  managed_zone = var.domain
+  rrdatas      = [google_compute_instance.kubeworker01.network_interface.0.access_config.0.nat_ip, google_compute_instance.kubeworker02.network_interface.0.access_config.0.nat_ip]
+}
 
-#   type         = "A"
-#   ttl          = 300
-#   managed_zone = var.domain
-#   rrdatas      = [google_compute_instance.kubeworker01.network_interface.0.access_config.0.nat_ip, google_compute_instance.kubeworker02.network_interface.0.access_config.0.nat_ip]
-# }
+resource "google_dns_record_set" "kube_apps_tk" {
+  name       = "www.kube-apps.tk"
 
-# resource "google_dns_record_set" "www_kubelabs_tk" {
-#   name       = format("www.%s.%s.", var.domain, "tk")
+  type         = "A"
+  ttl          = 300
+  managed_zone = var.domain
+  rrdatas      = [google_compute_instance.kubeworker01.network_interface.0.access_config.0.nat_ip, google_compute_instance.kubeworker02.network_interface.0.access_config.0.nat_ip]
+}
 
-#   type         = "A"
-#   ttl          = 300
-#   managed_zone = var.domain
-#   rrdatas      = [google_compute_instance.kubeworker01.network_interface.0.access_config.0.nat_ip, google_compute_instance.kubeworker02.network_interface.0.access_config.0.nat_ip]
-# }
+resource "google_dns_record_set" "api_kube_apps_tk" {
+  name       = "api.kube-apps.tk"
 
-# resource "google_dns_record_set" "api_kubelabs_tk" {
-#   name       = format("api.%s.%s.", var.domain, "tk")
+  type         = "A"
+  ttl          = 300
+  managed_zone = var.domain
+  rrdatas      = [google_compute_instance.kubeworker01.network_interface.0.access_config.0.nat_ip, google_compute_instance.kubeworker02.network_interface.0.access_config.0.nat_ip]
+}
 
-#   type         = "A"
-#   ttl          = 300
-#   managed_zone = var.domain
-#   rrdatas      = [google_compute_instance.kubeworker01.network_interface.0.access_config.0.nat_ip, google_compute_instance.kubeworker02.network_interface.0.access_config.0.nat_ip]
-# }
-
-# resource "google_dns_record_set" "www_kube_kubelabs_tk" {
-#   name       = format("www.%s.%s.", var.domain, "tk")
-
-#   type         = "A"
-#   ttl          = 300
-#   managed_zone = var.domain
-#   rrdatas      = [google_compute_instance.kubeworker01.network_interface.0.access_config.0.nat_ip, google_compute_instance.kubeworker02.network_interface.0.access_config.0.nat_ip]
-# }
 
 
 
