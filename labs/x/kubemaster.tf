@@ -1,5 +1,7 @@
-resource "google_compute_instance" "kubemaster" {
-  name         = "master"
+resource "google_compute_instance" "kubemaster01" {
+  # depends_on = [google_compute_instance.kubeworker01, google_compute_instance.kubeworker02]
+
+  name         = "kubemaster01"
   machine_type = var.machine_type
   zone         = var.gcp_zone_a
   tags         = ["kubelabs"]
@@ -38,12 +40,13 @@ resource "google_compute_instance" "kubemaster" {
     user-data = templatefile("../conf/template_rke.sh",
       {
         username             = var.username
-        MASTER_PUBLIC_IP     = google_compute_address.master_external_address.address
-        MASTER_PRIVATE_IP    = google_compute_address.master_internal_address.address
+        NODE_PUBLIC_IP       = google_compute_address.master_external_address.address
+        MASTER_PUBLIC_IP_01  = google_compute_address.master_external_address.address
+        MASTER_PRIVATE_IP_01 = google_compute_address.master_internal_address.address
         WORKER_PUBLIC_IP_01  = google_compute_address.worker01_external_address.address
-        MASTER_PRIVATE_IP_01 = google_compute_address.worker01_internal_address.address
+        WORKER_PRIVATE_IP_01 = google_compute_address.worker01_internal_address.address
         WORKER_PUBLIC_IP_02  = google_compute_address.worker02_external_address.address
-        MASTER_PRIVATE_IP_02 = google_compute_address.worker02_internal_address.address
+        WORKER_PRIVATE_IP_02 = google_compute_address.worker02_internal_address.address
     })
   }
 
@@ -62,6 +65,23 @@ resource "google_compute_instance" "kubemaster" {
   provisioner "file" {
     source      = "../conf/.kubectl_aliases"
     destination = "/home/${var.username}/.kubectl_aliases"
+
+    connection {
+      type        = "ssh"
+      host        = self.network_interface.0.access_config.0.nat_ip
+      user        = var.username
+      private_key = file(var.ssh_key)
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "echo 'Waiting for cloud-init to complete...'",
+      "cloud-init status --wait > /dev/null",
+      "echo 'Completed cloud-init!!'",
+      "kubectl cluster-info",
+      "kubectl get nodes",
+    ]
 
     connection {
       type        = "ssh"

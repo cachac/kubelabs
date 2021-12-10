@@ -26,6 +26,52 @@ sudo modprobe br_netfilter
 sudo sh -c "echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"
 sudo sh -c "echo '1' > /proc/sys/net/ipv4/ip_forward"
 
+
+#
+# SSH
+#
+sed -i "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
+systemctl reload sshd
+# copy ssh key's
+if ! command -v sshpass &> /dev/null
+then
+		sudo apt-get install sshpass
+		echo 'SSHpass installed!' >> /home/${username}/ilog
+else echo 'SSHpass already installed!' >> /home/${username}/ilog
+fi
+
+if ! test -f "/home/${username}/.ssh/id_rsa"
+then
+	runuser -l ${username} -c  "ssh-keygen -b 2048 -t rsa -f /home/${username}/.ssh/id_rsa -C ${username} -q -N ''"
+	chmod 600 /home/${username}/.ssh/id_rsa*
+	chown ${username}:${username} /home/${username}/.ssh/id_rsa*
+	echo 'SSH keys created!' >> /home/${username}/ilog
+else echo 'SSH keys already created!' >> /home/${username}/ilog
+fi
+
+# agrega llaves ssh localmente
+# ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP} >> /home/${username}/ilog
+runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}" >> /home/${username}/ilog
+
+# Share ssh keys
+echo "Finding  nodes..." >> /home/${username}/ilog
+for node in "kubeworker01" "kubeworker02"
+do
+	echo "$node" >> /home/${username}/ilog
+	if ping -c 1 $node &> /dev/null
+	then
+		# conecta al nodo y agrega ssh
+		# ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node >> /home/${username}/ilog
+		runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node" >> /home/${username}/ilog
+		# ssh ${username}@$node "ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP}" >> /home/${username}/ilog
+		ssh ${username}@$node "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}" >> /home/${username}/ilog
+		echo "$node ok" >> /home/${username}/ilog
+	else
+		echo "$node offline :(" >> /home/${username}/ilog
+	fi
+done
+
 #
 # docker
 #
@@ -60,45 +106,75 @@ fi
 #
 # brew
 #
-echo "Instaling Brew + Kubecolor + Stern + Kustomize + RKE ..." >> /home/${username}/ilog
-sudo apt-get install -y build-essential
-runuser -l ${username} -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \ </dev/null'
-echo "Brew!!!" >> /home/${username}/ilog
+# echo "Instaling Brew + Kubecolor + Stern + Kustomize + RKE ..." >> /home/${username}/ilog
+# sudo apt-get install -y build-essential
+# runuser -l ${username} -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \ </dev/null'
+# echo "Brew!!!" >> /home/${username}/ilog
 
-date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/${username}/.bashrc
-runuser -l ${username} -c 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-runuser -l ${username} -c 'brew install gcc'
-# kubecolor
-runuser -l ${username} -c 'brew install hidetatz/tap/kubecolor'
-echo "Kubecolor!!!" >> /home/${username}/ilog
-echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubecolor $@; }' >> /home/${username}/.bashrc
-runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
-runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
-# Stern
-runuser -l ${username} -c 'brew install stern'
-echo "Stern!!!" >> /home/${username}/ilog
-# Kustomize
-runuser -l ${username} -c 'brew install kustomize'
-echo "Kustomize!!!" >> /home/${username}/ilog
-# rke
-runuser -l ${username} -c 'brew install rke'
-echo "RKE!!!" >> /home/${username}/ilog
+# # echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/${username}/.bashrc
+# # runuser -l ${username} -c 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+# # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+# test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+# test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# test -r ~/.bash_profile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bash_profile
+# test -r /home/$username/.bash_profile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>/home/$username/.bash_profile
+# echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.profile
+# echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>/home/$username/.profile
+
+
+
+# runuser -l ${username} -c 'brew install gcc'
+
+
+# # kubecolor
+# runuser -l ${username} -c 'brew install hidetatz/tap/kubecolor'
+# echo "Kubecolor!!!" >> /home/${username}/ilog
+# echo 'function kubecolor() { echo "+ kubectl $@">&2; command kubecolor $@; }' >> /home/${username}/.bashrc
+# runuser -l ${username} -c  'complete -o default -F __start_kubectl kubecolor'
+# runuser -l ${username} -c  'complete -o default -F __start_kubectl k'
+# # Stern
+# runuser -l ${username} -c 'brew install stern'
+# echo "Stern!!!" >> /home/${username}/ilog
+# # Kustomize
+# runuser -l ${username} -c 'brew install kustomize'
+# echo "Kustomize!!!" >> /home/${username}/ilog
+# # rke
+# runuser -l ${username} -c 'brew install rke'
+# echo "RKE!!!" >> /home/${username}/ilog
 
 #
 # rke config
 #
 
+# RKE manual installation
+wget https://github.com/rancher/rke/releases/download/v1.2.9/rke_linux-amd64
+chmod +x rke_linux-amd64
+cp rke_linux-amd64 /usr/local/bin/rke
+which rke
+rke --help
+
+
 # master node
-sudo sed -i "s/MASTER_PUBLIC_IP/${MASTER_PUBLIC_IP}/g" /home/${username}/rke-cluster.yml
-sudo sed -i "s/MASTER_PRIVATE_IP/${MASTER_PRIVATE_IP}/g" /home/${username}/rke-cluster.yml
+sudo sed -i "s/MASTER_PUBLIC_IP_01/${MASTER_PUBLIC_IP_01}/g" /home/${username}/rke-cluster.yml
+sudo sed -i "s/MASTER_PRIVATE_IP_01/${MASTER_PRIVATE_IP_01}/g" /home/${username}/rke-cluster.yml
 sudo sed -i "s/USERNAME/${username}/g" /home/${username}/rke-cluster.yml
 # worker nodes
 sudo sed -i "s/WORKER_PUBLIC_IP_01/${WORKER_PUBLIC_IP_01}/g" /home/${username}/rke-cluster.yml
 sudo sed -i "s/WORKER_PRIVATE_IP_01/${WORKER_PRIVATE_IP_01}/g" /home/${username}/rke-cluster.yml
 sudo sed -i "s/WORKER_PUBLIC_IP_02/${WORKER_PUBLIC_IP_02}/g" /home/${username}/rke-cluster.yml
 sudo sed -i "s/WORKER_PRIVATE_IP_02/${WORKER_PRIVATE_IP_02}/g" /home/${username}/rke-cluster.yml
+
+#
+# launch rke
+#
+runuser -l ${username} -c "rke up --config /home/${username}/rancher-cluster.yml" > /home/${username}/rke_log
+sleep 60
+
+mkdir ~/.kube
+cp kube_config_rke-cluster.yml ~/.kube/config
+
+
 
 
 echo "*** FIN ***" >> /home/${username}/ilog

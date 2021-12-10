@@ -14,7 +14,7 @@ resource "google_dns_record_set" "kubelabs_tk" {
   type         = "A"
   ttl          = 300
   managed_zone = var.domain
-  rrdatas      = [google_compute_instance.kubemaster.network_interface.0.access_config.0.nat_ip]
+  rrdatas      = [google_compute_instance.kubemaster01.network_interface.0.access_config.0.nat_ip]
 }
 
 # resource "google_dns_record_set" "kubelabs_tk" {

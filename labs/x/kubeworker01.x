@@ -4,7 +4,7 @@ resource "google_compute_address" "worker01_external_address" {
 }
 
 resource "google_compute_instance" "kubeworker01" {
-  depends_on = [google_compute_instance.kubemaster]
+  depends_on = [google_compute_instance.kubemaster01]
 
   name         = "worker01"
   machine_type = var.machine_type
