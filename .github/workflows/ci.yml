@@ -2,7 +2,7 @@ name: "release > build > push"
 on:
   push:
     branches:
-      - mainx
+      - main
 
 env:
   IMAGE_NAME: kube_webapp_ci
