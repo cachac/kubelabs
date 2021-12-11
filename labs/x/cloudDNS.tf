@@ -29,7 +29,7 @@ resource "google_dns_record_set" "kube_apps_tk" {
   rrdatas      = [google_compute_instance.kubeworker01.network_interface.0.access_config.0.nat_ip, google_compute_instance.kubeworker02.network_interface.0.access_config.0.nat_ip]
 }
 
-resource "google_dns_record_set" "kube_apps_tk" {
+resource "google_dns_record_set" "www_kube_apps_tk" {
   name       = "www.kube-apps.tk"
 
   type         = "A"

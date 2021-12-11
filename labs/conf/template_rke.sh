@@ -33,14 +33,7 @@ sudo sh -c "echo '1' > /proc/sys/net/ipv4/ip_forward"
 sed -i "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
 sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
 systemctl reload sshd
-# copy ssh key's
-if ! command -v sshpass &> /dev/null
-then
-		sudo apt-get install sshpass
-		echo 'SSHpass installed!' >> /home/${username}/ilog
-else echo 'SSHpass already installed!' >> /home/${username}/ilog
-fi
-
+# crea llaves ssh
 if ! test -f "/home/${username}/.ssh/id_rsa"
 then
 	runuser -l ${username} -c  "ssh-keygen -b 2048 -t rsa -f /home/${username}/.ssh/id_rsa -C ${username} -q -N ''"
@@ -51,10 +44,17 @@ else echo 'SSH keys already created!' >> /home/${username}/ilog
 fi
 
 # agrega llaves ssh localmente
+if ! command -v sshpass &> /dev/null
+then
+		sudo apt-get install sshpass
+		echo 'SSHpass installed!' >> /home/${username}/ilog
+else echo 'SSHpass already installed!' >> /home/${username}/ilog
+fi
+
 ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP} >> /home/${username}/ilog
 runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}" >> /home/${username}/ilog
 
-# Share ssh keys
+# Comparte llaves ssh entre nodos del cluster
 echo "Finding  nodes..." >> /home/${username}/ilog
 for node in "kubeworker01" "kubeworker02"
 do
@@ -64,8 +64,8 @@ do
 		# conecta al nodo y agrega ssh
 		ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node >> /home/${username}/ilog
 		runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node" >> /home/${username}/ilog
-		ssh ${username}@$node "ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP}" >> /home/${username}/ilog
-		ssh ${username}@$node "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}" >> /home/${username}/ilog
+		# ssh ${username}@$node "ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP}" >> /home/${username}/ilog
+		# ssh ${username}@$node "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}" >> /home/${username}/ilog
 		echo "$node ok" >> /home/${username}/ilog
 	else
 		echo "$node offline :(" >> /home/${username}/ilog

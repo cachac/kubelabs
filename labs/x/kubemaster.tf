@@ -1,6 +1,4 @@
 resource "google_compute_instance" "kubemaster01" {
-  # depends_on = [google_compute_instance.kubeworker01, google_compute_instance.kubeworker02]
-
   name         = var.master01_name
   machine_type = var.machine_type
   zone         = var.gcp_zone_a
