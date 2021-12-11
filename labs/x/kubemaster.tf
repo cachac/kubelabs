@@ -1,6 +1,7 @@
-locals {
-  cluster_nodes = join(" ", [var.master01_name, /*var.master02_name,*/ var.worker01_name, var.worker02_name])
-}
+# locals {
+#   cluster_nodes = join(" ", [var.master01_name, /*var.master02_name,*/ var.worker01_name, var.worker02_name])
+# }
+
 
 resource "google_compute_instance" "kubemaster01" {
   name         = var.master01_name
@@ -30,10 +31,10 @@ resource "google_compute_instance" "kubemaster01" {
   network_interface {
     network    = google_compute_network.kube_network.id
     subnetwork = google_compute_subnetwork.kube_subnet.id
-    network_ip = google_compute_address.master_internal_address.address
+    network_ip = google_compute_address.master01_internal_address.address
 
     access_config {
-      nat_ip = google_compute_address.master_external_address.address
+      nat_ip = google_compute_address.master01_external_address.address
     }
   }
 
@@ -41,10 +42,16 @@ resource "google_compute_instance" "kubemaster01" {
     ssh-keys = "${var.username}:${file(var.ssh_pub_key)}"
     user-data = templatefile("../conf/template_rke.sh",
       {
-        username             = var.username
-				NODE_NAME            = var.worker02_name
-				CLUSTER_NODES 			 = local.cluster_nodes
-        NODE_PUBLIC_IP       = google_compute_address.master01_external_address.address
+        username  = var.username
+        NODE_NAME = var.worker02_name
+        ROLE      = "master"
+        CLUSTER_NODES = join(" ", [
+					google_compute_address.master01_external_address.address,
+					google_compute_address.worker01_external_address.address,
+					google_compute_address.worker02_external_address.address
+				])
+				
+        NODE_PUBLIC_IP = google_compute_address.master01_external_address.address
 
         MASTER_PUBLIC_IP_01  = google_compute_address.master01_external_address.address
         MASTER_PRIVATE_IP_01 = google_compute_address.master01_internal_address.address

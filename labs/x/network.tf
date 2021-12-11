@@ -11,16 +11,16 @@ resource "google_compute_subnetwork" "kube_subnet" {
   network       = google_compute_network.kube_network.id
 }
 
-resource "google_compute_address" "master_internal_address" {
-  name         = "master-internal-address"
+resource "google_compute_address" "master01_internal_address" {
+  name         = "master01-internal-address"
   subnetwork   = google_compute_subnetwork.kube_subnet.id
   address_type = "INTERNAL"
   address      = "10.0.0.11"
   region       = var.gcp_region
 }
 
-resource "google_compute_address" "master_external_address" {
-  name   = "master"
+resource "google_compute_address" "master01_external_address" {
+  name   = "master01"
   region = var.gcp_region
 }
 

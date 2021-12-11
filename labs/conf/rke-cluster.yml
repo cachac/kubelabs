@@ -4,19 +4,19 @@ nodes:
   - address: MASTER_PUBLIC_IP_01
     internal_address: MASTER_PRIVATE_IP_01
     user: USERNAME
-    role: [controlplane, worker, etcd]
+    role: [controlplane, etcd]
   # - address: MASTER_PUBLIC_IP_02
   #   internal_address: MASTER_PRIVATE_IP_02
   #   user: USERNAME
-  #   role: [controlplane, worker, etcd]
-  # - address: WORKER_PUBLIC_IP_01
-  #   internal_address: WORKER_PRIVATE_IP_01
-  #   user: USERNAME
-  #   role: [worker]
-  # - address: WORKER_PUBLIC_IP_02
-  #   internal_address: WORKER_PRIVATE_IP_02
-  #   user: USERNAME
-  #   role: [worker]
+  #   role: [controlplane, etcd]
+  - address: WORKER_PUBLIC_IP_01
+    internal_address: WORKER_PRIVATE_IP_01
+    user: USERNAME
+    role: [worker]
+  - address: WORKER_PUBLIC_IP_02
+    internal_address: WORKER_PRIVATE_IP_02
+    user: USERNAME
+    role: [worker]
 services:
   etcd:
     snapshot: true

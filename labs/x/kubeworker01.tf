@@ -37,10 +37,15 @@ resource "google_compute_instance" "kubeworker01" {
     ssh-keys = "${var.username}:${file(var.ssh_pub_key)}"
     user-data = templatefile("../conf/template_rke.sh",
       {
-        username             = var.username
-				NODE_NAME            = var.worker02_name
-				CLUSTER_NODES 			 = local.cluster_nodes
-        NODE_PUBLIC_IP       = google_compute_address.worker01_external_address.address
+        username  = var.username
+        NODE_NAME = var.worker02_name
+        CLUSTER_NODES = join(" ", [
+					google_compute_address.master01_external_address.address,
+					google_compute_address.worker01_external_address.address,
+					google_compute_address.worker02_external_address.address
+				])
+        ROLE           = "worker"
+        NODE_PUBLIC_IP = google_compute_address.worker01_external_address.address
 
         MASTER_PUBLIC_IP_01  = google_compute_address.master01_external_address.address
         MASTER_PRIVATE_IP_01 = google_compute_address.master01_internal_address.address
