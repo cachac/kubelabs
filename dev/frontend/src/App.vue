@@ -51,7 +51,7 @@ body {
   padding: 2em;
 	/* Color fondo: #2b85e4 */
 	/* Nuevo color #5be44f */
-  background-image: url(""), linear-gradient(-45deg, #5be44f, #ffffff);
+  background-image: url(""), linear-gradient(-45deg, #2b85e4, #ffffff);
   background-repeat: no-repeat;
 	height: 100vh;
   background-size: 3em, 100%;
