@@ -8,11 +8,15 @@ output "kube-config" {
 
 
 output "local-ip" {
-	value = google_compute_instance.kubemaster01.network_interface.0.network_ip
+  value = google_compute_instance.kubemaster01.network_interface.0.network_ip
 }
 
 output "IP-list" {
-  value = "${google_compute_instance.kubemaster01.network_interface.0.access_config.0.nat_ip}"
+  value = join("  -  ", [
+    format("%s = [ %s ]", "${google_compute_instance.kubemaster01.name}", "${google_compute_instance.kubemaster01.network_interface.0.access_config.0.nat_ip}"),
+    format("%s = [ %s ]", "${google_compute_instance.kubeworker01.name}", "${google_compute_instance.kubeworker01.network_interface.0.access_config.0.nat_ip}"),
+    format("%s = [ %s ]", "${google_compute_instance.kubeworker02.name}", "${google_compute_instance.kubeworker02.network_interface.0.access_config.0.nat_ip}")
+  ])
 }
 
 output "names" {

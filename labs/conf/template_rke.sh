@@ -3,7 +3,7 @@ export TZ="America/Costa_Rica"
 date +%z
 date '+%Y/%m/%d %H:%M:%S %z' > /home/${username}/ilog
 START_TIME=$SECONDS
-echo "Instaling RKE + Kubectl..." >> /home/${username}/ilog
+echo "Storylabs.dev - Terraform + Kubernetes Full Demo..." >> /home/${username}/ilog
 export DEBIAN_FRONTEND=noninteractive
 
 #
@@ -84,11 +84,17 @@ do
 	done
 	# share keys
 	if ping -c 1 $node &> /dev/null
-		ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node
-		runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node"
+	then
+		# ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node
+		# runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node"
+		ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node >> /home/${username}/ilog
+		runuser -l ${username} -c "
+			sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node
+			ssh ${username}@$node "
+				sudo ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP}
+				sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}	"" >> /home/${username}/ilog
 
 		echo "$node SSH ok" >> /home/${username}/ilog
-	then
 	else
 		echo "$node offline!!" >> /home/${username}/ilog
 	fi
