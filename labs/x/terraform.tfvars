@@ -34,8 +34,12 @@ machine_type = "e2-medium"
 disk_size = "30"
 disk_type = "pd-standard"
 
+# control plane domain
 domain       = "kubelabs"
 subdomain   = "demo"
+# app demo domain
+app_domain       = "kube-apps"
+
 username     = "demo"
 fullname     = "Carlos Ch"
 host_prefix  = "demo"

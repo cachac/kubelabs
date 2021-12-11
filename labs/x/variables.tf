@@ -71,6 +71,12 @@ variable "subdomain" {
   type = string
 }
 
+variable "app_domain" {
+  type        = string
+  description = "application domain"
+  default     = "kube-apps.tk"
+}
+
 variable "username" {
   type        = string
   description = "Username of servers."
