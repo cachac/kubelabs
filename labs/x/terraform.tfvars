@@ -36,9 +36,9 @@ disk_type = "pd-standard"
 
 # control plane domain
 domain       = "kubelabs"
-subdomain   = "demo"
+subdomain    = "demo"
 # app demo domain
-app_domain       = "kube-apps"
+app_domain   = "kube-apps"
 
 username     = "demo"
 fullname     = "Carlos Ch"

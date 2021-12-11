@@ -21,7 +21,7 @@ resource "google_dns_record_set" "kubelabs_tk" {
 # apps
 
 resource "google_dns_record_set" "kube_apps_tk" {
-  name = format("%s.%s", var.app_domain, "tk")
+  name = format("%s.%s.", var.app_domain, "tk")
 
   type         = "A"
   ttl          = 300
@@ -30,7 +30,7 @@ resource "google_dns_record_set" "kube_apps_tk" {
 }
 
 resource "google_dns_record_set" "www_kube_apps_tk" {
-  name = format("%s.%s.%s", "www", var.app_domain, "tk")
+  name = format("%s.%s.%s.", "www", var.app_domain, "tk")
 
   type         = "A"
   ttl          = 300
