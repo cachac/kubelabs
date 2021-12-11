@@ -4,6 +4,10 @@ metadata:
   name: in-web
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    #cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
 spec:
   defaultBackend:
     service:
@@ -31,3 +35,8 @@ spec:
             name: svc-web
             port:
               number: 80
+  tls:
+  - hosts:
+    - kube-apps.tk
+    - www.kube-apps.tk
+    secretName: kube-apps-tk-tls
