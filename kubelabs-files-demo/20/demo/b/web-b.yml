@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: deploy-web-b
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: web-b
+
+  template:
+    metadata:
+      name: lifecycle-pod
+      labels:
+        app: web-b
+    spec:
+      containers:
+        - name: color
+          image: docker.io/kodekloud/webapp-color:v1
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-web-b
+spec:
+  type: ClusterIP
+  selector:
+    app: web-b
+
+  ports:
+    - protocol: TCP
+      name: api
+      port: 80
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: in-web-b
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  defaultBackend:
+    service:
+      name: svc-web-b
+      port:
+        number: 80
+  rules:
+  - host: motmot.tk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-web-b
+            port:
+              number: 80
+
+
