@@ -26,6 +26,18 @@ sudo modprobe br_netfilter
 sudo sh -c "echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"
 sudo sh -c "echo '1' > /proc/sys/net/ipv4/ip_forward"
 
+#
+# docker
+#
+if ! command -v docker &> /dev/null
+then
+    curl -fsSL https://get.docker.com -o get-docker.sh
+		sudo sh get-docker.sh
+		sudo usermod -aG docker ${username}
+		newgrp docker
+		echo 'Docker installed!' >> /home/${username}/ilog
+else echo 'Docker already installed!' >> /home/${username}/ilog
+fi
 
 #
 # SSH
@@ -51,16 +63,44 @@ then
 else echo 'SSHpass already installed!' >> /home/${username}/ilog
 fi
 
-ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP} >> /home/${username}/ilog
-runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}" >> /home/${username}/ilog
-
 # Comparte llaves ssh entre nodos del cluster
 echo "Finding  nodes..." >> /home/${username}/ilog
-for node in "kubeworker01" "kubeworker02"
+for node in ${CLUSTER_NODES}
 do
 	echo "$node" >> /home/${username}/ilog
 	if ping -c 1 $node &> /dev/null
 	then
+		if $node == $NODE_NAME
+		then
+			echo "Node $node is local" >> /home/${username}/ilog
+			ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP}
+			ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node
+			runuser -l ${username} -c "
+				sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}
+				sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node"
+		else
+			echo "Node $node is remote... waiting to connect" >> /home/${username}/ilog
+
+			i="0"
+			while [ $i -lt 600 ]
+			do
+				if ! ping -c 1 $node &> /dev/null
+				then
+					echo "waiting $node [$i]..." >> /home/${username}/ilog
+					sleep 10
+				else
+					echo "$node is online!!" >> /home/${username}/ilog
+					break
+				fi
+				i=$[$i+1]
+			done
+			# share keys
+			
+		echo "$node ok" >> /home/${username}/ilog
+		fi
+
+
+
 		# conecta al nodo y agrega ssh
 		ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node >> /home/${username}/ilog
 		runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node" >> /home/${username}/ilog
@@ -71,19 +111,6 @@ do
 		echo "$node offline :(" >> /home/${username}/ilog
 	fi
 done
-
-#
-# docker
-#
-if ! command -v docker &> /dev/null
-then
-    curl -fsSL https://get.docker.com -o get-docker.sh
-		sudo sh get-docker.sh
-		sudo usermod -aG docker ${username}
-		newgrp docker
-		echo 'Docker installed!' >> /home/${username}/ilog
-else echo 'Docker already installed!' >> /home/${username}/ilog
-fi
 
 # kubectl
 if ! command -v kubectl &> /dev/null

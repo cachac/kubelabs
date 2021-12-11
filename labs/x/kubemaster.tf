@@ -1,3 +1,7 @@
+locals {
+  cluster_nodes = join(" ", [var.master01_name, /*var.master02_name,*/ var.worker01_name, var.worker02_name])
+}
+
 resource "google_compute_instance" "kubemaster01" {
   name         = var.master01_name
   machine_type = var.machine_type
@@ -38,11 +42,16 @@ resource "google_compute_instance" "kubemaster01" {
     user-data = templatefile("../conf/template_rke.sh",
       {
         username             = var.username
-        NODE_PUBLIC_IP       = google_compute_address.master_external_address.address
-        MASTER_PUBLIC_IP_01  = google_compute_address.master_external_address.address
-        MASTER_PRIVATE_IP_01 = google_compute_address.master_internal_address.address
+				NODE_NAME            = var.worker02_name
+				CLUSTER_NODES 			 = local.cluster_nodes
+        NODE_PUBLIC_IP       = google_compute_address.master01_external_address.address
+
+        MASTER_PUBLIC_IP_01  = google_compute_address.master01_external_address.address
+        MASTER_PRIVATE_IP_01 = google_compute_address.master01_internal_address.address
+
         WORKER_PUBLIC_IP_01  = google_compute_address.worker01_external_address.address
         WORKER_PRIVATE_IP_01 = google_compute_address.worker01_internal_address.address
+
         WORKER_PUBLIC_IP_02  = google_compute_address.worker02_external_address.address
         WORKER_PRIVATE_IP_02 = google_compute_address.worker02_internal_address.address
     })
@@ -60,7 +69,7 @@ resource "google_compute_instance" "kubemaster01" {
     }
   }
 
-	  provisioner "file" {
+  provisioner "file" {
     source      = "../conf/argocd-nodePort.yml"
     destination = "/home/${var.username}/argocd-nodePort.yml"
 

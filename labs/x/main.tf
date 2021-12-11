@@ -19,4 +19,9 @@ output "names" {
   value = google_compute_instance.kubemaster01.name
 }
 
+output "nodes" {
+	value = local.cluster_nodes
+
+}
+
 

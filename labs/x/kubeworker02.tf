@@ -38,11 +38,16 @@ resource "google_compute_instance" "kubeworker02" {
     user-data = templatefile("../conf/template_rke.sh",
       {
         username             = var.username
-        NODE_PUBLIC_IP       = google_compute_address.worker01_external_address.address
-        MASTER_PUBLIC_IP_01  = google_compute_address.worker01_external_address.address
-        MASTER_PRIVATE_IP_01 = google_compute_address.worker01_internal_address.address
+				NODE_NAME            = var.worker02_name
+				CLUSTER_NODES 			 = local.cluster_nodes
+        NODE_PUBLIC_IP       = google_compute_address.worker02_external_address.address
+
+        MASTER_PUBLIC_IP_01  = google_compute_address.master01_external_address.address
+        MASTER_PRIVATE_IP_01 = google_compute_address.master01_internal_address.address
+
         WORKER_PUBLIC_IP_01  = google_compute_address.worker01_external_address.address
         WORKER_PRIVATE_IP_01 = google_compute_address.worker01_internal_address.address
+				
         WORKER_PUBLIC_IP_02  = google_compute_address.worker02_external_address.address
         WORKER_PRIVATE_IP_02 = google_compute_address.worker02_internal_address.address
     })
