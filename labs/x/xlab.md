@@ -75,6 +75,9 @@ Agregar al ingress, los datos del certificado:
     - www.kube-apps.tk
     secretName: kube-apps-tk-tls
 ```
+
+### Pull-Request
+> hacer pull request a los cambios
 ### Comprobar certificados
 ```vim
 kubectl describe ingress -n ci in-web | grep Events -A10
