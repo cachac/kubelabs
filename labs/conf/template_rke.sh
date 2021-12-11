@@ -4,6 +4,8 @@ date +%z
 date '+%Y/%m/%d %H:%M:%S %z' > /home/${username}/ilog
 START_TIME=$SECONDS
 echo "Storylabs.dev - Terraform + Kubernetes Full Demo..." >> /home/${username}/ilog
+echo "*** ${NODE_NAME} [${ROLE}] ***" >> /home/${username}/ilog
+
 export DEBIAN_FRONTEND=noninteractive
 
 #

@@ -122,6 +122,7 @@ resource "google_compute_instance" "kubemaster01" {
 			cp ~/.kube/config ~/.kube/config.bak
 			rsync -Pav -e "ssh -i ~/Documents/code/dockerlabs/labs/keys/prod/dockerlabkey -o StrictHostKeyChecking=no" ${var.username}@${google_compute_instance.kubemaster01.network_interface.0.access_config.0.nat_ip}:/home/${var.username}/.kube/config ~/.kube/config
 			echo "ArgoCD temporal pass:"
+			sleep 15
 			kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
 		EOT
   }
