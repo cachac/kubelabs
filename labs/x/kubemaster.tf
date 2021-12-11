@@ -46,11 +46,11 @@ resource "google_compute_instance" "kubemaster01" {
         NODE_NAME = var.worker02_name
         ROLE      = "master"
         CLUSTER_NODES = join(" ", [
-					google_compute_address.master01_external_address.address,
-					google_compute_address.worker01_external_address.address,
-					google_compute_address.worker02_external_address.address
-				])
-				
+          google_compute_address.master01_external_address.address,
+          google_compute_address.worker01_external_address.address,
+          google_compute_address.worker02_external_address.address
+        ])
+
         NODE_PUBLIC_IP = google_compute_address.master01_external_address.address
 
         MASTER_PUBLIC_IP_01  = google_compute_address.master01_external_address.address
@@ -126,5 +126,3 @@ resource "google_compute_instance" "kubemaster01" {
 		EOT
   }
 }
-
-
