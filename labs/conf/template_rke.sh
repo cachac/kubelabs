@@ -70,7 +70,7 @@ for node in ${CLUSTER_NODES}
 do
 	echo "$node" >> /home/${username}/ilog
 	i="0"
-	while [ $i -lt 600 ]
+	while [ $i -lt 50 ]
 	do
 		if ! ping -c 1 $node &> /dev/null
 		then
@@ -85,14 +85,8 @@ do
 	# share keys
 	if ping -c 1 $node &> /dev/null
 	then
-		# ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node
-		# runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node"
-		ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node >> /home/${username}/ilog
-		runuser -l ${username} -c "
-			sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node
-			ssh ${username}@$node "
-				sudo ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP}
-				sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP}	"" >> /home/${username}/ilog
+		runuser -l ${username} -c "ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node"
+		runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node"
 
 		echo "$node SSH ok" >> /home/${username}/ilog
 	else
@@ -101,96 +95,106 @@ do
 done
 
 # si es un nodo master continua, si es un nodo worker termina.
-if ${ROLE} == "worker"
-then
+if [ "worker" = "$ROLE" ]; then
 	echo "Worker node, exiting..." >> /home/${username}/ilog
 	echo "*** FIN ***" >> /home/${username}/ilog
 	date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
 	ELAPSED_TIME=$(($SECONDS - $START_TIME))
 	echo "$(($ELAPSED_TIME/60)) min $(($ELAPSED_TIME%60)) sec" >> /home/${username}/ilog
+	exit 0
+else
+	echo "is Master, running Kubernetes..." >> /home/${username}/ilog
 fi
 
-# # kubectl
-# if ! command -v kubectl &> /dev/null
-# then
-#     sudo apt-get update && sudo apt-get install -y apt-transport-https
-# 		curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-# 		echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-# 		sudo apt-get update
-# 		sudo apt-get install -y kubectl
-# 		#
-# 		echo "[ -f ~/.kubectl_aliases ] && source <(cat ~/.kubectl_aliases | sed -r 's/(kubectl.*) --watch/watch \1/g')" >> /home/${username}/.bashrc
-# 		echo 'function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }' >> /home/${username}/.bashrc
-# 		echo "source <(kubectl completion bash)" >> /home/${username}/.bashrc
-# 		runuser -l ${username} -c  'complete -F __start_kubectl k'
+# kubectl
+if ! command -v kubectl &> /dev/null
+then
+    sudo apt-get update && sudo apt-get install -y apt-transport-https
+		curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+		echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+		sudo apt-get update
+		sudo apt-get install -y kubectl
+		#
+		echo "[ -f ~/.kubectl_aliases ] && source <(cat ~/.kubectl_aliases | sed -r 's/(kubectl.*) --watch/watch \1/g')" >> /home/${username}/.bashrc
+		echo 'function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }' >> /home/${username}/.bashrc
+		echo "source <(kubectl completion bash)" >> /home/${username}/.bashrc
+		runuser -l ${username} -c  'complete -F __start_kubectl k'
 
-# 		echo 'Kubectl installed!' >> /home/${username}/ilog
-# else echo 'Kubectl already installed!' >> /home/${username}/ilog
-# fi
+		echo 'Kubectl installed!' >> /home/${username}/ilog
+else echo 'Kubectl already installed!' >> /home/${username}/ilog
+fi
 
-# #
-# # rke config
-# #
+#
+# rke config
+#
 
-# # RKE manual installation
-# wget https://github.com/rancher/rke/releases/download/v1.2.9/rke_linux-amd64
-# chmod +x rke_linux-amd64
-# cp rke_linux-amd64 /usr/local/bin/rke
+# RKE manual installation
+wget https://github.com/rancher/rke/releases/download/v1.2.9/rke_linux-amd64
+chmod +x rke_linux-amd64
+cp rke_linux-amd64 /usr/local/bin/rke
 # which rke
-
-# # master node
-# sudo sed -i "s/MASTER_PUBLIC_IP_01/${MASTER_PUBLIC_IP_01}/g" /home/${username}/rke-cluster.yml
-# sudo sed -i "s/MASTER_PRIVATE_IP_01/${MASTER_PRIVATE_IP_01}/g" /home/${username}/rke-cluster.yml
-# sudo sed -i "s/USERNAME/${username}/g" /home/${username}/rke-cluster.yml
-# # worker nodes
-# sudo sed -i "s/WORKER_PUBLIC_IP_01/${WORKER_PUBLIC_IP_01}/g" /home/${username}/rke-cluster.yml
-# sudo sed -i "s/WORKER_PRIVATE_IP_01/${WORKER_PRIVATE_IP_01}/g" /home/${username}/rke-cluster.yml
-# sudo sed -i "s/WORKER_PUBLIC_IP_02/${WORKER_PUBLIC_IP_02}/g" /home/${username}/rke-cluster.yml
-# sudo sed -i "s/WORKER_PRIVATE_IP_02/${WORKER_PRIVATE_IP_02}/g" /home/${username}/rke-cluster.yml
-
-# #
-# # launch rke
-# #
-# runuser -l ${username} -c "rke up --config /home/${username}/rke-cluster.yml" > /home/${username}/rke_log
-# sleep 60
-
-# mkdir /home/${username}/.kube
-# cp /home/${username}/kube_config_rke-cluster.yml /home/${username}/.kube/config
-# sudo chown -R ${username}:${username} /home/${username}/.kube
-
-# #
-# # tools
-# #
-
-# # kustomize
-# sudo snap install kustomize
-
-# # argocd
-# runuser -l ${username} -c "kubectl create namespace argocd"
-# runuser -l ${username} -c "kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
-# runuser -l ${username} -c "kubectl apply -f /home/${username}/argocd-nodePort.yml"
-
-# # helm
-# # sudo snap install helm --classic
-# runuser -l ${username} -c "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
-# runuser -l ${username} -c "chmod 700 get_helm.sh"
-# runuser -l ${username} -c "./get_helm.sh"
-# runuser -l ${username} -c "helm repo add bitnami https://charts.bitnami.com/bitnami"
-
-# # cert-manager
-# runuser -l ${username} -c "kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.yaml"
-
-# # metalLB - no es necesario en esta versión
-# # runuser -l ${username} -c "kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml"
-# # runuser -l ${username} -c "kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml"
+echo 'RKE installed!' >> /home/${username}/ilog
 
 
-# # lets encrypt
+# master node
+sudo sed -i "s/MASTER_PUBLIC_IP_01/${MASTER_PUBLIC_IP_01}/g" /home/${username}/rke-cluster.yml
+sudo sed -i "s/MASTER_PRIVATE_IP_01/${MASTER_PRIVATE_IP_01}/g" /home/${username}/rke-cluster.yml
+sudo sed -i "s/USERNAME/${username}/g" /home/${username}/rke-cluster.yml
+# worker nodes
+sudo sed -i "s/WORKER_PUBLIC_IP_01/${WORKER_PUBLIC_IP_01}/g" /home/${username}/rke-cluster.yml
+sudo sed -i "s/WORKER_PRIVATE_IP_01/${WORKER_PRIVATE_IP_01}/g" /home/${username}/rke-cluster.yml
+sudo sed -i "s/WORKER_PUBLIC_IP_02/${WORKER_PUBLIC_IP_02}/g" /home/${username}/rke-cluster.yml
+sudo sed -i "s/WORKER_PRIVATE_IP_02/${WORKER_PRIVATE_IP_02}/g" /home/${username}/rke-cluster.yml
+
+#
+# launch rke
+#
+runuser -l ${username} -c "rke up --config /home/${username}/rke-cluster.yml" > /home/${username}/rke_log
+sleep 60
+echo 'RKE launched!!!' >> /home/${username}/ilog
+
+mkdir /home/${username}/.kube
+cp /home/${username}/kube_config_rke-cluster.yml /home/${username}/.kube/config
+sudo chown -R ${username}:${username} /home/${username}/.kube
+
+#
+# tools
+#
+
+# kustomize
+sudo snap install kustomize
+echo 'Kustomize installed!' >> /home/${username}/ilog
+
+
+# argocd
+runuser -l ${username} -c "kubectl create namespace argocd"
+runuser -l ${username} -c "kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
+runuser -l ${username} -c "kubectl apply -f /home/${username}/argocd-nodePort.yml"
+echo 'ArgoCD installed!' >> /home/${username}/ilog
+
+# helm
+# sudo snap install helm --classic
+runuser -l ${username} -c "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
+runuser -l ${username} -c "chmod 700 get_helm.sh"
+runuser -l ${username} -c "./get_helm.sh"
+runuser -l ${username} -c "helm repo add bitnami https://charts.bitnami.com/bitnami"
+echo 'Helm installed!' >> /home/${username}/ilog
+
+# cert-manager
+runuser -l ${username} -c "kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.yaml"
+echo 'Cert-Manager installed!' >> /home/${username}/ilog
+
+# metalLB - no es necesario en esta versión, se utiliza el DNS de la nube, e ingress de kubernetes
+# runuser -l ${username} -c "kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml"
+# runuser -l ${username} -c "kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml"
+
+
+# lets encrypt
 
 
 
-# # Taint master nodes
-# # kubectl taint nodes  kubemaster01 node-role.kubernetes.io/master=true:NoSchedule
+# Taint master nodes
+# kubectl taint nodes  kubemaster01 node-role.kubernetes.io/master=true:NoSchedule
 
 
 echo "*** FIN ***" >> /home/${username}/ilog
