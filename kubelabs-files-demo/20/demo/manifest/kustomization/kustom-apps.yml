@@ -166,6 +166,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
   labels:
     app: kustom-apps
@@ -197,3 +199,8 @@ spec:
               number: 80
         path: /
         pathType: Prefix
+  tls:
+  - hosts:
+    - kube-apps.tk
+    - www.kube-apps.tk
+    secretName: kube-apps-tk-tls
