@@ -2,21 +2,19 @@
 
 ## Previo, crear ssh keys <!-- omit in TOC -->
 
-## 1. Init
+## 0.1. Init
 ```vim
-  depends_on = [google_compute_firewall.k3s_fw_allowall]
-
 terraform init
 terraform plan --auto-approve
 terraform apply --auto-approve
 ```
 
-## 2. Comprobar conexión con nodos
+## 0.2. Comprobar conexión con nodos
 ```vim
 kubectl get nodes -o wide
 ```
 
-## 3. Ingresar a ArgoCD
+## 0.3. Ingresar a ArgoCD
 
 ```vim
 # Pass:
@@ -25,28 +23,17 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 kubemaster01.kubelabs.tk:30088
 ```
 
-## Ejecutar CI/CD
+## 0.4. Ejecutar CI/CD
 > [20.CICD.md](./../../20.CICD.md)
 > Punto 5. Opcional. Demo 3Tier app
 
-## SSL / TLS
+## 0.5. SSL / TLS
 
-### limpiar certificados antiguos
-```vim
-kubectl delete letsencrypt-staging
-kubectl delete letsencrypt-prod
-kubectl delete issuers.cert-manager.io letsencrypt-staging
-kubectl delete issuers.cert-manager.io letsencrypt-prod
-```
+### 0.5.2. Let's Encrypt
+[production_clusterIssuer.yml](../../kubelabs-files-demo/20/demo/manifest/clusterIssuer/production_clusterIssuer.yml)
+[staging_clusterIssuer.yml](../../kubelabs-files-demo/20/demo/manifest/clusterIssuer/staging_clusterIssuer.yml)
 
-### Let's Encrypt
-[production_clusterIssuer.yaml](../../kubelabs-files-demo/20/demo/manifest/clusterIssuer/production_clusterIssuer.yaml)
-[staging_clusterIssuer.yaml](../../kubelabs-files-demo/20/demo/manifest/clusterIssuer/staging_clusterIssuer.yaml)
-```vim
-kubectl apply -f kubelabs-files-demo/20/demo/manifest/clusterIssuer/production_clusterIssuer.yaml
-kubectl apply -f kubelabs-files-demo/20/demo/manifest/clusterIssuer/staging_clusterIssuer.yaml
-```
-### Comprobar los ***clusterIssuer***
+### 0.5.3. Comprobar los ***clusterIssuer***
 ```vim
 kubectl get clusterIssuer
 kubectl describe clusterissuer.cert-manager.io/letsencrypt-prod
@@ -59,7 +46,7 @@ Reason:                ACMEAccountRegistered
 Status:                True
 ```
 
-### Agregar ingress con solicitud del certificado
+### 0.5.4. Agregar ingress con solicitud del certificado
 [web-ingress.yml](./../../kubelabs-files-demo/20/demo/manifest/web-ingress.yml)
 Agregar al ingress, los datos del certificado:
 ```yaml
@@ -76,9 +63,9 @@ Agregar al ingress, los datos del certificado:
     secretName: kube-apps-tk-tls
 ```
 
-### Pull-Request
+### 0.5.5. Pull-Request
 > hacer pull request a los cambios
-### Comprobar certificados
+### 0.5.6. Comprobar certificados
 ```vim
 kubectl describe ingress -n ci in-web | grep Events -A10
 ```
@@ -119,15 +106,17 @@ Resultado:
 NAME                  TYPE                                  DATA   AGE
 kube-apps-tk-tls      kubernetes.io/tls                     2      12m
 ```
-
-
-
-# check certs:
-kubectl describe issuer letsencrypt-staging
-# challenge
-kubectl describe challenge | grep State
-###  trouble: cert logs
+```vim
+kubectl describe challenge | grep State -n ci
+```
+###  2.0.1. Opcional trouble: cert logs
 kubectl logs -n cert-manager deploy/cert-manager -f
 
-
+### 0.5.1. Opcional limpiar certificados antiguos
+```vim
+kubectl delete letsencrypt-staging
+kubectl delete letsencrypt-prod
+kubectl delete issuers.cert-manager.io letsencrypt-staging
+kubectl delete issuers.cert-manager.io letsencrypt-prod
+```
 

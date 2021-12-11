@@ -16,3 +16,5 @@ resources:
 - web-deploy.yml
 - web-ingress.yml
 - web-svc.yml
+- clusterIssuer/production_clusterIssuer.yml
+- clusterIssuer/staging_clusterIssuer.yml
