@@ -1,7 +1,7 @@
 resource "google_compute_instance" "kubeworker02" {
   name         = var.worker02_name
   machine_type = var.machine_type
-  zone         = var.gcp_zone_a
+  zone         = var.gcp_zone_b
   tags         = ["kubelabs"]
   labels = merge({
     name = var.subdomain
