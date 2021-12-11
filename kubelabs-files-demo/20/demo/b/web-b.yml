@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: deploy-web-b
 spec:
-  replicas: 4
+  replicas: 2
   selector:
     matchLabels:
       app: web-b

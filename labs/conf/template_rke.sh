@@ -90,6 +90,10 @@ do
 		runuser -l ${username} -c "ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R $node"
 		runuser -l ${username} -c "sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@$node"
 
+
+		# TODO: para recuperar un nodo se debe conectar a los nodos remotos y cambiar su propia llave ssh:
+		# runuser -l ${username} -c "ssh ${username}@$node "sudo ssh-keygen -f "/home/${username}/.ssh/known_hosts" -R ${NODE_PUBLIC_IP} && sshpass -p 'password' ssh-copy-id -i /home/${username}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no ${username}@${NODE_PUBLIC_IP} "" >> /home/${username}/ilog
+
 		echo "$node SSH ok" >> /home/${username}/ilog
 	else
 		echo "$node offline!!" >> /home/${username}/ilog
@@ -97,7 +101,7 @@ do
 done
 
 # si es un nodo master continua, si es un nodo worker termina.
-if [ "worker" = "$ROLE" ]; then
+if [ "worker" = "${ROLE}" ]; then
 	echo "Worker node, exiting..." >> /home/${username}/ilog
 	echo "*** FIN ***" >> /home/${username}/ilog
 	date '+%Y/%m/%d %H:%M:%S %z' >> /home/${username}/ilog
@@ -105,7 +109,7 @@ if [ "worker" = "$ROLE" ]; then
 	echo "$(($ELAPSED_TIME/60)) min $(($ELAPSED_TIME%60)) sec" >> /home/${username}/ilog
 	exit 0
 else
-	echo "is Master, running Kubernetes..." >> /home/${username}/ilog
+	echo "is Master, installing Kubernetes Cluster..." >> /home/${username}/ilog
 fi
 
 # kubectl
