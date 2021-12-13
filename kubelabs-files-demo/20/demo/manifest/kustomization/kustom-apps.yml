@@ -202,7 +202,6 @@ spec:
   tls:
   - hosts:
     - api.kube-apps.tk
-    - www.api.kube-apps.tk
     secretName: api-kube-apps-tk-tls
 ---
 apiVersion: networking.k8s.io/v1
