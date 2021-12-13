@@ -12,7 +12,7 @@ spec:
         nodeSelectorTerms:
           - matchExpressions:
               - key: size
-                operator: NotIn # cambiar el operador para cumplir con el Label del nodo
+                operator: NotIn # cambiar el operador para cumplir con el Label del nodo. operator = In
                 values:
                   - X
                   - XL
