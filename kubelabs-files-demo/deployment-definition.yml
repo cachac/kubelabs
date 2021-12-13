@@ -14,7 +14,7 @@ spec:
     metadata:
       name: myapp-pod
       labels:
-        app: myapp
+        app: mywebsite
         type: frontend
 
     spec:
