@@ -99,7 +99,7 @@ spec:
       name: pod-web
     spec:
       containers:
-      - image: cachac/kube_webapp_ci:v1.0.1
+      - image: cachac/kube_webapp_ci:v1.0.0
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
