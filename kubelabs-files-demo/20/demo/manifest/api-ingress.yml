@@ -4,6 +4,9 @@ metadata:
   name: in-api
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+    # cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   defaultBackend:
     service:
@@ -31,3 +34,8 @@ spec:
             name: svc-api
             port:
               number: 3000
+  tls:
+    - hosts:
+      - api.kube-apps.tk
+      - www.api.kube-apps.tk
+      secretName: api-kube-apps-tk-tls
