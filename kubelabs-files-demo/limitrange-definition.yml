@@ -1,4 +1,4 @@
-# LimitRange for Pod or Container
+# LimitRange en cada Contenedor
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -7,18 +7,18 @@ metadata:
 spec:
   limits:
     - type: Container
-      default: # limite por defecto para todos los con
-        cpu: 100m
-        memory: 512Mi # request por defecto para toso los contenedores
-      defaultRequest:
+      default: # limite por defecto para todos los contenedores  cuando no se indica en el manifiesto.
+        cpu: 200m
+        memory: 512Mi
+      defaultRequest: # request por defecto para todos los contenedores cuando no se indica en el manifiesto.
         cpu: 100m
         memory: 256Mi
       max: # limit máximo para los contenedores con rangos en su definicion
-        cpu: 200m
-        memory: 512Mi
-      min: # request máximo para los contenedores con rangos en su definicion
+        cpu: 500m
+        memory: 1024Mi
+      min: # request mínimo para los contenedores con rangos en su definicion
         cpu: 100m
-        memory: 256Mi
+        memory: 100Mi
 ---
 # LimitRange for PersistentVolumeClaim
 apiVersion: v1

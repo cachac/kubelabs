@@ -1,3 +1,4 @@
+# Cuota definida en todo el NS
 apiVersion: v1
 kind: ResourceQuota
 metadata:
