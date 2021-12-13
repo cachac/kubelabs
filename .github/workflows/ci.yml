@@ -2,11 +2,11 @@ name: "release > build > push"
 on:
   push:
     branches:
-      - main-disable
+      - main
 
 env:
   IMAGE_NAME: kube_webapp_ci
-  VERSION: v1.0.0
+  VERSION: v1.0.1
   RELEASE: "Dev"
 
 jobs:
