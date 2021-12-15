@@ -6,7 +6,7 @@ on:
 
 env:
   IMAGE_NAME: kube_webapp_ci
-  VERSION: v1.0.0
+  VERSION: v2.0.0
   RELEASE: "Dev"
 
 jobs:
