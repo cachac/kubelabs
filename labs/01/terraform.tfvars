@@ -46,7 +46,7 @@ fw_name      = "fw-kubelabs"
 
 
 default_tags = {
-  team = "cenfotec"
+  team = "storylabs"
   user = "kubelab"
   env  = "dev"
 }
