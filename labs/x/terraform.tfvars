@@ -3,7 +3,7 @@ ssh_pub_key = "../keys/prod/kubelabkey.pub"
 ssh_key = "../keys/prod/kubelabkey"
 
 # Project to deploy resources into
-gcp_project = "dockerlabs-332203"
+gcp_project = "sacred-vigil-334014"
 
 # GCP region for all resources
 gcp_region = "us-east1"

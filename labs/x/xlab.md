@@ -5,7 +5,7 @@
 ## 0.1. Init
 ```vim
 terraform init
-terraform plan --auto-approve
+terraform plan
 terraform apply --auto-approve
 ```
 

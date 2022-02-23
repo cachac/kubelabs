@@ -6,6 +6,10 @@
 #   labels = {
 #     env = "dev"
 #   }
+
+#   lifecycle {
+#     prevent_destroy = true
+#   }
 # }
 
 # control plane
