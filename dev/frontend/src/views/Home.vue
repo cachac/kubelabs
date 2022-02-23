@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img height="80px" width="150px" alt="Kubelabs logo" src="../assets/kolbi.png" />
+    <img alt="Kubelabs logo" src="../assets/kolbi.png" />
     <h1>Kube-Labs - v{{ appVersion }}</h1>
     <arch align="center"></arch>
     <p>
@@ -29,6 +29,8 @@ export default {
 <style scoped>
 img {
   padding: 5px;
-  width: 250px;
+  /* width: 250px; */
+  width: 150px;
+  height: auto;
 }
 </style>
