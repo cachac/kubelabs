@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img height="80%" alt="Kubelabs logo" src="../assets/kolbi.png" />
+    <img height="80px" width="150px" alt="Kubelabs logo" src="../assets/kolbi.png" />
     <h1>Kube-Labs - v{{ appVersion }}</h1>
     <arch align="center"></arch>
     <p>
