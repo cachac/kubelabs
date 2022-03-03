@@ -1,9 +1,11 @@
 #!/bin/bash -x
 
+sudo usermod -a -G microk8s kube
+newgrp microk8s
+
 mkdir .kube
 microk8s kubectl config view --raw > ~/.kube/config
-sudo usermod -a -G microk8s kubelab
-sudo chown -f -R kubelab ~/.kube
+sudo chown -f -R kube ~/.kube
 
 # instalar kubectl
 sudo snap install kubectl --classic
@@ -21,10 +23,6 @@ echo 'function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }' >> .ba
 echo "source <(kubectl completion bash)" >> .bashrc
 complete -F __start_kubectl k
 
-# permisos
-sudo usermod -a -G microk8s kubelab
-sudo chown -f -R kubelab ~/.kube
-newgrp microk8s
 
 # probar instalación
 kubectl get nodes
