@@ -1,5 +1,5 @@
 # KUBELABS <!-- omit in TOC -->
-*Carlos Chacón Calvo. Actualización: Diciembre 2021.*
+*Carlos Chacón Calvo. Actualización: Marzo 2022.*
 
 Este proyecto contiene la guía de laboratorio para el desarrollo del curso KubeLabs. <!-- omit in TOC -->
 
