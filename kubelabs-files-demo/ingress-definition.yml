@@ -81,7 +81,7 @@ spec:
       volumes:
         - name: static-vol
           hostPath:
-            path: /home/kubelab/kubelabs/kubelabs-files-demo/15
+            path: /home/kube/kubelabs/kubelabs-files-demo/15
 
 
 
