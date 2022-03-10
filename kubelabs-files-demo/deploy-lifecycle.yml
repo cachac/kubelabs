@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: deploy-lifecycle
 spec:
-  replicas: 4
+  replicas: 2
   strategy:
     # type: Recreate
     type: RollingUpdate
