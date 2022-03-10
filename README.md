@@ -19,7 +19,7 @@ Tabla de contenido:
 ## 11. [Labels & Selectors](./11.Labels-Selectors.md)
 ## 12. [Taint & Tolerations](./12.Taint-Tolerations.md)
 ## 13. [Node Selectors & Node Affinity](./13.Node_Selectors-Node_Affinity.md)
-## 14. [Storage](./14.Storage.md)
+## 14. [Storage](./12.Storage.md)
 ## 15. [Networking](./15.Networking.md)
 ## 16. [Lifecycle](./16.Lifecycle.md)
 ## 17. [StatefulSet](./17.StatefulSet.md)

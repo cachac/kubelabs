@@ -13,6 +13,7 @@ spec:
       volumeMounts:
         - name: static-vol
           mountPath: /usr/share/nginx/html/ # destino dentro del Pod
+          readOnly: true
   volumes:
     - name: static-vol
       hostPath:
