@@ -15,17 +15,16 @@ Tabla de contenido:
 ## 08. [Namespaces](./08.Namespaces.md)
 ## 09. [Práctica](./09.Practica.md)
 ## 10. [Cuotas y límites](./09.Cuotas-Limites.md)
-## 10. [Servicios](./10.Servicios.md)
-## 11. [Labels & Selectors](./11.Labels-Selectors.md)
-## 12. [Taint & Tolerations](./12.Taint-Tolerations.md)
-## 13. [Node Selectors & Node Affinity](./13.Node_Selectors-Node_Affinity.md)
-## 14. [Storage](./12.Storage.md)
-## 15. [Networking](./15.Networking.md)
-## 16. [Lifecycle](./16.Lifecycle.md)
-## 17. [StatefulSet](./17.StatefulSet.md)
-## 18. [Full Demo](./18.Full_Demo.md)
-## 19. [Apps](./19.Apps.md)
-## 20. [CI/CD](./20.CICD.md)
-## 21. [Parte II](./21.ParteII.md)
+## 11. [Apps](./16.Apps.md)
+
+## 12. [Servicios](./10.Servicios.md)
+## 13. [Storage](./12.Storage.md)
+## 14. [Networking](./13.Networking.md)
+
+
+## 15. [Lifecycle](./14.Lifecycle.md)
+## 16. [Práctica](./15.Practica2.md)
+
+## 17. [Parte II](./21.ParteII.md)
 
 
