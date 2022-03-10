@@ -10,8 +10,8 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain # delete
   nfs:
-    server: lab1.dockerlabs.tk # dominio o ip del servidor nfs
-    path: /srv/nfs/mydata # path servidor
+    server: <nfs-server>.kubelabs.tk   # dominio o ip del servidor nfs
+    path: /srv/nfs/mydata/## # path servidor
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
