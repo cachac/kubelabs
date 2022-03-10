@@ -17,7 +17,7 @@ spec:
   volumes:
     - name: static-vol
       hostPath:
-        # el PATH debe existir en el WORKER NODE
+        # el PATH debe existir en el WORKER NODE, no en el Bastion o Maquina local.
         # evitar este tipo de Storage y sustituir por algún tipo de Storage fuera del Worker Node.        #
         path: /home/kube/kubelabs/kubelabs-files-demo/12
 ---

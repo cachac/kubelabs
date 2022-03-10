@@ -10,7 +10,7 @@ spec:
   capacity:
     storage: 100Mi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteMany # N Nodos, N Pods
   persistentVolumeReclaimPolicy: Retain # delete
   hostPath:
     path: /logs/
