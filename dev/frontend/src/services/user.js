@@ -60,8 +60,9 @@ export default {
         localStorage.setItem(
           "sf-session-first",
           // eslint-disable-next-line prettier/prettier
-          `Bienvenido a ICE Cloud ${result.data.data.User.login
-            .fullname || ""}`
+          `Bienvenido a Kubelabs Cloud ${
+            result.data.data.User.login.fullname || ""
+          }`
         );
         return Promise.resolve(result.data.data.User.login);
       }),

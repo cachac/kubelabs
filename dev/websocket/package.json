@@ -1,0 +1,221 @@
+{
+  "name": "icecloud-api",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "rm -rf ./dist && mkdir dist && babel ./src --out-dir dist",
+    "start": "node dist/main.js",
+    "dist": "rm -rf dist/ && npm run build && npm start",
+    "dev": "nodemon src/main.js --exec babel-node",
+    "serve": "nodemon dist/main.js",
+    "lint": "eslint .",
+    "install:clean": "rm -rf node_modules/ && rm -rf dist/ && rm -rf package-lock.json && npm install && npm run dev",
+    "lint:fix": "eslint . --fix",
+    "test": "babel-node src/api/testing/data.js"
+  },
+  "author": "Carlos Chacón Calvo, Storylabs",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/polyfill": "^7.11.5",
+    "@babel/runtime": "^7.11.2",
+    "apollo-link": "^1.2.14",
+    "apollo-link-http": "^1.5.17",
+    "apollo-server-express": "^2.25.0",
+    "app-root-path": "^3.0.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "fs": "0.0.1-security",
+    "graphql": "^14.6.0",
+    "graphql-iso-date": "^3.6.1",
+    "graphql-subscriptions": "^1.2.1",
+    "graphql-tag": "^2.11.0",
+    "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.10",
+    "mongoose": "^5.13.2",
+    "mongoose-unique-validator": "^2.0.3",
+    "node-fetch": "^2.6.1",
+    "path": "^0.12.7",
+    "qs": "^6.9.4",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-arrow-functions": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.8.7",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.1"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "regenerator": true
+        }
+      ]
+    ],
+    "env": {
+      "debug": {
+        "sourceMaps": "inline",
+        "retainLines": true
+      }
+    }
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "endOfLine": "lf",
+    "arrowParens": "avoid",
+    "htmlWhitespaceSensitivity": "css",
+    "insertPragma": false,
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": false,
+    "proseWrap": "preserve",
+    "quoteProps": "preserve",
+    "requirePragma": false,
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "useTabs": false,
+    "printWidth": 150
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "globals": {
+      "wp": "readonly",
+      "axios": "writable",
+      "$": "writable"
+    },
+    "extends": [
+      "airbnb-base",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint",
+      "sourceType": "module",
+      "ecmaVersion": 2020
+    },
+    "rules": {
+      "no-debugger": 1,
+      "no-alert": 1,
+      "space-before-function-paren": 0,
+      "import/prefer-default-export": 0,
+      "no-restricted-syntax": [
+        2,
+        "ForInStatement",
+        "LabeledStatement",
+        "WithStatement"
+      ],
+      "no-unused-vars": [
+        1,
+        {
+          "ignoreSiblings": true,
+          "argsIgnorePattern": "res|next|^err|item|_|__"
+        }
+      ],
+      "import": 0,
+      "no-shadow": [
+        2,
+        {
+          "hoist": "functions",
+          "allow": [
+            "resolve",
+            "reject",
+            "done",
+            "next",
+            "err",
+            "error",
+            "state",
+            "getters",
+            "index",
+            "*.resolvers.js"
+          ]
+        }
+      ],
+      "no-return-assign": [
+        2,
+        "except-parens"
+      ],
+      "arrow-parens": [
+        "error",
+        "as-needed"
+      ],
+      "no-param-reassign": [
+        1,
+        {
+          "props": false
+        }
+      ],
+      "arrow-body-style": [
+        2,
+        "as-needed"
+      ],
+      "no-unused-expressions": [
+        2,
+        {
+          "allowTaggedTemplates": true
+        }
+      ],
+      "comma-dangle": 0,
+      "max-len": 0,
+      "import/extensions": 0,
+      "no-underscore-dangle": 0,
+      "consistent-return": 0,
+      "no-useless-escape": "off",
+      "no-nested-ternary": 0,
+      "radix": 0,
+      "no-use-before-define": [
+        0,
+        {
+          "functions": false
+        }
+      ],
+      "prefer-const": [
+        1,
+        {
+          "destructuring": "all"
+        }
+      ],
+      "complexity": [
+        1,
+        22
+      ]
+    }
+  },
+  "eslintIgnore": [],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  }
+}

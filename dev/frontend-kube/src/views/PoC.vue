@@ -1,63 +1,14 @@
 <template>
   <div class="home">
-    <div v-if="$session.token">
-      <Tabs>
-        <TabItem name="API">
-          <list align="center"></list>
-        </TabItem>
-        <TabItem name="Arquitectura">
-          <arch align="center"></arch>
-        </TabItem>
-      </Tabs>
-    </div>
-    <div v-else>
-      <router-link to="/register">Registro</router-link>
-      <login></login>
-    </div>
-    <div class="token">
-      <p align="left">
-        App token:
-        {{ !!$session.token }}
-      </p>
-      <p align="left">
-        Username:
-        {{ user.username || "null" }}
-      </p>
-      <p align="left">
-        Pubsub:
-        {{ $connectionCheck.connection.APIState ? "Conectado!!!" : "Desconectado" }}
-      </p>
-      <p align="left">
-        App Version:
-        {{ appVersion }}
-      </p>
-      <p align="left">Image: cachac/kube_webapp</p>
-    </div>
+    <arch align="center"></arch>
   </div>
 </template>
 
 <script>
-import reactUser from "../components/user";
-import { version } from "../../package.json";
-import { Tabs, TabItem } from "vue-material-tabs";
-
 export default {
   name: "Home",
   components: {
-    login: () => import("../components/login.vue"),
-    list: () => import("../components/list.vue"),
     arch: () => import("../components/arch.vue"),
-    Tabs,
-    TabItem,
-  },
-  setup() {
-    const { user } = reactUser();
-    return { user };
-  },
-  computed: {
-    appVersion() {
-      return version;
-    },
   },
 };
 </script>
