@@ -18,6 +18,7 @@
     <br />
     <input type="button" class="button" value="Test" @click="test" />
     <br />
+    <br />
 
     ENV Variables:
     <p>{{ apiLink }}</p>
@@ -47,9 +48,9 @@ export default {
     publicApi() {
       return this.$store.state.userStore.publicApi;
     },
-		privateApi() {
-			return this.$store.state.userStore.privateApi;
-		},
+    privateApi() {
+      return this.$store.state.userStore.privateApi;
+    },
   },
   methods: {
     test() {
@@ -77,6 +78,6 @@ img {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-	cursor: pointer;
+  cursor: pointer;
 }
 </style>
