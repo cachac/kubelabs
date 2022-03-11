@@ -6,6 +6,7 @@
     "build": "vue-cli-service build --modern --mode production",
     "buildqa": "vue-cli-service build --modern --mode qa",
     "dev": "vue-cli-service serve",
+    "test": "vue-cli-service serve --mode qa",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev",
     "lint": "vue-cli-service lint"
   },

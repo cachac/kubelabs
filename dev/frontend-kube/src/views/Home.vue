@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Kubelabs logo" src="../assets/kubernetes.png" />
-    <h1>Kube-Labs - v{{ appVersion }}</h1>
+    <h1>Kubelabs - v{{ appVersion }}</h1>
     <br />
 
     <img v-if="webpage" src="../assets/ingress-webpage.png" style="object-fit: contain; width: 100px; height: 100px" />
