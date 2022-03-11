@@ -6,23 +6,18 @@ export const state = {
   privateApi: false,
 };
 export const mutations = {
-  PUBLIC(state, response) {
-    console.log("response mutation :>> ", response);
-
-    state.publicApi = response;
-  },
-  PRIVATE(state, response) {
-    state.privateApi = response;
-  },
+  PUBLIC: (state, response) => (state.publicApi = response),
+  PRIVATE: (state, response) => (state.privateApi = response),
 };
 export const actions = {
   checkPrivateApi: ({ commit }) =>
-    service.checkPrivateApi().then((response) => {
-      commit("PRIVATE", response);
-    }),
+    service
+      .checkPrivateApi()
+      .then((response) => commit("PRIVATE", response))
+      .catch(() => commit("PUBLIC", false)),
   checkPublicApi: ({ commit }) =>
-    service.checkPublicApi().then((response) => {
-      console.log("response action :>> ", response);
-      commit("PUBLIC", response);
-    }),
+    service
+      .checkPublicApi()
+      .then((response) => commit("PUBLIC", response))
+      .catch(() => commit("PUBLIC", false)),
 };

@@ -16,7 +16,8 @@
     <img v-if="privateApi" src="../assets/ingress-privateapi.png" style="object-fit: contain; width: 100px; height: 100px" />
     <img v-else src="../assets/ingress-privateapi-error.png" style="object-fit: contain; width: 100px; height: 100px" />
     <br />
-    <input type="button" class="button" value="Test" @click="test" />
+    <!-- <input type="button" class="button" value="Test" @click="test" /> -->
+    <button class="button" @click="test"><i :class="[isLoading ? 'fa fa-circle-o-notch fa-spin' : '']"></i> TEST</button>
     <br />
     <br />
 
@@ -36,6 +37,7 @@ export default {
   data() {
     return {
       appVersion: version,
+      isLoading: false,
       webpage: true,
       apiLink: process.env.VUE_APP_API,
       wsLink: process.env.VUE_APP_WS_URI,
@@ -52,10 +54,21 @@ export default {
       return this.$store.state.userStore.privateApi;
     },
   },
+  mounted() {
+    this.test();
+  },
   methods: {
     test() {
-      this.$store.dispatch("userStore/checkPublicApi");
-      this.$store.dispatch("userStore/checkPrivateApi");
+      this.isLoading = true;
+      this.$store
+        .dispatch("userStore/checkPublicApi")
+        .then(() =>
+          this.$store
+            .dispatch("userStore/checkPrivateApi")
+            .then(() => (this.isLoading = false))
+            .catch(() => (this.isLoading = false))
+        )
+        .catch(() => (this.isLoading = false));
     },
   },
 };
