@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: deploy-webpage
+  namespace: public
+  labels:
+    app: webpage
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: webpage
+  template:
+    metadata:
+      name: webpage
+      labels:
+        app: webpage
+    spec:
+      containers:
+      - name: webpage
+        image: cachac/kubelabs_webapp:1.1.2
+        ports:
+        - containerPort:  8080
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+        volumeMounts:
+            - name: config-volume
+              mountPath: /usr/share/nginx/html/config.js
+              subPath: config.js
+      volumes:
+      - name: config-volume
+        configMap:
+          name: cm-webpage
+        # env:
+        # - name: VUE_APP_API
+        #   value: http://localhost:3000/graphql
+        # - name: VUE_APP_WS_URI
+        #   value: ws://localhost:3001/graphql
+
+

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-webpage
+  namespace: public
+data:
+  config.js: |
+    var config = (() => {
+      return {
+        "VUE_APP_API": "http://localhost:3000/graphql",
+        "VUE_APP_WS_URI": "ws://localhost:3001/graphql",
+      };
+    })();

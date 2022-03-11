@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-webpage
+spec:
+  type: ClusterIP
+  selector:
+    app: webpage
+  ports:
+    - port: 80
+      targetPort: 8080
