@@ -2,11 +2,13 @@
 import { execute } from "apollo-link";
 import { WebSocketLink } from "apollo-link-ws";
 import { SubscriptionClient } from "subscriptions-transport-ws";
-import dotenv from "dotenv";
 
-dotenv.config();
+const wsUri =
+  process.env.NODE_ENV !== "development"
+    ? config.VUE_APP_WS_URI
+    : process.env.VUE_APP_WS_URI;
 
-const wsUri = process.env.VUE_APP_WS_URI;
+console.log("wsUri :>> ", wsUri);
 
 const wsClient = new SubscriptionClient(wsUri, {
   reconnect: true,

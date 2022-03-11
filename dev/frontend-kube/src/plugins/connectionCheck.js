@@ -3,10 +3,7 @@ import { execute } from "apollo-link";
 import { WebSocketLink } from "apollo-link-ws";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import gql from "graphql-tag";
-import dotenv from "dotenv";
 import { Session } from "./session";
-
-dotenv.config();
 
 const Connection = {
   APIState: false,
@@ -19,7 +16,12 @@ const Connection = {
   },
 };
 
-const wsUri = process.env.VUE_APP_WS_URI;
+const wsUri =
+  process.env.NODE_ENV !== "development"
+    ? config.VUE_APP_WS_URI
+    : process.env.VUE_APP_WS_URI;
+
+console.log("wsUri :>> ", wsUri);
 
 const authToken = () => {
   const userToken = Session.get();

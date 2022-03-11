@@ -3,19 +3,14 @@ import axios from "axios";
 import { print } from "graphql";
 import { Session } from "../plugins/session";
 
-console.log('process.env.NODE_ENV :>> ', process.env.NODE_ENV);
+console.log("process.env.NODE_ENV :>> ", process.env.NODE_ENV);
 
-const baseURL =
+const baseURL = () =>
   process.env.NODE_ENV !== "development"
     ? config.VUE_APP_API
     : process.env.VUE_APP_API;
 
-console.log("baseURL :>> ", baseURL);
-
-// const baseURL = () => process.env.VUE_APP_API;
-
-// console.log("baseURL() :>> ", baseURL());
-console.log("window.VUE_APP_API :>> ", window.VUE_APP_API);
+console.log("baseURL :>> ", baseURL());
 
 const apiClient = axios.create({
   baseURL, //: baseURL(),
