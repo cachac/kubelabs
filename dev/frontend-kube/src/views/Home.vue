@@ -53,8 +53,8 @@ export default {
   },
   methods: {
     test() {
-      this.$store.dispatch("userStore/checkPrivateApi");
       this.$store.dispatch("userStore/checkPublicApi");
+      this.$store.dispatch("userStore/checkPrivateApi");
     },
   },
 };

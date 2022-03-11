@@ -9,7 +9,8 @@ const {
   APP_NAME,
   NODE_ENV,
   TOKEN_LIMIT,
-  TOKEN_SECRET
+  TOKEN_SECRET,
+  PRIVATE_API
 } = JSON.parse(APP_ENV)
 
 console.log('Env vars (con proposito de pruebas) ', JSON.parse(APP_ENV))
@@ -20,5 +21,6 @@ export default {
   NODE_ENV,
   APP_VERSION: version,
   TOKEN_LIMIT,
-  TOKEN_SECRET
+  TOKEN_SECRET,
+  PRIVATE_API
 }

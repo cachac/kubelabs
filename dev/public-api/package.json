@@ -24,6 +24,7 @@
     "apollo-server-express": "^2.25.0",
     "app-root-path": "^3.0.0",
     "aws-sdk": "^2.978.0",
+    "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.1.0",
