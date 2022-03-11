@@ -12,6 +12,7 @@ export default {
     checkPrivateApi: async () => {
       let response = false
       try {
+        logger.info('Test ', response)
         logger.info('Request to Private API: ', config.PRIVATE_API)
         response = await axios.get(config.PRIVATE_API)
       } catch (error) {

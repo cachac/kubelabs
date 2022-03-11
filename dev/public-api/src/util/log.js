@@ -9,8 +9,8 @@ const options = {
     level: 'info',
     filename: `${appRoot}/logs/app.log`,
     handleExceptions: true,
-    maxsize: 9242880, // 9MB
-    maxFiles: 5,
+    maxsize: 10000,
+    maxFiles: 10,
     format: format.combine(format.json())
   },
   console: {
@@ -23,42 +23,42 @@ const options = {
     level: 'error',
     filename: `${appRoot}/logs/error.log`,
     handleExceptions: true,
-    maxsize: 5242880, // 5MB
-    maxFiles: 5,
+    maxsize: 10000,
+    maxFiles: 10,
     format: format.combine(format.json())
   }
 }
 
+// usado para log en pantalla
 const logFormat = format.printf(
   // eslint-disable-next-line no-shadow
   ({ level, message, timestamp, label, metadata }) =>
-    `${timestamp}  [${label}] [${level}] ${message}. ${
+    `${config.NODE_ENV === 'dev' ? timestamp : ''}  [${label}] [${level}] ${message}. ${
       Object.keys(metadata).length === 0 ? '' : `\n  metadata: ${JSON.stringify(metadata, null, 2)}`
     }`
 )
 
 export const logger = createLogger({
   format: combine(
-    format.label({ label: config.APP_NAME }),
+    format.label({ label: 'public-API' }),
     timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.metadata({ fillExcept: ['message', 'level', 'timestamp', 'label'] })
   ),
   transports: [new transports.File(options.info), new transports.File(options.error)],
-  exitOnError: false // do not exit on handled exceptions
+  exitOnError: false
 })
 
-if (config.NODE_ENV !== 'production') {
+if (config.NODE_ENV === 'dev')
   logger.add(
     new transports.Console({
       format: combine(format.label({ label: config.APP_NAME }), colorize(), timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), logFormat),
       ...options.console
     })
   )
-}
-// create a stream object with a 'write' function that will be used by `morgan`
-logger.stream = {
-  // eslint-disable-next-line no-unused-vars
-  write(message, _encoding) {
-    logger.info(message)
-  }
-}
+else
+  logger.add(
+    new transports.Console({
+      format: combine(format.label({ label: 'public-API' }), logFormat),
+      ...options.console
+    })
+  )
