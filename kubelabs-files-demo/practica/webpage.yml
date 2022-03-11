@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: webpage
-        image: cachac/kubelabs_webapp:1.1.2
+        image: cachac/kubelabs_webapp:1.1.5
         ports:
         - containerPort:  8080
         resources:
@@ -37,15 +37,11 @@ spec:
         volumeMounts:
             - name: config-volume
               mountPath: /usr/share/nginx/html/config.js
-              subPath: config.js
       volumes:
       - name: config-volume
-        configMap:
-          name: cm-webpage
-        # env:
-        # - name: VUE_APP_API
-        #   value: http://localhost:3000/graphql
-        # - name: VUE_APP_WS_URI
-        #   value: ws://localhost:3001/graphql
+        hostPath:
+          path: /home/kube/kubelabs/config.js
+          type: FileOrCreate
+
 
 
