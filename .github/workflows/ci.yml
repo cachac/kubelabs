@@ -2,7 +2,7 @@ name: "release > build > push"
 on:
   push:
     branches:
-      - main
+      - maingit clone https://github.com/cachac/kubelabs
 
 env:
   IMAGE_NAME: kube_webapp_ci

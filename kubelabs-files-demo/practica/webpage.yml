@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: webpage
-        image: cachac/kubelabs_webapp:1.1.5
+        image: cachac/kubelabs_webapp:1.1.6
         ports:
         - containerPort:  8080
         resources:
