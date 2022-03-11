@@ -6,7 +6,6 @@ import store from "./store";
 import VueCompositionAPI from "@vue/composition-api";
 import VueFormulate from "@braid/vue-formulate";
 import BeeGridTable from "beegridtable";
-import { Session } from "./plugins/session";
 import session from "./plugins/session";
 import "beegridtable/dist/styles/beegridtable.css";
 import connectionCheck from "./plugins/connectionCheck";

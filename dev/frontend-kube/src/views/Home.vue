@@ -39,8 +39,8 @@ export default {
       appVersion: version,
       isLoading: false,
       webpage: true,
-      apiLink: process.env.VUE_APP_API,
-      wsLink: process.env.VUE_APP_WS_URI,
+      apiLink: process.env.NODE_ENV !== "development" ? config.API : process.env.VUE_APP_API,
+      wsLink: process.env.NODE_ENV !== "development" ? config.WEBSOCKET : process.env.VUE_APP_WS_URI,
     };
   },
   computed: {

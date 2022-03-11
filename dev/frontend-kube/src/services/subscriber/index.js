@@ -5,7 +5,7 @@ import { SubscriptionClient } from "subscriptions-transport-ws";
 
 const wsUri =
   process.env.NODE_ENV !== "development"
-    ? config.VUE_APP_WS_URI
+    ? config.WEBSOCKET
     : process.env.VUE_APP_WS_URI;
 
 console.log("wsUri :>> ", wsUri);

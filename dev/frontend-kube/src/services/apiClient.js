@@ -7,7 +7,7 @@ console.log("process.env.NODE_ENV :>> ", process.env.NODE_ENV);
 
 const baseURL = () =>
   process.env.NODE_ENV !== "development"
-    ? config.VUE_APP_API
+    ? config.API
     : process.env.VUE_APP_API;
 
 console.log("baseURL :>> ", baseURL());
