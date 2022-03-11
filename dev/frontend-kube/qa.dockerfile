@@ -18,5 +18,5 @@ EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
 
-# docker build . -f qa.dockerfile -t cachac/kubelabs_webapp:latest
-# docker push cachac/kubelabs_webapp:latest
+# docker build . -f qa.dockerfile -t cachac/kubelabs_webapp:1.0.0
+# docker push cachac/kubelabs_webapp:1.0.0

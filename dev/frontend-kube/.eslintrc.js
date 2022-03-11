@@ -1,4 +1,7 @@
 module.exports = {
+  globals: {
+    config: "readable",
+  },
   root: true,
   env: {
     node: true,
