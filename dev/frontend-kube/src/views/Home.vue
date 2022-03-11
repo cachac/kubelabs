@@ -2,23 +2,23 @@
   <div class="home">
     <img alt="Kubelabs logo" src="../assets/kubernetes.png" />
     <h1>Kube-Labs - v{{ appVersion }}</h1>
+    <br />
 
-    <img v-if="test.webpage" src="../assets/ingress-webpage.png" style="object-fit: contain; width: 100px; height: 100px" />
+    <img v-if="webpage" src="../assets/ingress-webpage.png" style="object-fit: contain; width: 100px; height: 100px" />
     <img v-else src="../assets/ingress-webpage-error.png" style="object-fit: contain; width: 100px; height: 100px" />
 
     <img v-if="websocket" src="../assets/ingress-websocket.png" style="object-fit: contain; width: 100px; height: 100px" />
     <img v-else src="../assets/ingress-websocket-error.png" style="object-fit: contain; width: 100px; height: 100px" />
 
-    <img v-if="test.publicapi" src="../assets/ingress-publicapi.png" style="object-fit: contain; width: 100px; height: 100px" />
+    <img v-if="publicApi" src="../assets/ingress-publicapi.png" style="object-fit: contain; width: 100px; height: 100px" />
     <img v-else src="../assets/ingress-publicapi-error.png" style="object-fit: contain; width: 100px; height: 100px" />
 
-    <img v-if="test.privateapi" src="../assets/ingress-privateapi.png" style="object-fit: contain; width: 100px; height: 100px" />
+    <img v-if="privateApi" src="../assets/ingress-privateapi.png" style="object-fit: contain; width: 100px; height: 100px" />
     <img v-else src="../assets/ingress-privateapi-error.png" style="object-fit: contain; width: 100px; height: 100px" />
     <br />
-    <p>
-      Aplicación de propósito de <b>pruebas de concepto</b> en la nube. <br />
-      El objetivo es implementar una arquitectura de microservicios en Kubernetes
-    </p>
+    <input type="button" class="button" value="Test" @click="test" />
+    <br />
+
     ENV Variables:
     <p>{{ apiLink }}</p>
     {{ wsLink }}
@@ -35,18 +35,26 @@ export default {
   data() {
     return {
       appVersion: version,
+      webpage: true,
       apiLink: process.env.VUE_APP_API,
       wsLink: process.env.VUE_APP_WS_URI,
-      test: {
-        webpage: true,
-        publicapi: false,
-        privateapi: false,
-      },
     };
   },
   computed: {
     websocket() {
       return this.$connectionCheck.connection.APIState;
+    },
+    publicApi() {
+      return this.$store.state.userStore.publicApi;
+    },
+		privateApi() {
+			return this.$store.state.userStore.privateApi;
+		},
+  },
+  methods: {
+    test() {
+      this.$store.dispatch("userStore/checkPrivateApi");
+      this.$store.dispatch("userStore/checkPublicApi");
     },
   },
 };
@@ -58,5 +66,17 @@ img {
   /* width: 250px; */
   width: 150px;
   height: auto;
+}
+
+.button {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+	cursor: pointer;
 }
 </style>

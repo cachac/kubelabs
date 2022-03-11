@@ -15,12 +15,6 @@ const routes = [
     name: "Poc",
     component: () => import(/* webpackChunkName: "poc" */ "../views/PoC.vue"),
   },
-  {
-    path: "/register",
-    name: "Register",
-    component: () =>
-      import(/* webpackChunkName: "register" */ "../components/register.vue"),
-  },
 ];
 
 const router = new VueRouter({

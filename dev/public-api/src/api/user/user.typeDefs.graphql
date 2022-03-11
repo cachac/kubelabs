@@ -1,0 +1,8 @@
+extend type Query {
+  User: UserQuery
+}
+
+type UserQuery {
+  checkPrivateApi: Boolean
+  checkPublicApi: Boolean
+}
