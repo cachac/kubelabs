@@ -18,16 +18,8 @@ export const apolloServer = new ApolloServer({
 
   subscriptions: {
     onConnect: async connectionParams => {
-      if (connectionParams.authToken) {
-        const isValid = await context.verifyUser(connectionParams.authToken)
-
-        if (!isValid) throw new Error('Acción no permitida. Debes ingresar tus credenciales.')
-        else {
-          logger.info('> Kubelabs PubSub Connected')
-          return true
-        }
-      }
-      throw new Error('Missing auth token!')
+      logger.info('> Kubelabs PubSub Connected')
+      return true
     },
     onDisconnect: (/* webSocket, subsContext */) => {
       logger.info('> Kubelabs PubSub Disconnected')

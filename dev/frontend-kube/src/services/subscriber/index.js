@@ -8,19 +8,8 @@ dotenv.config();
 
 const wsUri = process.env.VUE_APP_WS_URI;
 
-const authToken = () => {
-  const userString = localStorage.getItem("sf-session");
-  if (userString) {
-    const userData = JSON.parse(userString);
-    return `Bearer ${userData}`;
-  }
-
-  return "";
-};
-
 const wsClient = new SubscriptionClient(wsUri, {
   reconnect: true,
-  connectionParams: () => ({ authToken: authToken() }),
 });
 const wsLink = new WebSocketLink(wsClient);
 
