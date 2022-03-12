@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-public-api
+  namespace: public
+spec:
+  rules:
+  - host: api.carlostknzgl.kubelabs.tk
+    http:
+      paths:
+      - path: /graphql
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-public-api
+            port:
+              number: 3000

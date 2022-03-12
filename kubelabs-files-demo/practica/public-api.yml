@@ -2,29 +2,28 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: deploy-websocket
+  name: deploy-public-api
   namespace: public
 
 spec:
-  replicas: 1
-  strategy:
-    type: Recreate
+  replicas: 2
+
   selector:
     matchLabels:
-      app: websocket
+      app: public-api
   template:
     metadata:
-      name: websocket
+      name: public-api
       labels:
-        app: websocket
+        app: public-api
     spec:
       containers:
-      - name: websocket
-        image: cachac/kubelabs_websocket:1.0.6
+      - name: public-api
+        image: cachac/kubelabs_publicapi:1.0.1
         ports:
-        - containerPort: 3001
-          name: websocket
-        - containerPort: 3081
+        - containerPort: 3000
+          name: public-api
+        - containerPort: 3080
           name: healthcheck
         resources:
           limits:
@@ -36,10 +35,10 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthcheck
-            port: 3081
+            port: 3080
           initialDelaySeconds: 10
           periodSeconds: 30
           timeoutSeconds: 5
         envFrom:
-          - secretRef:
-              name: secret-token
+          - configMapRef:
+              name: cm-private-api
