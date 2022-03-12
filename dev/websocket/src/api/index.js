@@ -1,7 +1,4 @@
 import { ApolloServer } from 'apollo-server-express'
-// import Dataloader from 'dataloader'
-// import loaders from './loaders'
-import { logger } from '../util/log'
 import config from '../config'
 import context from '../util/context'
 import schema from './schema'
@@ -18,16 +15,25 @@ export const apolloServer = new ApolloServer({
 
   subscriptions: {
     onConnect: async connectionParams => {
-      logger.info('> Kubelabs PubSub Connected')
-      return true
+      console.log('connectionParams :>> ', connectionParams);
+      if (connectionParams.authToken) {
+        const isValid = await context.verifyUser(connectionParams.authToken)
+
+        if (!isValid) throw new Error('Acción no permitida. Debes ingresar tus credenciales.')
+        else {
+          console.log('> Kubelabs WEBSOCKET Connected')
+          return true
+        }
+      }
+      throw new Error('Missing auth token!')
     },
     onDisconnect: (/* webSocket, subsContext */) => {
-      logger.info('> Kubelabs PubSub Disconnected')
+      console.log('> Kubelabs WEBSOCKET Disconnected')
     }
   },
 
   formatError: err => {
-    logger.error('>> GQL error ', err)
+    console.error('>> GQL error ', err)
     // if production return to FrontEnd only message
     // if (err.message && config.NODE_ENV === 'production') return err.message
     return err

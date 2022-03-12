@@ -24,30 +24,18 @@ COPY --from=builder /app/package.json ./
 ARG APP_ENV
 ENV APP_ENV=${APP_ENV}
 
+ARG TOKEN_SECRET
+ENV TOKEN_SECRET=${TOKEN_SECRET}
+
 EXPOSE 3001 3081
 
 CMD ["node", "./dist/main.js"]
 
 # source ./.env.qa
-# echo $APP_ENV_ICECLOUD_PUBSUB
+# echo $APP_ENV_WEBSOCKET
 
 #
 # docker hub
 #
-# docker build . -f qa.dockerfile -t cachac/icecloud_pubsub:latest --build-arg APP_ENV="$APP_ENV_ICECLOUD_PUBSUB"
-# docker push cachac/icecloud_pubsub:latest
-# server config:
-# docker network create --driver bridge --subnet 11.10.0.0/24 iceCloudNetwork
-# docker run -dit --network iceCloudNetwork --ip 11.10.0.2 -p 3001:3001 --name icecloud_pubsub cachac/icecloud_pubsub:latest
-
-#
-# aws ECR
-#
-# docker build . -f qa.dockerfile -t 983207445106.dkr.ecr.us-east-1.amazonaws.com/icecloud_pubsub:latest --build-arg APP_ENV="$APP_ENV_ICECLOUD_PUBSUB"
-# docker push 983207445106.dkr.ecr.us-east-1.amazonaws.com/icecloud_pubsub:latest
-# server config:
-# docker network create --driver bridge --subnet 11.10.0.0/24 iceCloudNetwork
-# docker run -dit --network iceCloudNetwork --ip 11.10.0.2 -p 3001:3001 -p 3081:3081 --name icecloud_pubsub 983207445106.dkr.ecr.us-east-1.amazonaws.com/icecloud_pubsub:latest
-
-# Access key ID AKIA6J253AJZH4COIPFM
-# Secret access key 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
+# docker build . -f qa.dockerfile -t cachac/kubelabs_websocket:1.0.3 --build-arg APP_ENV="$APP_ENV_WEBSOCKET"
+# docker push cachac/kubelabs_websocket:1.0.3

@@ -2,7 +2,6 @@ import express from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
 import config from './config'
-import { logger } from './util/log'
 import { apolloServer } from './api'
 
 const app = express()
@@ -15,18 +14,18 @@ app.use(helmet())
 apolloServer.applyMiddleware({ app, path: '/graphql' })
 
 process.on('uncaughtException', err => {
-  logger.error('AHHHHHHHHHHHHHHHHHHHHHHHHHH! :', err)
+  console.error('AHHHHHHHHHHHHHHHHHHHHHHHHHH! :', err)
   process.exit(1)
 })
 
 process.on('unhandledRejection', err => {
-  logger.error('ERRRRRRRRRRRRRRRRRRRRRRRRRR! :', err)
+  console.error('ERRRRRRRRRRRRRRRRRRRRRRRRRR! :', err)
   process.exit(1)
 })
 
 // START server
 const serverSubscription = app.listen(config.NODE_PORT, () => {
-  logger.info(
+  console.log(
     `[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION} 🚀 Server ready on Port ${config.NODE_PORT} - Express JS ${config.NODE_ENV} |  ${apolloServer.graphqlPath}`
   )
 })
@@ -41,5 +40,5 @@ router.get('/healthcheck', (req, res) => {
 })
 healthCheck.use(router)
 healthCheck.listen(3081, () => {
-  logger.info(`Health check on port 3081`)
+  console.log(`Health check on port 3081`)
 })

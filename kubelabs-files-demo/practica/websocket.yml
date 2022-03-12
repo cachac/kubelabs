@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: deploy-websocket
+  namespace: public
+  labels:
+    app: websocket
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: websocket
+  template:
+    metadata:
+      name: websocket
+      labels:
+        app: websocket
+    spec:
+      containers:
+      - name: websocket
+        image: cachac/kubelabs_websocket:1.0.3
+        ports:
+        - containerPort: 3001
+        - containerPort: 8081
+        resources:
+          limits:
+            cpu: 250m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        # livenessProbe:
+        #   httpGet:
+        #     path: /healthcheck
+        #     port: 8081
+        envFrom:
+          - configMapRef:
+              name: cm-websocket

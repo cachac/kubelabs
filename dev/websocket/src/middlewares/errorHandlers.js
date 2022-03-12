@@ -1,8 +1,6 @@
-import { logger } from '../util/log'
-
 export const errorHandlers = (err, req, res, next) => {
   // logger
-  logger.error(`[${err.code}] ${err.userMessage || ''} [${err.message || '...'}]. (${req.originalUrl} - ${req.method} - ${req.ip})`)
+  console.error(`[${err.code}] ${err.userMessage || ''} [${err.message || '...'}]. (${req.originalUrl} - ${req.method} - ${req.ip})`)
   // user message
   err.message = req.app.get('env') === 'development' ? `${err.userMessage || ''} [${err.message || '...'}]` : err.userMessage
   // send response

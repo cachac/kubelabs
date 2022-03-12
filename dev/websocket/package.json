@@ -1,6 +1,6 @@
 {
-  "name": "icecloud-api",
-  "version": "0.1.0",
+  "name": "kubelabs-websocket",
+  "version": "1.0.3",
   "description": "",
   "main": "main.js",
   "scripts": {

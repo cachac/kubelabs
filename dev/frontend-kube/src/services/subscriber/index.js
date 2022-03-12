@@ -10,9 +10,17 @@ const wsUri =
 
 console.log("wsUri :>> ", wsUri);
 
+const authToken = () => {
+  const userData = "PASS";
+  console.log("userData :>> ", userData);
+  return `Bearer ${userData}`;
+};
+
 const wsClient = new SubscriptionClient(wsUri, {
   reconnect: true,
+  connectionParams: () => ({ authToken: authToken() }),
 });
+
 const wsLink = new WebSocketLink(wsClient);
 
 export const runSubscription = (operator, fn) => {

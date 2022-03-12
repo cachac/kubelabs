@@ -3,7 +3,6 @@ import { execute } from "apollo-link";
 import { WebSocketLink } from "apollo-link-ws";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import gql from "graphql-tag";
-import { Session } from "./session";
 
 const Connection = {
   APIState: false,
@@ -24,9 +23,7 @@ const wsUri =
 console.log("wsUri :>> ", wsUri);
 
 const authToken = () => {
-  const userToken = Session.get();
-  if (userToken) return `Bearer ${userToken}`;
-  return "";
+  return `Bearer PASS`;
 };
 
 const wsClient = new SubscriptionClient(wsUri, {
