@@ -42,3 +42,11 @@ spec:
         envFrom:
           - configMapRef:
               name: cm-private-api
+        volumeMounts:
+          - name: vol-logs
+            mountPath: /app/logs
+      volumes:
+        - name: vol-logs
+          persistentVolumeClaim:
+            claimName: pvc-public-api
+
