@@ -2,8 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: http-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  # annotations:
+  #   nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   defaultBackend:
     service:
@@ -11,14 +11,14 @@ spec:
       port:
         number: 80
   rules:
-  - host: kube1.kubelabs.tk
+  - host: kube1.kubelabs.tk # nombre del host ó dominio
     http:
       paths:
-      - path: /
+      - path: / # por ejemplo /home se vería así en la página: http://mipagina.com/home
         pathType: Prefix
         backend:
           service:
-            name: svc-kube-1
+            name: svc-kube-1 # nombre del service y el puerto donde escucha
             port:
               number: 80
 

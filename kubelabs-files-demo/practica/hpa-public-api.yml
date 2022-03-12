@@ -8,8 +8,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: deploy-public-api
-  minReplicas: 2
-  maxReplicas: 5
+  minReplicas: 3
+  maxReplicas: 6
   metrics:
     - type: Resource
       resource:
@@ -22,4 +22,4 @@ spec:
         name: memory
         target:
           type: Utilization
-          averageUtilization: 30
+          averageUtilization: 50

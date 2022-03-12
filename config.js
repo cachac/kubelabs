@@ -1,6 +1,6 @@
 var config = (() => {
   return {
-    API: "http://api.carlostknzgl.kubelabs.tk/graphql",
-    WEBSOCKET: "ws://websocket.carlostknzgl.kubelabs.tk/graphql",
+    API: "http://api.XXXXXXXXXX.kubelabs.tk/graphql",
+    WEBSOCKET: "ws://websocket.XXXXXXXXXX.kubelabs.tk/graphql",
   };
 })();
