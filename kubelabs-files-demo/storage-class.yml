@@ -5,6 +5,7 @@ metadata:
 # provisioner: kubernetes.io/no-provisioner
 provisioner: microk8s.io/hostpath
 volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
 
 # provisioner: kubernetes.io/gce-pd # para Google GKE
 # parameters:

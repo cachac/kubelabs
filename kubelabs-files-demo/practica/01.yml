@@ -1,29 +1,29 @@
-apiVersion: apps/v1
-kind: Deployment
+# apiVersion: apps/v1
+# kind: Deployment
 
-metadata:
-  name: deploy-practica-1
-  namespace: practica
-  labels:
-    lab: uno
+# metadata:
+#   name: deploy-practica-1
+#   namespace: practica
+#   labels:
+#     lab: uno
 
-spec:
-  replicas: 3
+# spec:
+#   replicas: 3
 
-  template:
-    metadata:
-      name: app-uno
-      labels:
-        lab: uno
+#   template:
+#     metadata:
+#       name: app-uno
+#       labels:
+#         lab: uno
 
-    spec:
-      containers:
-        - image: cachac/kube-labs
-          name: practica
+#     spec:
+#       containers:
+#         - image: cachac/kube-labs
+#           name: practica
 
-  selector:
-    matchLabels:
-      lab: uno
+#   selector:
+#     matchLabels:
+#       lab: uno
 
-# kubectl create namespace practica
-# kubectl get pods -n practica
+# # kubectl create namespace practica
+# # kubectl get pods -n practica

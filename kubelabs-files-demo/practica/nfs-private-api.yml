@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-nfs
+  namespace: private
+spec:
+  storageClassName: nfs-storage
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: code.carlostknzgl.kubelabs.tk  # dominio o ip del servidor nfs
+    path: /srv/nfs/mydata/25
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-nfs
+  namespace: private
+spec:
+  storageClassName: nfs-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi

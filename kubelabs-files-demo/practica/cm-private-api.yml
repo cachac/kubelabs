@@ -4,4 +4,4 @@ metadata:
   name: cm-private-api
   namespace: public
 data:
-  PRIVATE_API: XXX.XXX.svc.cluster.local
+  PRIVATE_API: http://svc-private-api.private.svc.cluster.local:3002/private

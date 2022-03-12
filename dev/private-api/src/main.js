@@ -28,8 +28,8 @@ router.get('/private', (req, res) => {
   res.send({ response: true })
 })
 
-app.listen(3002, () => {
-  logger.info(`Rest API on port 3002`)
+app.listen(config.NODE_PORT, () => {
+  logger.info(`Rest API on port ${config.NODE_PORT}`)
 })
 
 // health checks
@@ -41,5 +41,4 @@ app.use(router)
 
 app.listen(3082, () => {
   logger.info(`Health check on port 3082`)
-  logger.info(`Rest API on port 3002`)
 })

@@ -1,6 +1,6 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
+  "name": "public-api",
+  "version": "1.0.2",
   "description": "",
   "main": "main.js",
   "scripts": {

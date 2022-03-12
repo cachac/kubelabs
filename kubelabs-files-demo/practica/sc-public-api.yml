@@ -4,6 +4,7 @@ metadata:
   name: sc-public-api
 provisioner: microk8s.io/hostpath
 volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

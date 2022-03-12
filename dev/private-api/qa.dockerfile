@@ -24,17 +24,17 @@ COPY --from=builder /app/package.json ./
 ARG APP_ENV
 ENV APP_ENV=${APP_ENV}
 
-EXPOSE 3000 3080
+EXPOSE 3002 3082
 
 CMD ["node", "./dist/main.js"]
 
 
-# source ./.env.qa
-# echo $APP_ENV_KUBE_API
+# source .env.qa
+# echo $APP_ENV_KUBE_PRIVATE_API
 
 #
 # docker hub
 #
-# docker build . -f qa.dockerfile -t cachac/kube_api:latest --build-arg APP_ENV="$APP_ENV_KUBE_API"
-# docker push cachac/kube_api:latest
+# docker build . -f qa.dockerfile -t cachac/kubelabs_private_api:1.0.0 --build-arg APP_ENV="$APP_ENV_KUBE_PRIVATE_API"
+# docker push cachac/kubelabs_private_api:1.0.0
 
