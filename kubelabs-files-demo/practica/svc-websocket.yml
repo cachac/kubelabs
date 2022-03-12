@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: svc-websocket
-  labels:
-    app: websocket
+  namespace: public
+
 spec:
   type: ClusterIP
   ports:

@@ -11,7 +11,7 @@ const healthCheck = express()
 app.use(express.json())
 app.use(cors())
 app.use(helmet())
-apolloServer.applyMiddleware({ app, path: '/websocket' })
+apolloServer.applyMiddleware({ app, path: '/graphql' })
 
 process.on('uncaughtException', err => {
   console.error('AHHHHHHHHHHHHHHHHHHHHHHHHHH! :', err)

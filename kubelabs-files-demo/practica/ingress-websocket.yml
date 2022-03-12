@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-websocket
+  namespace: public
+spec:
+  rules:
+  - host: websocket.carlostknzgl.kubelabs.tk
+    http:
+      paths:
+      - path: /graphql
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-websocket
+            port:
+              number: 3001

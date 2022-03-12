@@ -4,8 +4,7 @@ kind: Deployment
 metadata:
   name: deploy-webpage
   namespace: public
-  labels:
-    app: webpage
+
 spec:
   replicas: 2
   strategy:

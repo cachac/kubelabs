@@ -10,7 +10,7 @@ spec:
       port:
         number: 80
   rules:
-  - host: carlosieqwr.kubelabs.tk
+  - host: carlostknzgl.kubelabs.tk
     http:
       paths:
       - path: /
@@ -20,10 +20,3 @@ spec:
             name: svc-webpage
             port:
               number: 80
-      - path: /websocket
-        pathType: Prefix
-        backend:
-          service:
-            name: svc-websocket
-            port:
-              number: 3001
