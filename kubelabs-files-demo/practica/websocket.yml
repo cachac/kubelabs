@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: websocket
-        image: cachac/kubelabs_websocket:1.0.3
+        image: cachac/kubelabs_websocket:1.0.4
         ports:
         - containerPort: 3001
         - containerPort: 8081
