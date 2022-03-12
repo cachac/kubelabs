@@ -36,6 +36,7 @@
 - [ ] 50 Mi
 - [ ] ReadWriteOnce
 - [ ] ReclaimPolicy Retain
+- [ ] ruta pod: /app/logs
 
 ## 8.2. Public API
 - [ ] Tipo NFS
@@ -43,6 +44,7 @@
 - [ ] 50 Mi
 - [ ] ReadWriteOnce
 - [ ] ReclaimPolicy Retain
+- [ ] ruta pod: /app/logs
 
 # 9. Estatégias de deployment
 
