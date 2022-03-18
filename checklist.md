@@ -30,21 +30,14 @@
 - [ ] Public API: /healthchek, puerto: 3080
 - [ ] Private API: /healthchek, puerto: 3082
 
-# 8. Storage Class y NFS
+# 8. Logs
 ## 8.1. Public API
 - [ ] Tipo StorageClass - PVC
 - [ ] 50 Mi
 - [ ] ReadWriteOnce
 - [ ] ReclaimPolicy Retain
 - [ ] ruta pod: /app/logs
-
-## 8.2. Public API
-- [ ] Tipo NFS
-- [ ] Dominio y path: /srv/nfs/mydata/##
-- [ ] 50 Mi
-- [ ] ReadWriteOnce
-- [ ] ReclaimPolicy Retain
-- [ ] ruta pod: /app/logs
+- [ ] Logs en server: /var/snap/microk8s/common/default-storage/<pvc-id>
 
 # 9. Estatégias de deployment
 
@@ -54,11 +47,6 @@
 
 ## 9.2. Websocket
 - [ ] Recreate
-
-# 10. HPA
-- [ ] El API público crece bajo demanda
-- [ ] Minimo: 3
-- [ ] Maximo: 6
 
 
 # 11. Automatización
