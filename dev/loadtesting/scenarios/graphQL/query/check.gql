@@ -1,0 +1,5 @@
+query CHECK_API {
+  User {
+    checkPrivateApi
+  }
+}

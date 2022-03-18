@@ -1,0 +1,42 @@
+version: 1
+config:
+  target: 'http://api.carlos78.kubelabs.tk'
+
+  plugins:
+    expect: {}
+
+  ensure:
+    p95: 30000
+    maxErrorRate: 10
+
+  phases:
+    - name: 'checkAPI'
+      duration: 30
+      arrivalCount: 3000
+
+  processor: './graphQL/index.js'
+
+scenarios:
+  - name: 'checkAPI'
+
+    flow:
+      - function: 'checkAPI'
+      - loop:
+          - post:
+              url: "/graphql"
+
+              json:
+                query: '{{ $loopElement.query }}'
+              capture:
+                - json: $.data.User.checkPrivateApi
+                  as: result
+
+              expect:
+                - statusCode: 200
+                - contentType: json
+                - equals:
+                  - "true"
+                  - "{{ result }}"
+          - log: 'Resultado: {{ result }}'
+        over: cases
+

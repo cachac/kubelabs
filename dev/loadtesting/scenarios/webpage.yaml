@@ -1,0 +1,25 @@
+version: 1
+config:
+  target: 'http://carlos78.kubelabs.tk/'
+
+  plugins:
+    expect: {}
+
+  ensure:
+    p95: 5000
+    maxErrorRate: 10
+
+  phases:
+    - name: 'cargar pagina'
+      duration: 30
+      arrivalCount: 5000
+
+scenarios:
+  - name: 'home'
+
+    flow:
+      - get:
+          url: "/"
+          expect:
+            - statusCode: 200
+

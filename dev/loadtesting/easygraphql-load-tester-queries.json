@@ -1,0 +1,1 @@
+[{"name":"CHECK_API","operation":"query","query":"query CHECK_API {\n  User {\n    checkPrivateApi\n  }\n}\n","variables":{}}]
