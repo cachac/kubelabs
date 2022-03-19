@@ -19,7 +19,7 @@ spec:
       hostPath:
         # el PATH debe existir en el WORKER NODE, no en el Bastion o Maquina local.
         # evitar este tipo de Storage y sustituir por algún tipo de Storage fuera del Worker Node.        #
-        path: /home/kube/kubelabs/kubelabs-files-demo/12
+        path: /home/kube/kubelabs/assets/13
 ---
 apiVersion: v1
 kind: Service

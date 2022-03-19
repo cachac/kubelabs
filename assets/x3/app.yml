@@ -2,8 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: http-ingress
-  # annotations:
-  #   nginx.ingress.kubernetes.io/rewrite-target: /
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   defaultBackend:
     service:
@@ -11,14 +11,14 @@ spec:
       port:
         number: 80
   rules:
-  - host: kube1.kubelabs.tk # nombre del host ó dominio
+  - host: kube1.kubelabs.tk
     http:
       paths:
-      - path: / # por ejemplo /home se vería así en la página: http://mipagina.com/home
+      - path: /
         pathType: Prefix
         backend:
           service:
-            name: svc-kube-1 # nombre del service y el puerto donde escucha
+            name: svc-kube-1
             port:
               number: 80
 
@@ -33,8 +33,8 @@ spec:
             port:
               number: 80
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: svc-kube-1
 spec:
@@ -52,7 +52,7 @@ kind: Deployment
 metadata:
   name: deploy-kube-1
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: pod-kube-1
@@ -61,6 +61,7 @@ spec:
     metadata:
       name: pod-kube-1
       labels:
+        version: v1.0
         app: pod-kube-1
     spec:
       containers:
@@ -77,15 +78,9 @@ spec:
             - containerPort: 80
           volumeMounts:
             - name: static-vol
-              mountPath: /usr/share/nginx/html/
+              mountPath: /usr/share/nginx/html/index.html
       volumes:
         - name: static-vol
           hostPath:
-            path: /home/kube/kubelabs/kubelabs-files-demo/15
-
-
-
-
-
-
-
+            path: /home/kube/kubelabs/assets/20/index.html
+            type: FileOrCreate

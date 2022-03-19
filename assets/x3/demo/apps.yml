@@ -8,7 +8,7 @@ spec:
     namespace: ci
     server: 'https://kubernetes.default.svc'
   source:
-    path: kubelabs-files-demo/20/demo/manifest/kustomization/
+    path: assets/20/demo/manifest/kustomization/
     repoURL: 'https://github.com/cachac/kubelabs.git'
     targetRevision: HEAD
   project: default

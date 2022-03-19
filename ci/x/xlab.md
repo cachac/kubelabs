@@ -30,8 +30,8 @@ kubemaster01.kubelabs.tk:30088
 ## 0.5. SSL / TLS
 
 ### 0.5.2. Let's Encrypt
-[production_clusterIssuer.yml](../../kubelabs-files-demo/20/demo/manifest/clusterIssuer/production_clusterIssuer.yml)
-[staging_clusterIssuer.yml](../../kubelabs-files-demo/20/demo/manifest/clusterIssuer/staging_clusterIssuer.yml)
+[production_clusterIssuer.yml](../../assets/20/demo/manifest/clusterIssuer/production_clusterIssuer.yml)
+[staging_clusterIssuer.yml](../../assets/20/demo/manifest/clusterIssuer/staging_clusterIssuer.yml)
 
 ### 0.5.3. Comprobar los ***clusterIssuer***
 ```vim
@@ -47,7 +47,7 @@ Status:                True
 ```
 
 ### 0.5.4. Agregar ingress con solicitud del certificado
-[web-ingress.yml](./../../kubelabs-files-demo/20/demo/manifest/web-ingress.yml)
+[web-ingress.yml](./../../assets/20/demo/manifest/web-ingress.yml)
 Agregar al ingress, los datos del certificado:
 ```yaml
   annotations:

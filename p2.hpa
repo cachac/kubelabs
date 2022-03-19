@@ -3,10 +3,10 @@
 [Documentación Oficial](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 
 ## 13.1. Ejecutar el archvivo:
-> [kubelabs-files-demo/hpa-definition.yml](./kubelabs-files-demo/hpa-definition.yml)
+> [assets/hpa-definition.yml](./assets/hpa-definition.yml)
 
 ```vim
-kubectl apply -f kubelabs-files-demo/hpa-definition.yml
+kubectl apply -f assets/hpa-definition.yml
 ```
 
 Escala de acuerdo a las siguientes métricas:

@@ -74,7 +74,7 @@ spec:
       volumes:
         - name: static-vol
           hostPath:
-            path: /home/kube/kubelabs/kubelabs-files-demo/16
+            path: /home/kube/kubelabs/assets/16
         - name: nginx-config-vol
           configMap:
             name: nginx-conf

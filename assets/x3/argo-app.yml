@@ -9,7 +9,7 @@ spec:
     namespace: webapps
     server: 'https://kubernetes.default.svc'
   source:
-    path: kubelabs-files-demo/20/
+    path: assets/20/
     repoURL: 'https://github.com/cachac/kubelabs.git'
     targetRevision: HEAD
   project: default

@@ -45,7 +45,7 @@ spec:
   volumes:
     - name: static-vol
       hostPath:
-        path: /home/kube/kubelabs/kubelabs-files-demo/12
+        path: /home/kube/kubelabs/assets/13
     - name: web-claim-nfs
       persistentVolumeClaim:
         claimName: nfs-pvc
