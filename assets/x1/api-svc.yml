@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: svc-api
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: fulldemo
     type: backend
