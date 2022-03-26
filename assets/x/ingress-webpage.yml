@@ -10,7 +10,7 @@ spec:
       port:
         number: 80
   rules:
-  - host: carlostknzgl.kubelabs.tk
+  - host: USERLAB.kubelabs.tk
     http:
       paths:
       - path: /
