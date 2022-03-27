@@ -5,7 +5,6 @@ on:
     branches: [ main ]
 
 env:
-  IMAGE_NAME: cachac/kube-labs
   VERSION: v1.2.5
   RELEASE: "Dev"
   REGION: "us-east-1"
@@ -62,12 +61,11 @@ jobs:
 
     - name: Update Kubernetes resources
       env:
-        ECR_URI: ${{ secrets.ECR_URI }}
-        IMAGE_NAME     : ${{ env.IMAGE_NAME }}
-        VERSION        : ${{ env.VERSION }}
+        ECR_URI     : ${{ secrets.ECR_URI }}
+        VERSION     : ${{ env.VERSION }}
       run: |
         cd assets/x2/overlays/qa
-        kustomize edit set image cachac/kube-labs=$ECR_URI/$REPO_NAME:$VERSION
+        kustomize edit set image cachac/kube-labs=$ECR_URI:$VERSION
         kustomize build . > ../../../../clusters/test4/frontEnd/kustomization.yaml
 
         cat kustomization.yml
