@@ -1,7 +1,7 @@
 namePrefix: qa-
 commonLabels:
-  variant: qa
   team: qa-team
+  variant: qa
 commonAnnotations:
   note: Estamos en QA...
 resources:
@@ -9,3 +9,9 @@ resources:
 patchesStrategicMerge:
 - deployment.yml
 - service.yml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- name: cachac/kube-labs
+  newName: 463391411469.dkr.ecr.us-east-1.amazonaws.com/
+  newTag: v1.2.5
