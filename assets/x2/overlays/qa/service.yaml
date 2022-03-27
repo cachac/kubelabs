@@ -3,8 +3,5 @@ kind: Service
 metadata:
   name: kubedemo
 spec:
-  type: NodePort
   ports:
-    - targetPort: 8080 # POD port
-      port: 80 # service port
-      nodePort: 30090
+    - nodePort: 30090

@@ -3,6 +3,7 @@ kind: Kustomization
 
 commonLabels:
   app: kustom-app
+  env: staging
 
 resources:
 - deployment.yml
