@@ -51,7 +51,7 @@ spec:
       name: kubedemo
     spec:
       containers:
-      - image: 463391411469.dkr.ecr.us-east-1.amazonaws.com/kubelabs:v1.2.6
+      - image: 463391411469.dkr.ecr.us-east-1.amazonaws.com/kubelabs:v1.2.7
         name: cachac-kube-labs
         ports:
         - containerPort: 8080
