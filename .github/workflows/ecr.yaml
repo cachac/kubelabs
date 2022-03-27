@@ -71,7 +71,7 @@ jobs:
         kustomize build . > ../../../../clusters/test4/frontEnd /kustomization.yaml
 
         cat kustomization.yaml
-        cat ../../../../clusters/test4/frontEnd /kustomization.yaml
+        cat ../../../../clusters/test4/frontEnd/kustomization.yaml
 
     - name: Commit files
       run: |
