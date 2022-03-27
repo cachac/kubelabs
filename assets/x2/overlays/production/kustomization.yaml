@@ -8,7 +8,7 @@ commonLabels:
   variant: prod
   team: prod-team
 commonAnnotations:
-  note: Estamos en prod...
+  note: Estamos en prod !!!
 
 resources:
 - ../../base
