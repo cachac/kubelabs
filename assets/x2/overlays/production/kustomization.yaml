@@ -1,11 +1,18 @@
-namePrefix: qa-
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namePrefix: prod-
+namespace: prod
+
 commonLabels:
-  variant: qa
-  team: qa-team
+  variant: prod
+  team: prod-team
 commonAnnotations:
-  note: Estamos en QA...
+  note: Estamos en prod...
+
 resources:
 - ../../base
+
 patchesStrategicMerge:
 - deployment.yaml
 - service.yaml
