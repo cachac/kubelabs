@@ -7,8 +7,8 @@ commonAnnotations:
 resources:
 - ../../base
 patchesStrategicMerge:
-- deployment.yml
-- service.yml
+- deployment.yaml
+- service.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
