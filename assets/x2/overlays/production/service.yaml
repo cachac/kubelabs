@@ -4,8 +4,5 @@ metadata:
   name: kubedemo
 spec:
   ports:
-<<<<<<< HEAD
-      nodePort: 30000
-=======
-    nodePort: 30000
->>>>>>> 6a4e166 (prod)
+    - nodePort: 30000
+
