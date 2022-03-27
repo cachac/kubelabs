@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  VERSION: v1.2.7
+  VERSION: v1.2.8
   RELEASE: "Dev"
   REGION: "us-east-1"
 
@@ -66,7 +66,7 @@ jobs:
       run: |
         cd assets/x2/overlays/qa
         kustomize edit set image cachac/kube-labs=$ECR_URI:$VERSION
-        
+
         # lo esta haciendo flux
         # kustomize build . > ../../../../clusters/test4/frontEnd/kustomization.yaml
         # cat kustomization.yml
