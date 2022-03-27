@@ -61,13 +61,13 @@ jobs:
 
     - name: Update Kubernetes resources
       env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        ECR_URI: ${{ secrets.ECR_URI }}
         IMAGE_NAME     : ${{ env.IMAGE_NAME }}
         VERSION        : ${{ env.VERSION }}
       run: |
         cd assets/x2/overlays/qa
-        kustomize edit set image cachac/kube-labs=$DOCKER_USERNAME/$IMAGE_NAME:$VERSION
-        kustomize build . > kustomization/kustom-apps.yml
+        kustomize edit set image cachac/kube-labs=$ECR_URI/$REPO_NAME:$VERSION
+        kustomize build . > clusters/test4/frontEnd/kustomization.yaml   
 
         cat kustomization.yaml
         cat kustomization/kustom-apps.yml
