@@ -68,9 +68,9 @@ jobs:
       run: |
         cd assets/x2/overlays/qa
         kustomize edit set image cachac/kube-labs=$ECR_URI/$REPO_NAME:$VERSION
-        kustomize build . > ../../../../clusters/test4/frontEnd /kustomization.yaml
+        kustomize build . > ../../../../clusters/test4/frontEnd/kustomization.yaml
 
-        cat kustomization.yaml
+        cat kustomization.yml
         cat ../../../../clusters/test4/frontEnd/kustomization.yaml
 
     - name: Commit files
