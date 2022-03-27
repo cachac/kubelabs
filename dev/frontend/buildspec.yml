@@ -1,4 +1,9 @@
 version: 0.2
+env:
+  IMAGE_NAME: kube_webapp_ci
+  VERSION: v1.2.3
+  RELEASE: "Dev"
+  REGION: "us-east-1"
 
 phases:
   pre_build:
@@ -16,4 +21,4 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$VERSION
