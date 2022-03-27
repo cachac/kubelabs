@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    note: Estamos en QA...
+  labels:
+    app: kustom-app
+    team: qa-team
+    variant: qa
+  name: qa-kubedemo
+spec:
+  ports:
+  - nodePort: 30090
+    port: 80
+    targetPort: 8080
+  selector:
+    app: kustom-app
+    team: qa-team
+    type: frontend
+    variant: qa
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    note: Estamos en QA...
+  labels:
+    app: kustom-app
+    team: qa-team
+    type: frontend
+    variant: qa
+  name: qa-kubedemo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kustom-app
+      team: qa-team
+      type: frontend
+      variant: qa
+  template:
+    metadata:
+      annotations:
+        note: Estamos en QA...
+      labels:
+        app: kustom-app
+        team: qa-team
+        type: frontend
+        variant: qa
+      name: kubedemo
+    spec:
+      containers:
+      - image: cachac/kube-labs
+        name: cachac-kube-labs
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 250m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
