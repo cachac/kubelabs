@@ -3,7 +3,8 @@ FROM node:14.11.0-alpine3.12 as base
 
 WORKDIR /app
 FROM base as builder
-COPY ./dev/frontend/package*.json ./
+COPY ./dev/frontend/package.json ./
+COPY ./dev/frontend/package-lock.json ./
 RUN npm install --legacy-peer-deps
 COPY ./dev/frontend/ .
 RUN npm run buildqa
