@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  VERSION: v1.0.1
+  VERSION: v1.0.2
   RELEASE: "Dev"
   REGION: "us-east-1"
 
@@ -43,43 +43,3 @@ jobs:
         echo "Pushing image to ECR..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-
-  # lo está haciendo flux-cd con image update automation
-  # deploy:
-  #   name: Deploy K
-  #   runs-on: ubuntu-latest
-  #   needs: build
-
-  #   steps:
-  #   - name: Check out code
-  #     uses: actions/checkout@v2
-
-  #   - name: Setup Kustomize
-  #     uses: imranismail/setup-kustomize@v1
-  #     with:
-  #       kustomize-version: "3.6.1"
-
-  #   - name: Update Kubernetes resources
-  #     env:
-  #       ECR_URI     : ${{ secrets.ECR_URI }}
-  #       VERSION     : ${{ env.VERSION }}
-  #     run: |
-  #       cd assets/x2/overlays/qa
-  #       kustomize edit set image cachac/kube-labs=$ECR_URI:$VERSION
-
-  #       # lo esta haciendo flux
-  #       # kustomize build . > ../../../../clusters/test4/frontEnd/kustomization.yaml
-  #       # cat kustomization.yml
-  #       # cat ../../../../clusters/test4/frontEnd/kustomization.yaml
-
-  #   - name: Commit files
-  #     run: |
-  #       git config --local user.email "dev-bot@stotylabs.dev"
-  #       git config --local user.name "Storylabs Dev-Bot"
-  #       git commit -am "new image version $VERSION"
-
-  #   - name: Push changes
-  #     uses: ad-m/github-push-action@master
-  #     with:
-  #       github_token: ${{ secrets.GITHUB_TOKEN }}
-
