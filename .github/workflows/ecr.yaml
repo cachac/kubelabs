@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  VERSION: v1.2.6
+  VERSION: v1.2.7
   RELEASE: "Dev"
   REGION: "us-east-1"
 
