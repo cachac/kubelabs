@@ -1,0 +1,10 @@
+apiVersion: image.toolkit.fluxcd.io/v1alpha1
+kind: ImageRepository
+metadata:
+  name: kubelabs
+  namespace: flux-system
+spec:
+  secretRef:
+    name: ecr-credentials
+  image: 367816904393.dkr.ecr.us-east-1.amazonaws.com/kubelabs
+  interval: 1m0s
