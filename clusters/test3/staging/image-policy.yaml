@@ -5,8 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   imageRepositoryRef:
-    name:
+    name: kubelabs
   policy:
     semver:
       range: 1.0.0
-
