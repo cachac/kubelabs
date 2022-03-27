@@ -5,4 +5,3 @@ metadata:
 spec:
   ports:
     - nodePort: 30000
-
