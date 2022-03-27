@@ -59,7 +59,7 @@ spec:
             imagePullPolicy: IfNotPresent
             env:
             - name: REGION
-              value: <region> # change this if ECR repo is in a different region
+              value: us-east-1
             volumeMounts:
             - mountPath: /token
               name: token
@@ -75,7 +75,7 @@ spec:
             - name: SECRET_NAME
               value: ecr-credentials
             - name: ECR_REGISTRY
-              value: <acc-id>.dkr.ecr.<region>.amazonaws.com # fill in the account id and region
+              value: 367816904393.dkr.ecr.us-east-1.amazonaws.com
             volumeMounts:
             - mountPath: /token
               name: token
