@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  VERSION: v1.2.9
+  VERSION: v1.0.0
   RELEASE: "Dev"
   REGION: "us-east-1"
 
@@ -44,7 +44,7 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-  # lo está haciendo flow
+  # lo está haciendo flux-cd con image update automation
   # deploy:
   #   name: Deploy K
   #   runs-on: ubuntu-latest
