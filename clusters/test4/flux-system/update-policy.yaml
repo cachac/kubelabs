@@ -16,5 +16,5 @@ spec:
   push:
     branch: main
   update:
-    path: ./assets/x2/overlays/qa
+    path: ./clusters/test4
     strategy: Setters
