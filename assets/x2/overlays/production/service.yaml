@@ -4,4 +4,4 @@ metadata:
   name: kubedemo
 spec:
   ports:
-    nodePort: 30000
+    - nodePort: 30000
