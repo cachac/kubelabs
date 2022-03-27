@@ -21,10 +21,8 @@ COPY --from=builder /app/package.json ./
 
 #USER nodedoc
 
-ARG DEMO
 ARG APP_ENV
 ENV APP_ENV=${APP_ENV}
-ENV DEMO=${DEMO}
 
 EXPOSE 3000 3080
 
