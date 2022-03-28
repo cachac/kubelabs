@@ -15,3 +15,7 @@ patchesStrategicMerge:
 - deployment.yaml
 - service.yaml
 
+images:
+- name: cachac/kube-labs
+  newName: 367816904393.dkr.ecr.us-east-1.amazonaws.com/kubelabs
+  newTag: 1.0.0  # {"$imagepolicy": "flux-system:kubelabs"}

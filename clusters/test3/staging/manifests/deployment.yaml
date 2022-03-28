@@ -5,8 +5,3 @@ metadata:
 
 spec:
   replicas: 2
-  template:
-    spec:
-      containers:
-        - name: flux-kubedemo
-          image: 367816904393.dkr.ecr.us-east-1.amazonaws.com/kubelabs:1.0.0 # {"$imagepolicy": "flux-system:kubelabs"}
