@@ -22,7 +22,7 @@ spec:
       containers:
         - name: cachac-kube-labs
           # image: Definida por Flux Image Policy
-          image: 367816904393.dkr.ecr.us-east-1.amazonaws.com/kubelabs # {"$imagepolicy": "flux-system:kubelabs"}
+          image: 367816904393.dkr.ecr.us-east-1.amazonaws.com/kubelabs:1.0.0 # {"$imagepolicy": "flux-system:kubelabs"}
           ports:
             - containerPort: 8080
           resources:
