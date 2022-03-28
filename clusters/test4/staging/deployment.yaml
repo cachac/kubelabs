@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: myfrontend-deployment
+  labels:
+    app: mywebsite
+    type: frontend
+
+spec:
+  replicas: 4
+
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: mywebsite
+        type: frontend
+
+    spec:
+      containers:
+        - name: nginx-container
+          image: 367816904393.dkr.ecr.us-east-1.amazonaws.com/kubelabs:1.0.0  # {"$imagepolicy": "flux-system:kubelabs"}
+
+  selector:
+    matchLabels:
+      app: mywebsite
+      type: frontend
+
