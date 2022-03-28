@@ -10,7 +10,7 @@ spec:
       name: flux-system
   commit:
     authorEmail: carlos@storylabs.dev
-    authorName: fluxcd-bot
+    authorName: fluxcdbot
     messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
   interval: 1m0s
   push:
