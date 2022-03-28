@@ -1,20 +1,25 @@
-apiVersion: image.toolkit.fluxcd.io/v1alpha1
+apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
   name: flux-system
   namespace: flux-system
 spec:
-  checkout:
-    branch: main
-    gitRepositoryRef:
-      name: flux-system
-  commit:
-    authorEmail: carlos@storylabs.dev
-    authorName: fluxcdbot
-    messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
   interval: 1m0s
-  push:
-    branch: main
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
+    push:
+      branch: main
   update:
     path: ./clusters/test3
     strategy: Setters
+
