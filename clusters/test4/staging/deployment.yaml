@@ -3,19 +3,16 @@ kind: Deployment
 
 metadata:
   name: myfrontend-deployment
-  labels:
-    app: mywebsite
-    type: frontend
+  namespace: staging
 
 spec:
-  replicas: 4
+  replicas: 1
 
   template:
     metadata:
       name: myapp-pod
       labels:
         app: mywebsite
-        type: frontend
 
     spec:
       containers:
@@ -25,5 +22,4 @@ spec:
   selector:
     matchLabels:
       app: mywebsite
-      type: frontend
 
