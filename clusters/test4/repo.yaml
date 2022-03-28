@@ -1,7 +1,7 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
 metadata:
-  name: kubelabs
+  name: kubelabs-1
   namespace: flux-system
 spec:
   secretRef:
