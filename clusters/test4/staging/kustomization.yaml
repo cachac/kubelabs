@@ -8,7 +8,7 @@ commonLabels:
 commonAnnotations:
   note: Estamos en QA...
 resources:
-- ../../../../assets/x2/base
+- ../../../assets/x2/base
 patchesStrategicMerge:
 - deployment.yaml
 - service.yaml
