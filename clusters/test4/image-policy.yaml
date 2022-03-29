@@ -1,7 +1,7 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: kubelabs-1
+  name: kubelabs
   namespace: flux-system
 spec:
   imageRepositoryRef:
