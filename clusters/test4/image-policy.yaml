@@ -8,5 +8,5 @@ spec:
     name: kubelabs
   policy:
     semver:
-      range: 1.0.x
+      range: '>=2.0.0'
 
