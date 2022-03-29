@@ -14,4 +14,4 @@ patchesStrategicMerge:
 - service.yaml
 images:
 - name: 367816904393.dkr.ecr.us-east-1.amazonaws.com/kubelabs
-  newTag: 1.0.7 # {"$imagepolicy": "flux-system:kubelabs:tag"}
+  newTag: 1.0.8 # {"$imagepolicy": "flux-system:kubelabs:tag"}
