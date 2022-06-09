@@ -39,12 +39,12 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 30
           timeoutSeconds: 5
-
-        volumeMounts:
-          - name: vol-logs-nfs
-            mountPath: /app/logs
-      volumes:
-        - name: vol-logs-nfs
-          persistentVolumeClaim:
-            claimName: pvc-nfs
+      # NFS volume
+      #   volumeMounts:
+      #     - name: vol-logs-nfs
+      #       mountPath: /app/logs
+      # volumes:
+      #   - name: vol-logs-nfs
+      #     persistentVolumeClaim:
+      #       claimName: pvc-nfs
 
