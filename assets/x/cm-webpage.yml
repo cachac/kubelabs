@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-webpage-config
+  namespace: public
+data:
+  CONFIG_JS: |
+    var config = (() => {
+      return {
+        API: "http://api.XXXXXXXXXX.kubelabs.tk/graphql",
+        WEBSOCKET: "ws://websocket.XXXXXXXXXX.kubelabs.tk/graphql",
+      };
+    })();

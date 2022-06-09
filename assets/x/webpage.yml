@@ -34,13 +34,17 @@ spec:
             cpu: 10m
             memory: 50Mi
         volumeMounts:
-            - name: config-volume
-              mountPath: /usr/share/nginx/html/config.js
+          - name: config-volume
+            mountPath: /usr/share/nginx/html/
+            readOnly: true
+
       volumes:
-      - name: config-volume
-        hostPath:
-          path: /home/kube/kubelabs/config.js
-          type: FileOrCreate
+       - name: config-volume
+         configMap:
+           name: cm-webpage-config
+           items: # convierte las entradas CM-data en archivos dentro del volumen.
+           - key: CONFIG_JS
+             path: config.js
 
 
 
