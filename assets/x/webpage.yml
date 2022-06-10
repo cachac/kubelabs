@@ -35,8 +35,9 @@ spec:
             memory: 50Mi
         volumeMounts:
           - name: config-volume
-            mountPath: /usr/share/nginx/html/
+            mountPath: /usr/share/nginx/html/config.js
             readOnly: true
+            subPath: config.js
 
       volumes:
        - name: config-volume
