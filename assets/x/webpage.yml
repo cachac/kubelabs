@@ -33,19 +33,19 @@ spec:
           requests:
             cpu: 10m
             memory: 50Mi
-        volumeMounts:
-          - name: config-volume
-            mountPath: /usr/share/nginx/html/config.js
-            readOnly: true
-            subPath: config.js
+      #   volumeMounts:
+      #     - name: config-volume
+      #       mountPath: /usr/share/nginx/html/config.js
+      #       readOnly: true
+      #       subPath: config.js
 
-      volumes:
-       - name: config-volume
-         configMap:
-           name: cm-webpage-config
-           items: # convierte las entradas CM-data en archivos dentro del volumen.
-           - key: CONFIG_JS
-             path: config.js
+      # volumes:
+      #  - name: config-volume
+      #    configMap:
+      #      name: cm-webpage-config
+      #      items: # convierte las entradas CM-data en archivos dentro del volumen.
+      #      - key: CONFIG_JS
+      #        path: config.js
 
 
 
