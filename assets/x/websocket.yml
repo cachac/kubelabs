@@ -40,6 +40,13 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 30
           timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 3081
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          timeoutSeconds: 5
         envFrom:
           - secretRef:
               name: secret-token
