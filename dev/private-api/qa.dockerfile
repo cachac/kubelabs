@@ -35,6 +35,6 @@ CMD ["node", "./dist/main.js"]
 #
 # docker hub
 #
-# docker build . -f qa.dockerfile -t cachac/kubelabs_privateapi:2.0.0 --build-arg APP_ENV="$APP_ENV_KUBE_PRIVATE_API"
-# docker push cachac/kubelabs_privateapi:2.0.0
+# docker build . -f qa.dockerfile -t cachac/kubelabs_privateapi:2.0.1 --build-arg APP_ENV="$APP_ENV_KUBE_PRIVATE_API"
+# docker push cachac/kubelabs_privateapi:2.0.1
 
