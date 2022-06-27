@@ -2,7 +2,6 @@ import express from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
 import config from './config'
-import { logger } from './util/log'
 
 const app = express()
 
@@ -12,12 +11,12 @@ app.use(cors())
 app.use(helmet())
 
 process.on('uncaughtException', err => {
-  logger.error('AHHHHHHHHHHHHHHHHHHHHHHHHHH! :', err)
+  console.error('AHHHHHHHHHHHHHHHHHHHHHHHHHH! :', err)
   process.exit(1)
 })
 
 process.on('unhandledRejection', err => {
-  logger.error('ERRRRRRRRRRRRRRRRRRRRRRRRRR! :', err)
+  console.error('ERRRRRRRRRRRRRRRRRRRRRRRRRR! :', err)
   process.exit(1)
 })
 
@@ -29,7 +28,7 @@ router.get('/private', (req, res) => {
 })
 
 app.listen(config.NODE_PORT, () => {
-  logger.info(`Rest API on port ${config.NODE_PORT}`)
+  console.log(`Rest API on port ${config.NODE_PORT}`)
 })
 
 // health checks
@@ -40,5 +39,5 @@ router.get('/healthcheck', (req, res) => {
 app.use(router)
 
 app.listen(3082, () => {
-  logger.info(`Health check on port 3082`)
+  console.log(`Health check on port 3082`)
 })
