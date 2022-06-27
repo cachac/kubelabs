@@ -5,6 +5,10 @@ import config from './config'
 
 const app = express()
 
+// v2.0.1, sticky session hash
+const sticky = (Math.random() + 1).toString(36).substring(10)
+console.log('sticky', sticky)
+
 // middlewares
 app.use(express.json())
 app.use(cors())
@@ -33,7 +37,9 @@ app.listen(config.NODE_PORT, () => {
 
 // health checks
 router.get('/healthcheck', (req, res) => {
-  res.send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION })
+  console.log(JSON.stringify(req.headers))
+
+  res.send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION, sticky })
 })
 
 app.use(router)
@@ -41,3 +47,5 @@ app.use(router)
 app.listen(3082, () => {
   console.log(`Health check on port 3082`)
 })
+
+
