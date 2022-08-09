@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- namespace.yml
+# webpage
+- cm-webpage.yml
+- ingress-webpage.yml
+- svc-webpage.yml
+- webpage.yml
+# websocket
+- secret-token.yml
+- ingress-websocket.yml
+- svc-websocket.yml
+- websocket.yml
+# public api
+- sc-public-api.yml
+- ingress-public-api.yml
+- svc-public-api.yml
+- public-api.yml
+# private api
+- cm-private-api.yml
+- svc-private-api.yml
+- private-api.yml
+
+
