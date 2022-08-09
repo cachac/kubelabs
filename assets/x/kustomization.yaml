@@ -17,9 +17,9 @@ resources:
 - sc-public-api.yml
 - ingress-public-api.yml
 - svc-public-api.yml
+- cm-private-api.yml
 - public-api.yml
 # private api
-- cm-private-api.yml
 - svc-private-api.yml
 - private-api.yml
 
