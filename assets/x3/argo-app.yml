@@ -12,10 +12,12 @@ spec:
     path: assets/20/
     repoURL: 'https://github.com/cachac/kubelabs.git'
     targetRevision: HEAD
+    kustomize:
+      images: []
   project: default
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
-    automated: # 3 minutos
-      prune: true
-      selfHeal: true # sobreescribe cambios manuales (apply)
