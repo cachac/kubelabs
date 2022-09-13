@@ -1,9 +1,5 @@
 # kubelabs
-
-3Tier FrontEnd Demo
-# kubelabs
-
-3Tier FrontEnd Demo
+DevOps / CI-CD full app demo
 
 ## Setup
 ```

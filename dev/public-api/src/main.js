@@ -38,5 +38,5 @@ router.get('/healthcheck', (req, res) => {
 })
 healthCheck.use(router)
 healthCheck.listen(3080, () => {
-  logger.info(`Health check on port 3080`)
+  logger.info(`Health check on port 3080 version 1.0.0`)
 })
