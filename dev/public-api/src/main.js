@@ -6,7 +6,7 @@ import { logger } from './util/log'
 import { apolloServer } from './api'
 
 const app = express()
-const healthCheck = express()
+// const healthCheck = express()
 
 // middlewares
 app.use(express.json())
@@ -24,19 +24,17 @@ process.on('unhandledRejection', err => {
   process.exit(1)
 })
 
+// health checks
+const router = express.Router()
+router.get('/', (req, res) => {
+  res.send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION })
+})
+
+app.use(router)
+
 // START server
 app.listen(config.NODE_PORT, () => {
   logger.info(
     `[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION} 🚀 Server ready on Port ${config.NODE_PORT} - Express JS ${config.NODE_ENV} |  ${apolloServer.graphqlPath}`
   )
-})
-
-// health checks
-const router = express.Router()
-router.get('/healthcheck', (req, res) => {
-  res.send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION })
-})
-healthCheck.use(router)
-healthCheck.listen(3080, () => {
-  logger.info(`Health check on port 3080 version 1.0.0`)
 })
