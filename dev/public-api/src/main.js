@@ -29,9 +29,24 @@ process.on('unhandledRejection', err => {
 
 // health checks
 const router = express.Router()
-router.get('/', (req, res) => {
-  logger.info(`[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION}. Session: ${sticky} on Port ${config.NODE_PORT}`)
+router.get('/healthcheck', (req, res) => {
+  logger.info(`[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION}. Session: ${sticky} on Port 3080`)
   res.send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION, sticky })
+})
+
+router.get('/error500', (req, res) => {
+  logger.info(`[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION}. Session: ${sticky} on Port 3080 => Error 500`)
+  res.status(500).send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION, sticky, error: 500 })
+})
+
+router.get('/error400', (req, res) => {
+  logger.info(`[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION}. Session: ${sticky} on Port 3080 => Error 400`)
+  res.status(400).send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION, sticky, error: 400 })
+})
+
+router.get('/crash', (req, res) => {
+  logger.info(`[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION}. Session: ${sticky} on Port 3080 => CRAAAASHHHH`)
+  process.exit(1)
 })
 
 app.use(router)
@@ -41,4 +56,8 @@ app.listen(config.NODE_PORT, () => {
   logger.info(
     `[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION}. Session: ${sticky} 🚀 Server ready on Port ${config.NODE_PORT} - Express JS ${config.NODE_ENV} |  ${apolloServer.graphqlPath}`
   )
+})
+
+app.listen(3080, () => {
+  logger.info(`/healthcheck on port 3080`)
 })
