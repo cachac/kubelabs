@@ -1,6 +1,7 @@
 import express from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
+import { resolve } from 'app-root-path'
 import config from './config'
 import { logger } from './util/log'
 import { apolloServer } from './api'
@@ -42,6 +43,15 @@ router.get('/error500', (req, res) => {
 router.get('/error400', (req, res) => {
   logger.info(`[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION}. Session: ${sticky} on Port 3080 => Error 400`)
   res.status(400).send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION, sticky, error: 400 })
+})
+
+router.get('/delay', async (req, res) => {
+  const { seconds } = req.query
+  logger.info(`[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION}. Session: ${sticky} on Port 3080 => delay ${seconds} seconds`)
+
+  await new Promise(resolve => setTimeout(resolve, seconds * 1000))
+
+  res.send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION, sticky, delay: seconds })
 })
 
 router.get('/crash', (req, res) => {
