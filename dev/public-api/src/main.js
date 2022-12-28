@@ -59,6 +59,19 @@ router.get('/crash', (req, res) => {
   process.exit(1)
 })
 
+router.get('/random_crash', (req, res) => {
+  const num = Math.floor(Math.random() * 5)
+  logger.info(`Random Crash (0=☠️): ${  num}`)
+
+  if (num === 0) {
+    logger.info('💥')
+    process.exit(1)
+  }
+
+  logger.info(`[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION}. Session: ${sticky} on Port 3080 => RANDOM_CRAAAASHHHH #${num}`)
+  res.send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION, sticky, random_crash: num })
+})
+
 app.use(router)
 
 // START server
