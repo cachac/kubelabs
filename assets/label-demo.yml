@@ -21,7 +21,8 @@ spec:
       labels:
         app: rrhh
         type: api
-        # env: production Corregir el error. Esta etiqueta es requerida.
+        env: producction
+        #  Revisar y corregir el error.
     spec:
       containers:
       - name: nginx
