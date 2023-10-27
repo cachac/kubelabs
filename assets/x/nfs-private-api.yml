@@ -11,7 +11,7 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: code.carlostknzgl.kubelabs.tk  # dominio o ip del servidor nfs
+    server: code.<SUBDOMAIN>.<DOMAIN>.<TLD>  # dominio o ip del servidor nfs
     path: /srv/nfs/mydata/25
 ---
 apiVersion: v1

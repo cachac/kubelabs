@@ -5,9 +5,7 @@ import router from "./router";
 import store from "./store";
 import VueCompositionAPI from "@vue/composition-api";
 import VueFormulate from "@braid/vue-formulate";
-import BeeGridTable from "beegridtable";
-import session from "./plugins/session";
-import "beegridtable/dist/styles/beegridtable.css";
+// import session from "./plugins/session";
 import connectionCheck from "./plugins/connectionCheck";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
@@ -17,14 +15,9 @@ Vue.use(VueZoomer);
 
 Vue.use(connectionCheck);
 Vue.use(Toast);
-Vue.use(BeeGridTable, {
-  capture: true,
-  transfer: true,
-  zIndex: 2000, //set z-index of beegridtable
-});
 Vue.use(VueCompositionAPI);
 Vue.use(VueFormulate);
-Vue.use(session);
+// Vue.use(session);
 
 Vue.config.productionTip = false;
 
