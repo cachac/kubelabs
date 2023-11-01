@@ -15,6 +15,6 @@ patchesStrategicMerge:
 - deployment.yaml
 - service.yaml
 images:
-- name: cachac/kube-labs
+- name: cachac/kubelabs
   newName: 463391411469.dkr.ecr.us-east-1.amazonaws.com/kubelabs
   newTag: v1.2.8

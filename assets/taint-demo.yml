@@ -23,8 +23,8 @@ spec:
 
     spec:
       containers:
-        - name: cachac-kube-labs
-          image: cachac/kube-labs
+        - name: cachac-kubelabs
+          image: cachac/kubelabs:3.0
           ports:
             - containerPort: 8080
           resources:

@@ -209,13 +209,5 @@
       ]
     }
   },
-  "eslintIgnore": [],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.js": "eslint --cache --fix"
-  }
+  "eslintIgnore": []
 }

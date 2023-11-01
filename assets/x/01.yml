@@ -18,7 +18,7 @@
 
 #     spec:
 #       containers:
-#         - image: cachac/kube-labs
+#         - image: cachac/kubelabs:3.0
 #           name: practica
 
 #   selector:
