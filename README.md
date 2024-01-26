@@ -5,8 +5,9 @@ Este proyecto contiene la guía de laboratorio para el desarrollo del curso Kube
 
 Tabla de contenido:
 
-## 1. [Instalación](./01.Instalación.md)
-## 2. [Conexión Remota](./02.ConexionRemota.md)
+## 1.1 [Instalación Kind](./01.Instalación%20Kind.md)
+## 1.2 [Instalación MicroK8s](./01.Instalación%20MicroK8s.md)
+## 2. [Conexión Remota (Opcional, solo para Microk8s)](./02.ConexionRemota%20(Opcional,%20solo%20para%20Microk8s).md)
 ## 3. [Primeros Pasos, construir un Pod](./03.PrimerosPasos.md)
 ## 4. [ReplicaSets](./04.ReplicaSets.md)
 ## 5. [Deployments](./05.Deployments.md)
