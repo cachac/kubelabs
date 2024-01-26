@@ -7,9 +7,9 @@ Tabla de contenido:
 
 ## 1.1 [Instalación Kind](./01.Instalación%20Kind.md)
 ## 1.2 [Instalación MicroK8s](./01.Instalación%20MicroK8s.md)
-## 2. [Conexión Remota (Opcional, solo para Microk8s)](./02.ConexionRemota%20(Opcional,%20solo%20para%20Microk8s).md)
+## 2. [Opcional. Conexión Remota (solo para Microk8s)](./02.ConexionRemota%20(Opcional,%20solo%20para%20Microk8s).md)
 ## 3. [Primeros Pasos, construir un Pod](./03.PrimerosPasos.md)
-## 4. [ReplicaSets](./04.ReplicaSets.md)
+## 4. [Opcional. ReplicaSets](./04.ReplicaSets.md)
 ## 5. [Deployments](./05.Deployments.md)
 ## 6. [DaemonSet](./06.DaemonSet.md)
 ## 7. [CLI comandos rápidos](./07.CLI.md)
