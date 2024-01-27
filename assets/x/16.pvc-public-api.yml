@@ -1,0 +1,23 @@
+# Storage Class para Microk8s
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: sc-public-api
+#   namespace: public
+# provisioner: microk8s.io/hostpath
+# volumeBindingMode: WaitForFirstConsumer
+# reclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-public-api
+  namespace: public
+
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
