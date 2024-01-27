@@ -1,7 +1,3 @@
-import dotEnv from 'dotenv'
-
-dotEnv.config()
-
 const { APP_ENV } = process.env
 let { PRIVATE_API } = process.env
 
