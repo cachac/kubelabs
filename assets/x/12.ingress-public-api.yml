@@ -5,7 +5,7 @@ metadata:
   namespace: public
 spec:
   rules:
-  - host: api.USERLAB.kubelabs.tk
+  - host: api.USERLAB.kubelabs.<TLD>
     http:
       paths:
       - path: /graphql

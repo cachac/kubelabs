@@ -17,7 +17,7 @@
 - [ ] La página conecta con el api
 
 # 5. Private API
-- [ ] El api publico se comunica correctamente con el API privado
+- [ ] El api pÚblico se comunica correctamente con el API privado
 
 # 6. Recursos
 - [ ] página web (limits: 100m-100Mi / requests: 10m-50Mi)

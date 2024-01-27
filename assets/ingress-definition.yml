@@ -5,13 +5,8 @@ metadata:
   # annotations:
   #   nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  defaultBackend:
-    service:
-      name: svc-kube-1
-      port:
-        number: 80
   rules:
-  - host: kube1.kubelabs.tk # nombre del host ó dominio
+  - host: kube1.kubelabs.dev # nombre del host ó dominio
     http:
       paths:
       - path: / # por ejemplo /home se vería así en la página: http://mipagina.com/home
@@ -19,17 +14,6 @@ spec:
         backend:
           service:
             name: svc-kube-1 # nombre del service y el puerto donde escucha
-            port:
-              number: 80
-
-  - host: www.kube1.kubelabs.tk
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: svc-kube-1
             port:
               number: 80
 ---

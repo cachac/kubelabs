@@ -4,13 +4,8 @@ metadata:
   name: ingress-webpage
   namespace: public
 spec:
-  defaultBackend:
-    service:
-      name: svc-webpage
-      port:
-        number: 80
   rules:
-  - host: USERLAB.kubelabs.tk
+  - host: USERLAB.kubelabs.<TLD>
     http:
       paths:
       - path: /

@@ -5,7 +5,7 @@ metadata:
   namespace: public
 spec:
   rules:
-  - host: websocket.USERLAB.kubelabs.tk
+  - host: websocket.USERLAB.kubelabs.<TLD>
     http:
       paths:
       - path: /graphql
