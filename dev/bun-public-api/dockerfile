@@ -1,0 +1,26 @@
+#----------------BUILD-----------------
+FROM oven/bun:1.0.23-slim as base
+WORKDIR /app
+
+# RUN apk install install curl bash && curl -sf https://gobinaries.com/tj/node-prune | sh
+
+COPY ./src ./src
+COPY package*.json ./
+
+RUN bun install
+# && node-prune
+
+#----------------RELEASE-----------------
+FROM oven/bun:1.0.23-slim as release
+COPY --from=base /app/ ./
+
+ARG APP_ENV
+ENV APP_ENV=${APP_ENV}
+
+ARG PRIVATE_API
+ENV PRIVATE_API=${PRIVATE_API}
+
+EXPOSE 3000
+
+# CMD ["bun", "run" ,"./src/main.js"]
+CMD ["bun", "start" ]
