@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: hpa-public-api
@@ -7,7 +7,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: deploy-public-api
+    name: deploy-public-api # <---------------- CAMBIAR POR EL NOMBRE EL DEPLOYMENT DEL PUBLIC API
   minReplicas: 3
   maxReplicas: 6
   metrics:
