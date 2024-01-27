@@ -1,4 +1,4 @@
-# KUBELABS <!-- omit in TOC -->
+# KUBELABS <!-- omit in toc -->
 *Carlos Chacón Calvo. Actualización: Marzo 2022.*
 
 Este proyecto contiene la guía de laboratorio para el desarrollo del curso KubeLabs. <!-- omit in TOC -->
@@ -16,16 +16,12 @@ Tabla de contenido:
 ## 8. [Namespaces](./08.Namespaces.md)
 ## 9. [Práctica](./09.Practica.md)
 ## 10. [Cuotas y límites](/10.Cuotas-Limites.md)
-## 11. [Apps](/11.Apps.md)
-
+## 11. [Opcional. Apps](./11.Opcional.%20Apps.md)
 ## 12. [Servicios](/12.Servicios.md)
 ## 13. [Storage](/13.Storage.md)
 ## 14. [Networking](/14.Networking.md)
-
-
 ## 15. [Lifecycle](/15.Lifecycle.md)
 ## 16. [Práctica](/16.Practica2.md)
-
 ## 17. [Parte II](/17.ParteII.md)
 
 
