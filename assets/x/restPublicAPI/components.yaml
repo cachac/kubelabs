@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: deploy-rest-public-api
+  namespace: public
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: rest-public-api
+  template:
+    metadata:
+      name: public-api
+      labels:
+        app: rest-public-api
+    spec:
+      containers:
+      - name: public-api
+        image: cachac/kubelabs_public_api:rest1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          name: public-api
+        #- containerPort: 3080
+        #  name: healthcheck
+        resources:
+          limits:
+            cpu: 200m
+            memory: 200Mi
+          requests:
+            cpu: 50m
+            memory: 100Mi
+
+        envFrom:
+          - configMapRef:
+              name: cm-private-api
+
+        volumeMounts:
+           - name: vol-logs
+             mountPath: /app/logs
+      volumes:
+         - name: vol-logs
+           persistentVolumeClaim:
+             claimName: pvc-public-api
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-rest-public-api
+  namespace: public
+
+spec:
+  type: ClusterIP
+  ports:
+  - name: public-api
+    protocol: TCP
+    port: 3000
+    targetPort: 3000
+  selector:
+    app: rest-public-api
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-public-api
+  namespace: public
+spec:
+  rules:
+  - host: rest.cachac6rj.kubelabs.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-rest-public-api
+            port:
+              number: 3000
+
+---
