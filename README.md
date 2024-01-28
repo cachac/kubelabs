@@ -1,5 +1,7 @@
 # KUBELABS <!-- omit in toc -->
-*Carlos Chacón Calvo. Actualización: Marzo 2022.*
+*Carlos Chacón Calvo. Inicio: Octubre 2021. labs con MicroK8s*
+*Carlos Chacón Calvo. Actualización: Junio 2023. Integra labs de HPA, Taints & Tolerations*
+*Carlos Chacón Calvo. Actualización: Enero 2024. Integra labs con Cluster Kind (Kubernetes in Docker)*
 
 Este proyecto contiene la guía de laboratorio para el desarrollo del curso KubeLabs. <!-- omit in TOC -->
 
