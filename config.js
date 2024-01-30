@@ -1,6 +1,6 @@
 var config = (() => {
   return {
-    API: "http://api.XXXXXXXXXX.kubelabs.<TLD>/graphql",
-    WEBSOCKET: "ws://websocket.XXXXXXXXXX.kubelabs.<TLD>/graphql",
+    API: "http://api.XXXXXXXXXX.<DOMAIN>.<TLD>/graphql",
+    WEBSOCKET: "ws://websocket.XXXXXXXXXX.<DOMAIN>.<TLD>/graphql",
   };
 })();
