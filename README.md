@@ -5,6 +5,8 @@
 
 *Carlos Chacón Calvo. Actualización: Enero 2024. Integra labs con Cluster Kind (Kubernetes in Docker)*
 
+*Carlos Chacón Calvo. Actualización: Abril 2025. Agrega alias de kubectl & Bash completion*
+
 Este proyecto contiene la guía de laboratorio para el desarrollo del curso KubeLabs. <!-- omit in TOC -->
 
 Tabla de contenido:
