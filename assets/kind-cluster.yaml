@@ -12,6 +12,7 @@ nodes:
           - "172.200.109.16"
           - "localhost"
           - "127.0.0.1"
+          - "0.0.0.0"
       - |
         kind: InitConfiguration
         nodeRegistration:
