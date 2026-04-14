@@ -26,9 +26,10 @@ Tabla de contenido:
 ## 12. [Servicios](/12.Servicios.md)
 ## 13. [Storage](/13.Storage.md)
 ## 14. [Networking](/14.Networking.md)
+## 14a. [Práctica 2](/14a.Practica2.md)
 ## 15. [Lifecycle](/15.Lifecycle.md)
 ## 16. [Opcional. Taints & Tolerations](./16.TaintsTolerations.md)
-## 17. [Práctica](/17.Practica2.md)
+## 17. [Práctica Final](/17.Practica%20Final.md)
 ## 18. [Parte II](/18.ParteII.md)
 
 
