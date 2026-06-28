@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan de Estudios: Kubernetes &amp; CI/CD — STORYLABS</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Plan de estudios detallado para dominar Kubernetes y CI/CD. Organizado en dos rutas prácticas con estimación de horas y lecciones paso a paso.">
+  <meta name="author" content="STORYLABS">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #030712;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --card-hover-bg: rgba(24, 33, 56, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.15);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+
+      /* Gemini Brand Palette */
+      --g-blue: #3b82f6;
+      --g-indigo: #6366f1;
+      --g-purple: #a855f7;
+      --g-pink: #ec4899;
+      --gemini-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+
+      /* Track Accents */
+      --k8s-accent: #38bdf8;
+      --k8s-glow: rgba(56, 189, 248, 0.15);
+
+      --cicd-accent: #f43f5e;
+      --cicd-glow: rgba(244, 63, 94, 0.15);
+
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --font-display: 'Outfit', sans-serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 3rem 1.5rem;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient background glows simulating Gemini energy */
+    body::before, body::after {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: -1;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    body::before {
+      top: -10%;
+      left: -10%;
+      background: radial-gradient(circle, var(--g-blue) 0%, var(--g-indigo) 100%);
+    }
+
+    body::after {
+      bottom: 10%;
+      right: -10%;
+      background: radial-gradient(circle, var(--g-purple) 0%, var(--g-pink) 100%);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      z-index: 10;
+    }
+
+    /* Top Floating Progress Widget */
+    .progress-bar-container {
+      background: rgba(17, 24, 39, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 0.6rem 1.5rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-md), 0 0 20px rgba(99, 102, 241, 0.05);
+    }
+
+    .progress-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .progress-pill {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--gemini-gradient);
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .progress-track-bg {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--gemini-gradient);
+      border-radius: 999px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Header styling with AI sparkle badge */
+    header {
+      text-align: center;
+      margin-bottom: 4rem;
+      position: relative;
+    }
+
+    .sparkle-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #c084fc;
+      margin-bottom: 1.5rem;
+      animation: pulsate 3s infinite ease-in-out;
+    }
+
+    .sparkle-badge svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    /* Main tracks layout grid */
+    .tracks-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    @media (min-width: 900px) {
+      .tracks-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .track-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 2.25rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .track-card:hover {
+      transform: translateY(-4px);
+      background-color: var(--card-hover-bg);
+      border-color: var(--border-hover);
+    }
+
+    .track-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+    }
+
+    .track-k8s::before {
+      background: linear-gradient(90deg, var(--k8s-accent), var(--g-indigo));
+    }
+
+    .track-k8s:hover {
+      box-shadow: 0 20px 40px -15px var(--k8s-glow);
+    }
+
+    .track-cicd::before {
+      background: linear-gradient(90deg, var(--cicd-accent), var(--g-pink));
+    }
+
+    .track-cicd:hover {
+      box-shadow: 0 20px 40px -15px var(--cicd-glow);
+    }
+
+    .track-header {
+      margin-bottom: 2rem;
+    }
+
+    .track-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .track-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .track-k8s .track-badge {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--k8s-accent);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .track-cicd .track-badge {
+      background: rgba(244, 63, 94, 0.1);
+      color: var(--cicd-accent);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+    }
+
+    .track-duration {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .track-duration svg {
+      width: 13px;
+      height: 13px;
+      opacity: 0.7;
+    }
+
+    .track-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .track-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-top: 0.75rem;
+    }
+
+    /* Lessons list styling */
+    .lessons-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: auto; /* Push down to align card bottom structures */
+    }
+
+    .lesson-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      padding: 1.25rem;
+      transition: all 0.2s ease;
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 1rem;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .lesson-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.08);
+      transform: translateX(2px);
+    }
+
+    /* Custom Checkbox Logic */
+    .checkbox-container {
+      display: inline-flex;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      height: 24px;
+      width: 24px;
+      margin-top: 0.15rem;
+    }
+
+    .checkbox-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 22px;
+      width: 22px;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .track-k8s .checkbox-container:hover input ~ .checkmark {
+      border-color: var(--k8s-accent);
+      background-color: rgba(56, 189, 248, 0.05);
+    }
+
+    .track-cicd .checkbox-container:hover input ~ .checkmark {
+      border-color: var(--cicd-accent);
+      background-color: rgba(244, 63, 94, 0.05);
+    }
+
+    /* Checked styling */
+    .track-k8s .checkbox-container input:checked ~ .checkmark {
+      background-color: var(--k8s-accent);
+      border-color: var(--k8s-accent);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    }
+
+    .track-cicd .checkbox-container input:checked ~ .checkmark {
+      background-color: var(--cicd-accent);
+      border-color: var(--cicd-accent);
+      box-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    .checkbox-container input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    .checkbox-container .checkmark:after {
+      left: 6px;
+      top: 2px;
+      width: 6px;
+      height: 11px;
+      border: solid #030712;
+      border-width: 0 2.5px 2.5px 0;
+      transform: rotate(45deg);
+    }
+
+    /* Strikethrough and blur completed lessons */
+    .lesson-item.completed {
+      opacity: 0.6;
+      border-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .lesson-item.completed .lesson-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .lesson-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .lesson-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 0.75rem;
+    }
+
+    .lesson-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      transition: color 0.2s ease;
+    }
+
+    .lesson-tag {
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .lesson-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 0 1rem;
+      border-top: 1px solid var(--border-color);
+      width: 100%;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-weight: 700;
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.02em;
+    }
+
+    /* Keyframes and Animations */
+    @keyframes pulsate {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); box-shadow: 0 0 15px rgba(168, 85, 247, 0.25); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+      .progress-bar-container {
+        border-radius: 16px;
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+      }
+      .progress-info {
+        justify-content: space-between;
+      }
+      .track-card {
+        padding: 1.5rem;
+      }
+      .lesson-item {
+        padding: 1rem;
+        gap: 0.75rem;
+      }
+    }
+
+    /* Price Card Styling */
+    .price-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 2.25rem;
+      margin-bottom: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg), 0 0 30px rgba(99, 102, 241, 0.03);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .price-card:hover {
+      border-color: var(--border-hover);
+      background-color: var(--card-hover-bg);
+      box-shadow: var(--shadow-lg), 0 20px 40px -15px rgba(99, 102, 241, 0.1);
+    }
+
+    .price-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--gemini-gradient);
+    }
+
+    @media (min-width: 768px) {
+      .price-card {
+        flex-direction: row;
+        text-align: left;
+        padding: 2.5rem 3rem;
+      }
+    }
+
+    .price-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .price-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .price-header {
+        flex-direction: row;
+        align-items: center;
+        gap: 1.25rem;
+      }
+    }
+
+    .price-badge {
+      align-self: flex-start;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(168, 85, 247, 0.1);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .price-details h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .price-description {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .price-tag-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 220px;
+    }
+
+    @media (min-width: 768px) {
+      .price-tag-container {
+        align-items: flex-end;
+        border-left: 1px solid var(--border-color);
+        padding-left: 2.5rem;
+      }
+    }
+
+    .price-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .price-value {
+      font-family: var(--font-display);
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+    }
+
+    .price-value .currency {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .enroll-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 0.85rem 1.75rem;
+      border-radius: 12px;
+      background: var(--gemini-gradient);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .enroll-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Floating Course Progress Widget -->
+    <div class="progress-bar-container">
+      <div class="progress-info">
+        <span class="progress-pill">Progreso</span>
+        <span class="progress-text" id="progressText">0 de 8 temas completados (0%)</span>
+      </div>
+      <div class="progress-track-bg">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+      <div class="sparkle-badge">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L14.85 9.15L22 12L14.85 14.85L12 22L9.15 14.85L2 12L9.15 9.15L12 2Z"/>
+        </svg>
+        STORYLABS
+      </div>
+      <h1>Plan del Curso: Kubernetes &amp; CI/CD</h1>
+      <p>Dos rutas de aprendizaje estructuradas de forma lógica y secuencial, basadas en la infraestructura nativa de la nube.</p>
+    </header>
+
+    <!-- Grid containing the two tracks -->
+    <main class="tracks-grid">
+
+      <!-- Track 1: Kubernetes -->
+      <article class="track-card track-k8s" id="track-1">
+        <div class="track-header">
+          <div class="track-meta">
+            <span class="track-badge">Ruta 1</span>
+            <span class="track-duration">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              3 lecciones (4 horas c/u)
+            </span>
+          </div>
+          <h2 class="track-title">🚀 Kubernetes</h2>
+          <p class="track-desc">Dominio práctico del orquestador. Desde conceptos esenciales de despliegue hasta la automatización de escalabilidad y enrutamiento avanzado.</p>
+        </div>
+
+        <ul class="lessons-list">
+          <li class="lesson-item" id="item-k8s-1">
+            <label class="checkbox-container">
+              <input type="checkbox" onclick="toggleLesson('item-k8s-1')">
+              <span class="checkmark"></span>
+            </label>
+            <div class="lesson-content">
+              <div class="lesson-title-row">
+                <span class="lesson-title">Despliegue de Pods y ReplicaSets</span>
+                <span class="lesson-tag">deploy pods rs</span>
+              </div>
+              <p class="lesson-desc">Aprende los principios atómicos del diseño de workloads, control y estrategias de despliegue seguro.</p>
+            </div>
+          </li>
+
+          <li class="lesson-item" id="item-k8s-2">
+            <label class="checkbox-container">
+              <input type="checkbox" onclick="toggleLesson('item-k8s-2')">
+              <span class="checkmark"></span>
+            </label>
+            <div class="lesson-content">
+              <div class="lesson-title-row">
+                <span class="lesson-title">Autoscaling HPA Avanzado</span>
+                <span class="lesson-tag">hpa advanced</span>
+              </div>
+              <p class="lesson-desc">Configuración avanzada de escalado automático basado en demandas y límites reales de CPU/Memoria.</p>
+            </div>
+          </li>
+
+          <li class="lesson-item" id="item-k8s-3">
+            <label class="checkbox-container">
+              <input type="checkbox" onclick="toggleLesson('item-k8s-3')">
+              <span class="checkmark"></span>
+            </label>
+            <div class="lesson-content">
+              <div class="lesson-title-row">
+                <span class="lesson-title">Ingress &amp; Gateway API</span>
+                <span class="lesson-tag">ingress gw api</span>
+              </div>
+              <p class="lesson-desc">Gestión y control moderno del tráfico externo. Transición de Ingress tradicional al nuevo estándar Gateway API.</p>
+            </div>
+          </li>
+
+          <li class="lesson-item" id="item-k8s-4">
+            <label class="checkbox-container">
+              <input type="checkbox" onclick="toggleLesson('item-k8s-4')">
+              <span class="checkmark"></span>
+            </label>
+            <div class="lesson-content">
+              <div class="lesson-title-row">
+                <span class="lesson-title">AIOps</span>
+                <span class="lesson-tag">AI ops</span>
+              </div>
+              <p class="lesson-desc">Operaciones optimizadas con Inteligencia Artificial para la configuración dinámica de cargas de trabajo.</p>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Track 2: CI/CD -->
+      <article class="track-card track-cicd" id="track-2">
+        <div class="track-header">
+          <div class="track-meta">
+            <span class="track-badge">Ruta 2</span>
+            <span class="track-duration">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              5 lecciones (4 horas c/u)
+            </span>
+          </div>
+          <h2 class="track-title">🛠️ CI/CD &amp; GitOps</h2>
+          <p class="track-desc">Automatización total del ciclo de entrega. Creación de flujos de integración eficientes y despliegue continuo impulsado por el estado de Git.</p>
+        </div>
+
+        <ul class="lessons-list">
+          <li class="lesson-item" id="item-cicd-1">
+            <label class="checkbox-container">
+              <input type="checkbox" onclick="toggleLesson('item-cicd-1')">
+              <span class="checkmark"></span>
+            </label>
+            <div class="lesson-content">
+              <div class="lesson-title-row">
+                <span class="lesson-title">GitHub Actions</span>
+                <span class="lesson-tag">PR / workflows</span>
+              </div>
+              <p class="lesson-desc">Automatización integral de flujos de integración continua (CI) disparados por eventos de Pull Requests.</p>
+            </div>
+          </li>
+
+          <li class="lesson-item" id="item-cicd-2">
+            <label class="checkbox-container">
+              <input type="checkbox" onclick="toggleLesson('item-cicd-2')">
+              <span class="checkmark"></span>
+            </label>
+            <div class="lesson-content">
+              <div class="lesson-title-row">
+                <span class="lesson-title">Kustomize</span>
+                <span class="lesson-tag">KUSTUMIZE</span>
+              </div>
+              <p class="lesson-desc">Personalización declarativa de plantillas y recursos según tus ambientes (dev, qa, prod) sin sobreescribir código base.</p>
+            </div>
+          </li>
+
+          <li class="lesson-item" id="item-cicd-3">
+            <label class="checkbox-container">
+              <input type="checkbox" onclick="toggleLesson('item-cicd-3')">
+              <span class="checkmark"></span>
+            </label>
+            <div class="lesson-content">
+              <div class="lesson-title-row">
+                <span class="lesson-title">GitOps con Argo CD</span>
+                <span class="lesson-tag">ARGO CD</span>
+              </div>
+              <p class="lesson-desc">Sincronización automatizada entre tus repositorios y el clúster de Kubernetes, garantizando resiliencia y control.</p>
+            </div>
+          </li>
+
+          <li class="lesson-item" id="item-cicd-4">
+            <label class="checkbox-container">
+              <input type="checkbox" onclick="toggleLesson('item-cicd-4')">
+              <span class="checkmark"></span>
+            </label>
+            <div class="lesson-content">
+              <div class="lesson-title-row">
+                <span class="lesson-title">Despliegue a Producción</span>
+                <span class="lesson-tag">MAIN</span>
+              </div>
+              <p class="lesson-desc">Implementación del flujo de producción continuo desde la integración en la rama principal.</p>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+    </main>
+
+    <!-- Seccion de Precio -->
+    <section class="price-card">
+      <div class="price-details">
+        <div class="price-header">
+          <span class="price-badge">Matrícula Abierta</span>
+          <h3>Inversión del Curso</h3>
+        </div>
+        <p class="price-description">
+          Únete domina la infraestructura cloud. Incluye acceso a los laboratorios prácticos, material complementario, tutoría personalizada y certificado de finalización.
+        </p>
+      </div>
+      <div class="price-tag-container">
+        <span class="price-label">Por estudiante</span>
+        <div class="price-value">$800<span class="currency">USD</span></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div>Diseño interactivo creado por <span class="footer-brand">Gemini Flash</span></div>
+      <div>&copy; 2026 Kubelabs — Práctica Profesional de Kubernetes &amp; GitOps</div>
+    </footer>
+
+  </div>
+
+  <!-- Interactive Progress Logic -->
+  <script>
+    // Load state from localStorage on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedState = JSON.parse(localStorage.getItem('gemini_k8s_course_progress')) || {};
+
+      Object.keys(savedState).forEach(itemId => {
+        const itemElement = document.getElementById(itemId);
+        if (itemElement) {
+          const checkbox = itemElement.querySelector('input[type="checkbox"]');
+          if (checkbox) {
+            checkbox.checked = savedState[itemId];
+            if (savedState[itemId]) {
+              itemElement.classList.add('completed');
+            }
+          }
+        }
+      });
+
+      updateProgress();
+    });
+
+    function toggleLesson(itemId) {
+      const itemElement = document.getElementById(itemId);
+      const checkbox = itemElement.querySelector('input[type="checkbox"]');
+
+      if (checkbox.checked) {
+        itemElement.classList.add('completed');
+      } else {
+        itemElement.classList.remove('completed');
+      }
+
+      // Save state to localStorage
+      const savedState = JSON.parse(localStorage.getItem('gemini_k8s_course_progress')) || {};
+      savedState[itemId] = checkbox.checked;
+      localStorage.setItem('gemini_k8s_course_progress', JSON.stringify(savedState));
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const checkboxes = document.querySelectorAll('.lesson-item input[type="checkbox"]');
+      const total = checkboxes.length;
+      let completedCount = 0;
+
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          completedCount++;
+        }
+      });
+
+      const percentage = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+
+      // Update UI components
+      const bar = document.getElementById('progressBar');
+      const text = document.getElementById('progressText');
+
+      if (bar) bar.style.width = percentage + '%';
+      if (text) {
+        text.textContent = `${completedCount} de ${total} temas completados (${percentage}%)`;
+      }
+    }
+  </script>
+</body>
+</html>
