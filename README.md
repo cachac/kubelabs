@@ -21,7 +21,7 @@ Tabla de contenido:
 ## 7. [CLI comandos rápidos](./07.CLI.md)
 ## 8. [Namespaces](./08.Namespaces.md)
 ## 9. [Práctica](./09.Practica.md)
-## 10. [Cuotas y límites](./10.Opcional.%20Cuotas-Limites.md)
+## 10. [Opcional. Cuotas y límites](./10.Opcional.%20Cuotas-Limites.md)
 ## 11. [Opcional. Apps](./11.Opcional.%20Apps.md)
 ## 12. [Servicios](/12.Servicios.md)
 ## 13. [Storage](/13.Storage.md)
