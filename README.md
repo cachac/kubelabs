@@ -30,6 +30,7 @@ Tabla de contenido:
 ## 15. [Lifecycle](/15.Lifecycle.md)
 ## 16. [Opcional. Taints & Tolerations](./16.TaintsTolerations.md)
 ## 17. [Práctica Final](/17.Practica%20Final.md)
-## 18. [Parte II](/18.ParteII.md)
+## 18. [Opcional. HPA](/18.HPA.md)
+## 19. [Parte II](/19.ParteII.md)
 
 
